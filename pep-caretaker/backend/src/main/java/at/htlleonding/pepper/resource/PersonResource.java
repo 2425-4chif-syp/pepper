@@ -28,7 +28,7 @@ public class PersonResource {
     PersonService personService;
 
     @GET
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     @Operation(summary = "Get all people")
     public Response getAllPeople() {
         return Response.ok(personService.getAll()).build();
@@ -44,7 +44,7 @@ public class PersonResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getPersonById(@PathParam("id") Long id) {
         return Response.ok(personService.getById(id)).build();
     }

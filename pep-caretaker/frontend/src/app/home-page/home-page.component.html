@@ -1,64 +1,52 @@
-<div class="flex w-screen h-screen flex-col lg:flex-row">
-    <!-- Mitmachgeschichten - nur für Admin und Caretaker -->
-    @if (isAdmin() || isCaretaker()) {
-    <a href="/tagalongstory" class="w-full lg:w-1/2 h-full flex-grow block border-solid hover:border-8 border-green-500 rounded-3xl transition-all duration-200">
-        <div class="card bg-base-300 grid h-full w-full place-items-center relative overflow-hidden ">
-            <h1 class="z-10 text-white text-2xl font-bold tracking-wide">MIT-MACH-GESCHICHTEN</h1>
-            <img src="../assets/images/TagAlong.jpg" alt="PEPPER TagAlongStory Image" class="brightness-90 hover:brightness-75 w-full h-full object-cover absolute hover:rounded-none ">
-        </div>
-    </a>
-
-    <div class="divider lg:divider-horizontal">OR</div>
-    }
-
-    <!-- Personen-Kachel - nur für Admins -->
-    @if (isAdmin()) {
-    <a href="/residents" class="w-full lg:w-1/2 h-full flex-grow block border-solid hover:border-8 border-sky-500 rounded-3xl transition-all duration-200">
-        <div class="card bg-base-300 rounded-box grid h-full w-full place-items-center relative overflow-hidden">
-            <h1 class="z-10 text-white text-2xl font-bold tracking-wide">Personen anlegen</h1>
-            <img src="../assets/images/PersonenEintrag.png" alt="PEPPER Memory Image" class="brightness-90 hover:brightness-75 w-full h-full rounded-xl object-cover absolute">
-        </div>
-    </a>
-
-    <div class="divider lg:divider-horizontal">OR</div>
-    }
-    
-    <!-- Bilder - für Admin und Caretaker (alle Bilder) -->
-    @if (isAdmin() || isCaretaker()) {
-    <a href="/pictures" class="w-full lg:w-1/2 h-full flex-grow block border-solid hover:border-8 border-red-500 rounded-3xl transition-all duration-200">
-        <div class="card bg-base-300 rounded-box grid h-full w-full place-items-center relative overflow-hidden">
-            <h1 class="z-10 text-white text-2xl font-bold tracking-wide">Bilder</h1>
-            <img src="../assets/images/Bilder.png" alt="PEPPER Memory Image" class="brightness-90 hover:brightness-75 w-full h-full rounded-xl object-cover absolute">
-        </div>
-    </a>
-    }
-
-    <!-- Meine Bilder - nur für Bewohner (wird automatisch weitergeleitet in ngOnInit) -->
-    @if (isResident()) {
-    <div class="w-full h-full flex items-center justify-center">
-        <div class="text-center">
-            <div class="inline-block animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
-            <p class="text-gray-600 text-lg">Lade deine Bilder...</p>
-        </div>
+<!-- ab md füllt die Seite den Bildschirm unter der Navbar (h-16); darunter normal scrollen -->
+<main id="main-content" class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-10 md:flex md:h-[calc(100dvh-4rem)] md:min-h-[32rem] md:max-w-none md:flex-col md:px-8 md:py-8">
+  @if (isResident()) {
+    <div class="flex min-h-[50vh] flex-col items-center justify-center gap-4" role="status">
+      <span class="loading loading-spinner loading-lg text-primary" aria-hidden="true"></span>
+      <p class="text-lg">Lade deine Bilder …</p>
     </div>
-    }
-</div>
+  } @else {
+    <header class="mb-6 sm:mb-10 md:mb-6 md:shrink-0">
+      <h1 class="text-2xl font-bold sm:text-3xl">
+        Willkommen{{ userName ? ', ' + userName : '' }}
+      </h1>
+    </header>
 
-<div class="btm-nav">
-    <a routerLink="/" class="active">
-      <button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
-      </button>
-    </a>
-</div>
+    <nav aria-label="Bereiche" class="md:min-h-0 md:flex-1">
+      <ul class="grid grid-cols-1 gap-4 sm:gap-6 md:h-full md:auto-rows-fr" [class]="gridCols">
+        @for (tile of tiles; track tile.route) {
+          <li class="md:min-h-0">
+            <a
+              [routerLink]="tile.route"
+              class="tile group flex h-full flex-col overflow-hidden rounded-2xl border border-t-8 border-base-300 bg-base-100 shadow-sm
+                     transition-shadow hover:shadow-lg
+                     focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-100"
+              [class]="tile.accent">
+              <div class="aspect-[16/9] w-full overflow-hidden bg-base-200 md:aspect-auto md:min-h-0 md:flex-1">
+                <!-- dekorativ: der Titel beschreibt das Ziel, deshalb alt="" -->
+                <img [src]="tile.image" alt="" decoding="async"
+                     class="tile-img h-full w-full object-cover" />
+              </div>
+              <div class="flex flex-1 items-center gap-3 p-4 sm:p-5 md:flex-none md:p-6">
+                <div class="flex-1">
+                  <h2 class="hyphens-auto break-words text-lg font-semibold sm:text-xl md:text-2xl">{{ tile.title }}</h2>
+                  <p class="mt-1 text-sm text-base-content/80 sm:text-base md:text-lg">{{ tile.description }}</p>
+                </div>
+                <svg class="tile-arrow h-6 w-6 shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </li>
+        } @empty {
+          <li class="col-span-full">
+            <p class="rounded-2xl bg-base-200 p-6 text-center">
+              Für Ihr Konto sind keine Bereiche freigeschaltet. Bitte wenden Sie sich an die Administration.
+            </p>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+</main>

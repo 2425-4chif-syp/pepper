@@ -39,6 +39,13 @@ export class AddstepComponent {
     'Winken',
   ];
 
+  // Nur im Dropdown ausgeblendet; moves/moveNames bleiben unverändert (MoveHandler mappt darüber)
+  private readonly hiddenMoves = ['emote_hurra'];
+
+  isMoveSelectable(move: string, current: unknown): boolean {
+    return !this.hiddenMoves.includes(move) || move === current;
+  }
+
   addNewStep(){
     this.steps.push({
       id: 0, // Temporary ID (can be updated later)

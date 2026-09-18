@@ -45,7 +45,7 @@ public class ImageResource {
 
     @GET
     @Path("/picture/{id}")
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getPictureById(@PathParam("id") Long id) {
         ImageService.Picture picture = imageService.getPicture(id);
         if (picture == null || picture.bytes() == null || picture.bytes().length == 0) {
@@ -89,7 +89,7 @@ public class ImageResource {
 
     @GET
     @Path("/person/{personId}")
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getImagesByPersonId(@PathParam("personId") Long personId) {
         return Response.ok(imageService.getByPersonId(personId)).build();
     }

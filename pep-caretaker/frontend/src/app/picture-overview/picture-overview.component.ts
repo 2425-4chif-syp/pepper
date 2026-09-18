@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { get } from 'http';
+import { authHeaders } from '../auth.interceptor';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { pictureUrl } from '../image-url';
+import { Component, ElementRef, HostListener, ViewChild, inject, signal } from '@angular/core';
 import { ImageServiceService } from '../service/image-service.service';
 import { ImageModel } from '../models/image.model';
 import { Router } from '@angular/router';
@@ -10,7 +12,7 @@ import { ImageJson } from '../models/image-json.model';
 
 @Component({
   selector: 'app-picture-overview',
-  imports: [CommonModule, RouterModule],
+  imports: [AuthSrcDirective, CommonModule, RouterModule],
   templateUrl: './picture-overview.component.html',
   styleUrl: './picture-overview.component.css'
 })
@@ -19,6 +21,7 @@ export class PictureOverviewComponent {
   constructor(private router: Router) {}
 
   imagesService = inject(ImageServiceService);
+  readonly pictureUrl = pictureUrl;
   images = signal<ImageJson[]>([]);
   standartImages = signal<ImageJson[]>([])
 
@@ -110,6 +113,16 @@ export class PictureOverviewComponent {
 
   selectedImage = signal<ImageJson | null>(null);
 
+  // Fokus beim Öffnen auf den Schließen-Button, damit Tastatur/Screenreader im Dialog landen
+  @ViewChild('closeButton') set closeButton(button: ElementRef<HTMLButtonElement> | undefined) {
+    button?.nativeElement.focus();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.selectedImage()) this.closePreview();
+  }
+
   openPreview(image: ImageJson) {
     this.selectedImage.set(image);
     console.log(this.selectedImage());
@@ -125,7 +138,7 @@ export class PictureOverviewComponent {
 
     const originalUrl = (image as any).originalHref || decodeURIComponent(image.href);
 
-  fetch(originalUrl)
+  fetch(apiPathOf(originalUrl), { headers: authHeaders() })
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -172,5 +185,15 @@ export class PictureOverviewComponent {
         console.error('Error deleting image:', err);
       }
     });
+  }
+}
+
+// Backend-hrefs sind absolut (http://localhost:8080/api/...); über den eigenen Origin laden, damit Proxy/nginx greift
+function apiPathOf(url: string): string {
+  try {
+    const parsed = new URL(url, window.location.origin);
+    return parsed.pathname.startsWith('/api/') ? parsed.pathname + parsed.search : url;
+  } catch {
+    return url;
   }
 }

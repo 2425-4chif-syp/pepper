@@ -83,14 +83,9 @@ export class InactivityService {
     // Monitoring stoppen
     this.stopMonitoring();
     
-    // Tokens löschen
-    localStorage.removeItem('kc_token');
-    localStorage.removeItem('kc_refresh_token');
-    
-    // Zum Login zurückkehren
-    this.authGuard.logout();
-    
-    // Optional: Benachrichtigung anzeigen
     alert('Sie wurden aufgrund von Inaktivität abgemeldet.');
+
+    // Keycloak-Session beenden und zum Login zurückkehren
+    this.authGuard.logout();
   }
 }

@@ -27,7 +27,7 @@
                         <div class="relative w-full">
                             @if (currentProfileImage()) {
                                 <div class="w-full h-80 bg-gray-50 rounded-lg border-4 border-gray-200 shadow-md flex items-center justify-center p-4">
-                                    <img [src]="currentProfileImage()" 
+                                    <img [appAuthSrc]="currentProfileImage()" 
                                          alt="Aktuelles Profilbild" 
                                          class="max-w-full max-h-full object-contain rounded-lg opacity-95">
                                 </div>
@@ -57,7 +57,7 @@
                     <!-- Ansichtsmodus: Nur Anzeige -->
                     @if (currentProfileImage()) {
                         <div class="w-full h-80 bg-gray-50 rounded-lg flex items-center justify-center border-4 border-gray-200 shadow-md p-4">
-                            <img [src]="currentProfileImage()" alt="Profilbild" class="max-w-full max-h-full object-contain rounded-lg">
+                            <img [appAuthSrc]="currentProfileImage()" alt="Profilbild" class="max-w-full max-h-full object-contain rounded-lg">
                         </div>
                     } @else {
                         <div class="w-full h-64 bg-sky-500 rounded-lg flex items-center justify-center shadow-md">
@@ -192,7 +192,7 @@
                         <div class="bg-white p-3 rounded-lg shadow-md border-2 border-gray-200 hover:border-[#348888] transition-colors duration-200 hover:shadow-lg cursor-pointer"
                              (click)="openGalleryImage(image)">
                             <div class="w-full bg-gray-50 rounded-md overflow-hidden flex items-center justify-center" style="height:12rem;">
-                                <img [src]="'https://vm107.htl-leonding.ac.at/imagor/unsafe/fit-in/800x0/http%3A%2F%2Fbackend%3A8080%2Fapi%2Fimage%2Fpicture%2F' + image?.id + '?ngsw-bypass=true'" 
+                                <img [appAuthSrc]="getImagorUrl(image?.id)" 
                                      alt="Person Image" 
                                      loading="lazy"
                                      class="max-w-full max-h-full object-contain rounded-md">
@@ -214,7 +214,7 @@
         <div *ngIf="selectedGalleryImage()" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
             <div class="bg-white rounded-xl overflow-hidden shadow-2xl max-w-4xl w-full p-4 relative mx-4">
                 <button (click)="closeGalleryImage()" class="absolute top-2 right-4 text-3xl font-bold text-gray-600 hover:text-black p-2">✕</button>
-                <img [src]="'https://vm107.htl-leonding.ac.at/imagor/unsafe/fit-in/800x0/http%3A%2F%2Fbackend%3A8080%2Fapi%2Fimage%2Fpicture%2F' + selectedGalleryImage()?.id + '?ngsw-bypass=true'" 
+                <img [appAuthSrc]="getImagorUrl(selectedGalleryImage()?.id)" 
                      [alt]="selectedGalleryImage()?.description || 'Bild'" 
                      class="w-full max-h-[80vh] object-contain mb-4" />
                 <div class="text-center font-semibold text-lg mb-4">{{ selectedGalleryImage()?.description }}</div>

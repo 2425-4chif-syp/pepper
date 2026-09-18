@@ -1,31 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RoleService } from '../role.service';
-import { CommonModule } from '@angular/common';
 
+interface HomeTile {
+  title: string;
+  description: string;
+  route: string;
+  image: string;
+  accent: string;
+}
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit {
-  
+  tiles: HomeTile[] = [];
+
+  // md: Kacheln als Zeilen über die Bildschirmhöhe, ab lg nebeneinander
+  // (volle Klassennamen, damit Tailwind sie findet)
+  get gridCols(): string {
+    return ['lg:grid-cols-1', 'lg:grid-cols-2', 'lg:grid-cols-3'][Math.min(this.tiles.length, 3) - 1] ?? '';
+  }
+  userName = '';
+
   constructor(private roleService: RoleService, private router: Router) {}
 
   ngOnInit() {
-    console.log('HomePage ngOnInit - User roles:', this.roleService.getRoles());
-    console.log('isAdmin:', this.isAdmin(), 'isCaretaker:', this.isCaretaker(), 'isResident:', this.isResident());
-    
-    // ⚠️ WICHTIG: Residents sollten nie hier ankommen (durch AuthGuard geblockt)
-    // Aber als Sicherheitsmaßnahme: Falls doch, sofort umleiten
+    // Residents sollten nie hier ankommen (AuthGuard blockt) – zur Sicherheit trotzdem umleiten
     if (this.isResident()) {
-      console.log('⚠️ SECURITY: Resident accessed HomePage - redirecting to /my-pictures');
       this.router.navigate(['/my-pictures']);
-      return; // Keine weitere Initialisierung
+      return;
     }
+
+    const userInfo = this.roleService.getUserInfo();
+    this.userName = userInfo?.preferred_username || '';
+
+    const staff = this.isAdmin() || this.isCaretaker();
+    this.tiles = [
+      staff && {
+        title: 'Mitmachgeschichten',
+        description: 'Geschichten erstellen, bearbeiten und für Pepper freigeben.',
+        route: '/tagalongstory',
+        image: 'assets/images/TagAlong.jpg',
+        accent: 'border-t-success',
+      },
+      this.isAdmin() && {
+        title: 'Bewohner',
+        description: 'Bewohnerinnen und Bewohner anlegen und verwalten.',
+        route: '/residents',
+        image: 'assets/images/PersonenEintrag.png',
+        accent: 'border-t-info',
+      },
+      staff && {
+        title: 'Bilder',
+        description: 'Fotos hochladen, ansehen und herunterladen.',
+        route: '/pictures',
+        image: 'assets/images/Bilder.png',
+        accent: 'border-t-error',
+      },
+    ].filter((t): t is HomeTile => !!t);
   }
 
   isAdmin(): boolean {
@@ -37,7 +74,6 @@ export class HomePageComponent implements OnInit {
   }
 
   isResident(): boolean {
-    return this.roleService.isResident(); // Nutze die richtige isResident() Methode
+    return this.roleService.isResident();
   }
-
 }

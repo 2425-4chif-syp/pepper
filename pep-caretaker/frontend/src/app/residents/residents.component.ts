@@ -1,4 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { pictureUrl } from '../image-url';
 import { Person } from '../models/person.model';
 import { ResidentServiceService } from '../service/resident-service.service';
 import { ImageServiceService } from '../service/image-service.service';
@@ -17,7 +19,7 @@ interface PersonWithMemory extends Person {
 
 @Component({
   selector: 'app-residents',
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [AuthSrcDirective, FormsModule, CommonModule, RouterLink],
   templateUrl: './residents.component.html',
   styleUrl: './residents.component.css'
 })
@@ -99,7 +101,7 @@ export class ResidentsComponent {
         if (result.images.length > 0) {
           // Verwende Base64-Daten direkt als Data-URL
           const base64Image = result.images[0].base64Image;
-          imageMap.set(result.personId, 'https://vm107.htl-leonding.ac.at/imagor/unsafe/fit-in/800x0/http%3A%2F%2Fbackend%3A8080%2Fapi%2Fimage%2Fpicture%2F' + result.images[0]?.id + '?ngsw-bypass=true');
+          imageMap.set(result.personId, pictureUrl(result.images[0]?.id));
         }
       });
       this.profileImages.set(imageMap);

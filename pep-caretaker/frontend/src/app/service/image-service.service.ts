@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { inject, Injectable } from '@angular/core';
 import { STORY_URL } from '../app.config';
 import { Person } from '../models/person.model';
@@ -33,7 +34,7 @@ export class ImageServiceService {
   }
 
   getImageBase64(id: number): Observable<string | null> {
-    const apiUrl = '/api/tagalongstories/' + id + '/steps';
+    const apiUrl = environment.apiUrl + 'tagalongstories/' + id + '/steps';
     return new Observable(observer => {
       this.http.get<any[]>(apiUrl).subscribe(
         response => {
@@ -60,7 +61,7 @@ export class ImageServiceService {
 
   // Lade einzelnes Bild über Image-Server anhand der ID
   getImageFromServer(imageId: number): Observable<ImageJson> {
-    return this.http.get<ImageJson>(`https://vm107.htl-leonding.ac.at/api/image/pictures/${imageId}`);
+    return this.http.get<ImageJson>(`${environment.apiUrl}image/pictures/${imageId}`);
   }
 
   getTitleImage(id: number): Observable<string | null> {

@@ -65,7 +65,7 @@
                     <div class="flex items-center gap-4 mb-4">
                         <div class="relative">
                             <img 
-                                [src]="getProfileImage(resident.id)" 
+                                [appAuthSrc]="getProfileImage(resident.id)" 
                                 [alt]="resident.firstName + ' ' + resident.lastName"
                                 class="w-16 h-16 rounded-full object-cover border-4 border-gray-100 shadow-md"
                                 (error)="$any($event.target).src='assets/default-avatar.svg'">

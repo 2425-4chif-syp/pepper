@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 import Keycloak, { KeycloakInstance } from 'keycloak-js';
 
 @Injectable({ providedIn: 'root' })
@@ -6,11 +7,7 @@ export class KeycloakInitService {
   private kc: Keycloak;
 
   constructor() {
-    this.kc = new Keycloak({
-      url: 'https://vm107.htl-leonding.ac.at/auth',
-      realm: 'pepper',
-      clientId: 'angular-frontend'
-    });
+    this.kc = new Keycloak(environment.keycloak);
   }
 
   init(): Promise<boolean> {

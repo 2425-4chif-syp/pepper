@@ -32,18 +32,16 @@ export class AppComponent implements OnInit {
 
   private isDarkmode:boolean = false;
   
+  public isDarkmodeActive(): boolean {
+    return this.isDarkmode;
+  }
+
   public onDarkmode():void{
     this.isDarkmode = !this.isDarkmode;
     const theme = this.isDarkmode ? 'dark' : 'light';
     document.getElementById("appComp")?.setAttribute('data-theme', theme);
   }
   
-  public closeDrawer(): void{
-    const drawer: any = document.getElementById("my-drawer");
-    if(drawer){
-      drawer.checked =  false;
-    }
-  }
 // ✅ Logout-Funktion die sicherstellt, dass User zum Login zurückkehrt
   public logout(): void {
     console.log('Logging out...');
@@ -64,18 +62,4 @@ export class AppComponent implements OnInit {
     const userInfo = this.roleService.getUserInfo();
     return userInfo?.preferred_username || userInfo?.name || 'User';
   }
-
-  // Rollen-Checks für Menü
-  public canViewPictures(): boolean {
-    return this.roleService.isAdmin() || this.roleService.isCaretaker();
-  }
-
-  public canViewStories(): boolean {
-    return this.roleService.isAdmin() || this.roleService.isCaretaker();
-  }
-
-  public isResident(): boolean {
-    return this.roleService.isResident();
-  }
-
 }

@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { environment } from '../../environments/environment';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { STORY_URL } from '../app.config';
@@ -12,7 +14,7 @@ import e from 'express';
 @Component({
   selector: 'app-tagalongstory',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [AuthSrcDirective, RouterModule, CommonModule, FormsModule],
   templateUrl: './tagalongstory.component.html',
   styleUrls: ['./tagalongstory.component.css']
 })
@@ -142,7 +144,7 @@ export class TagalongstoryComponent {
   getImageSrcFromStory(story: any): string {
     // Prüfe ob storyIcon.id vorhanden (neues Backend)
     if (story.storyIcon?.id) {
-      const imageUrl = `https://vm107.htl-leonding.ac.at/api/image/picture/${story.storyIcon.id}`;
+      const imageUrl = `${environment.apiUrl}image/picture/${story.storyIcon.id}`;
       console.log(`� IMAGESERVER: Loading image ${story.storyIcon.id} from server`);
       return imageUrl;
     }

@@ -1,582 +1,482 @@
-import { Component, ElementRef, inject, ViewChild, OnDestroy, AfterViewInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterOutlet, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { STORY_URL } from '../app.config';
-import { IGameType, IStep, ITagalongStory, MoveHandler } from '../../models/tagalongstories.model';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { map, Observable } from 'rxjs';
-import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import Cropper from 'cropperjs';
 import { ImageServiceService } from '../service/image-service.service';
-import { ImageModel } from '../models/image.model';
-import { log } from 'console';
-import { sign } from 'crypto';
 import { ResidentServiceService } from '../service/resident-service.service';
 import { Person } from '../models/person.model';
-import { get } from 'http';
+
+// Pepper-Tablet: alle Bilder werden auf dieses Format zugeschnitten
+const OUTPUT_WIDTH = 1280;
+const OUTPUT_HEIGHT = 800;
+const ASPECT_RATIO = OUTPUT_WIDTH / OUTPUT_HEIGHT;
+// Zoom in Prozent relativ zu "ganzes Bild sichtbar"
+const MIN_ZOOM = 100;
+const MAX_ZOOM = 400;
+const ZOOM_STEP = 25;
+
+interface CropSuggestion {
+  label: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  thumbnail: string;
+}
+
+interface StatusMessage {
+  kind: 'success' | 'error';
+  text: string;
+}
+
+type StoryImageType = 'title' | 'scene';
 
 @Component({
   selector: 'app-imageupload',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './imageupload.component.html',
   styleUrl: './imageupload.component.css'
 })
-export class ImageuploadComponent {
- private baseUrl = inject(STORY_URL) + 'tagalongstories';
-  private http = inject(HttpClient);
-  public duration = [5, 10, 15];
-  public uploadedImageSize = "0 x 0";
-  public cropRecommans:string[] = [];
-  imagesService = inject(ImageServiceService);
-  images = signal<ImageModel[]>([]);
-  description = signal<string>("");
-  firstName = signal<string>('');
-  lastName = signal<string>('');
+export class ImageuploadComponent implements OnInit, OnDestroy {
+  private imagesService = inject(ImageServiceService);
+  private personService = inject(ResidentServiceService);
+  private router = inject(Router);
 
-  personService = inject(ResidentServiceService)
-  persons = signal<Person[]>([]);
-  personForPost = signal<number | null>(null);
-  showSuggestions: boolean = false;
+  readonly outputWidth = OUTPUT_WIDTH;
+  readonly outputHeight = OUTPUT_HEIGHT;
+  readonly minZoom = MIN_ZOOM;
+  readonly maxZoom = MAX_ZOOM;
+  readonly zoomStep = ZOOM_STEP;
 
+  // gesetzt, wenn die Seite aus dem Geschichten-Editor aufgerufen wurde
+  readonly storyImageType: StoryImageType | null = this.readStoryImageType();
+  readonly pageTitle =
+    this.storyImageType === 'title' ? 'Titelbild wählen'
+    : this.storyImageType === 'scene' ? 'Szenenbild wählen'
+    : 'Bild hochladen';
+
+  imageUrl = signal<string | null>(null);
+  naturalSize = signal<{ width: number; height: number } | null>(null);
+  cropSize = signal<{ width: number; height: number } | null>(null);
+  zoomPercent = signal(MIN_ZOOM);
+  suggestions = signal<CropSuggestion[]>([]);
+  activeSuggestion = signal<number | null>(null);
+  isDragging = signal(false);
+  saving = signal(false);
+  status = signal<StatusMessage | null>(null);
+
+  description = signal('');
   selectedPersonId = signal<number | null>(null);
-  getIdOfPerson(){
-    return new Promise<void>((resolve) => {
-      this.personService.getResidents().subscribe({
-        next: data => {
-          this.persons.set(data);
-          
-          for (const person of this.persons()) {
-            if (person.firstName === this.firstName() && person.lastName === this.lastName()) {
-              this.personForPost.set( person.id );
-              console.log('Found matching person:', person);
-              break;
-            }
-          }
-          resolve();
+  persons = signal<Person[]>([]);
 
-        
-        },
-        error: err => {
-          alert("Fehler beim Laden der Bewohner: " + err.message);
-          resolve();
-        }
-      });
-    });
-  }
+  isUpscaled = computed(() => {
+    const size = this.cropSize();
+    return !!size && size.width < OUTPUT_WIDTH - 1;
+  });
 
-  public moves = [
-    'emote_hurra',
-    'essen',
-    'gehen',
-    'hand_heben',
-    'highfive_links',
-    'highfive_rechts',
-    'klatschen',
-    'strecken',
-    'umher_sehen',
-    'winken',
-  ];
-  public moveNames = [
-    'Hurra',
-    'Essen',
-    'Gehen',
-    'Hand heben',
-    'Highfive links',
-    'Highfive rechts',
-    'Klatschen',
-    'Strecken',
-    'Umher sehen',
-    'Winken',
-  ];
+  canSave = computed(() =>
+    !!this.cropSize() && !this.saving() && (this.storyImageType !== null || this.description().trim().length > 0)
+  );
 
-  private defaultGameType : IGameType = {
-    id: "TAG_ALONG_STORY",
-    name: "Mitmachgeschichten"
-  }
+  @ViewChild('editor') private editorRef?: ElementRef<HTMLDivElement>;
+  @ViewChild('image') private imageRef?: ElementRef<HTMLImageElement>;
+  @ViewChild('preview') private previewRef?: ElementRef<HTMLDivElement>;
+  @ViewChild('fileInput') private fileInputRef?: ElementRef<HTMLInputElement>;
 
-  @ViewChild('image', { static: false }) imageElement!: ElementRef<HTMLImageElement>;
-  @ViewChild('zoomRange', { static: false }) zoomRangeElement!: ElementRef<HTMLInputElement>;
+  private cropper?: Cropper;
+  // Zoom-Faktor, bei dem das ganze Bild in den Editor passt (= 100 %)
+  private fitRatio = 1;
+  // true während wir den Cropper selbst verändern, damit das nicht als Nutzeraktion zählt
+  private applying = false;
+  private resizeTimer?: ReturnType<typeof setTimeout>;
+  // Editorgröße beim Erstellen des Croppers, um echte Größenänderungen zu erkennen
+  private editorSize = { width: 0, height: 0 };
 
+  ngOnInit(): void {
+    if (this.storyImageType) return; // Personen werden nur beim normalen Upload gebraucht
 
-  private cropper!: Cropper;
-
-  ngAfterViewInit(): void {
-    if (!this.imageElement?.nativeElement) {
-      console.error("Fehler: imageElement wurde nicht gefunden!");
-      return;
-    }
-
-    if (!this.imageElement) {
-      console.error("Fehler: imageElement wurde nicht gefunden!");
-    }
-
-    this.initializeCropper();
-  }
-
-  ngOnInit(): void{
     this.personService.getResidents().subscribe({
-      next: data=>{
-        this.persons.set(data);
-        console.log(data);
-      },
-      error: err=>{
-        "Laden fehlgeschlagen" + err.message;
-      },
-    })
-  }
-  //#region CROPPER JS
-
-  initializeCropper(): void {
-
-    if (this.cropper) {
-      this.cropper.destroy();
-    }
-
-    this.cropper = new Cropper(this.imageElement.nativeElement, {
-      aspectRatio: NaN,
-      viewMode: 1,
-      preview: '.preview',
-      cropBoxResizable: false,
-      crop: (event) => {
-        console.log("Cropping-Daten: ", event.detail);
-      },
-      ready: ()=> {
-        this.setCropBoxTo1280x800();
-      }
+      next: persons => this.persons.set(
+        [...persons].sort((a, b) => `${a.lastName} ${a.firstName}`.localeCompare(`${b.lastName} ${b.firstName}`, 'de'))
+      ),
+      error: err => this.showError('Bewohner konnten nicht geladen werden', err),
     });
-
-    // Add event listener for the range slider
-    this.zoomRangeElement.nativeElement.addEventListener('input', () => {
-      const zoomValue = parseFloat(this.zoomRangeElement.nativeElement.value);
-
-      if (this.cropper) {
-        console.log("Zoom-Level:", zoomValue);
-        this.cropper.zoomTo(zoomValue);
-      } else {
-        console.error("Cropper ist nicht initialisiert!");
-      }
-    });
-
-
-    // Update the range slider when Cropper.js zoom changes
-    (this.cropper as any).cropper.addEventListener('zoom', (event: any) => {
-      const currentZoom = event.detail.ratio; // Get the current zoom level
-      this.zoomRangeElement.nativeElement.value = currentZoom.toString(); // Update the range input value
-    });
-
   }
 
-
-  crop(): void {
-    if (this.cropper) {
-      const croppedCanvas = this.cropper.getCroppedCanvas();
-      const dataURL = croppedCanvas.toDataURL('image/png');
-
-      // To download the image
-      const link = document.createElement('a');
-      link.download = this.tagalongstory.name+'-cropped.png';
-      link.href = dataURL;
-      link.click();
-    }
+  ngOnDestroy(): void {
+    this.cropper?.destroy();
+    this.revokeImageUrl();
+    clearTimeout(this.resizeTimer);
   }
 
-  reset(): void {
-    if (this.cropper) {
-      this.cropper.reset();
-      this.zoomRangeElement.nativeElement.value = '0.1'; // Reset the range input to the default zoom level
-      this.setCropBoxTo1280x800();
-    }
+  // #region Datei auswählen
+
+  openFilePicker(): void {
+    this.fileInputRef?.nativeElement.click();
   }
 
-  setCropBoxTo1280x800(): void {
-    if (this.cropper) {
-      // Get the image data
-      const imageData = this.cropper.getImageData();
-
-      // Calculate the scale factor (ratio of displayed image to natural image size)
-      const scaleFactor = imageData.width / imageData.naturalWidth;
-
-      // Define the target dimensions (1280x800)
-      const targetWidth = 1280;
-      const targetHeight = 800;
-      
-      if(imageData.naturalWidth < 600){
-        alert("Das Bild ist schon relativ klein, deshalb funktioniert der Slider erst weiter rechts")
-      }
-      // Scale the target dimensions to match the displayed image size
-      const scaledWidth = targetWidth * scaleFactor;
-      const scaledHeight = targetHeight * scaleFactor;
-
-      // Center the crop box
-      const cropBoxX = (imageData.width - scaledWidth) / 2;
-      const cropBoxY = (imageData.height - scaledHeight) / 2;
-
-      // Set the crop box dimensions and position
-      this.cropper.setCropBoxData({
-        width: scaledWidth,
-        height: scaledHeight,
-        left: cropBoxX,
-        top: cropBoxY,
-      });
-    }
+  onFileInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) this.loadFile(file);
+    input.value = ''; // gleiche Datei erneut auswählbar
   }
 
-  cropTo1280x800(): void {
-    if (this.cropper) {
-      // Get the cropped canvas with exact dimensions
-      const croppedCanvas = this.cropper.getCroppedCanvas({
-        width: 1280,
-        height: 800,
-        fillColor: '#fff', // Background for non-image areas
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: 'high',
-      });
-
-      // Convert canvas to data URL
-      const dataURL = croppedCanvas.toDataURL('image/png');
-
-      // Create a temporary download link and trigger the download
-      const link = document.createElement('a');
-      link.href = dataURL;
-      link.download = this.tagalongstory.name+'-cropped-1280x800.png';
-      document.body.appendChild(link); // Required for Firefox
-      link.click();
-      document.body.removeChild(link);
-    }
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging.set(true);
   }
 
-  cropVariants(): void {
-    this.cropRecommans = []; // Clear the previous recommendations
-    if (!this.cropper) {
-      console.error("Cropper is not initialized!");
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging.set(false);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging.set(false);
+    const file = event.dataTransfer?.files?.[0];
+    if (file) this.loadFile(file);
+  }
+
+  private loadFile(file: File): void {
+    if (!file.type.startsWith('image/')) {
+      this.status.set({ kind: 'error', text: `„${file.name}“ ist kein Bild. Bitte eine Bilddatei (z. B. JPG oder PNG) wählen.` });
       return;
     }
-    this.showSuggestions = !this.showSuggestions;
-    if(!this.showSuggestions){
-      this.cropRecommans = []
-    }
-    const imageData = this.cropper.getImageData();
-    const naturalWidth = imageData.naturalWidth;
-    const naturalHeight = imageData.naturalHeight;
-
-    // Define crop regions
-    const cropRegions = [
-      { name: 'Top-Left', x: 0, y: 0, width: naturalWidth / 2, height: naturalHeight / 2 },
-      { name: 'Bottom-Left', x: 0, y: naturalHeight / 2, width: naturalWidth / 2, height: naturalHeight / 2 },
-      { name: 'Middle', x: naturalWidth / 4, y: naturalHeight / 4, width: naturalWidth / 2, height: naturalHeight / 2 },
-      { name: 'Top-Right', x: naturalWidth / 2, y: 0, width: naturalWidth / 2, height: naturalHeight / 2 },
-      { name: 'Bottom-Right', x: naturalWidth / 2, y: naturalHeight / 2, width: naturalWidth / 2, height: naturalHeight / 2 },
-    ];
-
-    cropRegions.forEach((region, index) => {
-      // Set the crop box position and size for the current region
-      this.cropper.setData({
-        x: region.x,
-        y: region.y,
-        width: region.width,
-        height: region.height,
-      });
-
-      const croppedCanvas = this.cropper.getCroppedCanvas({
-        width: 1280, // Set output width
-        height: 800, // Set output height
-        fillColor: '#fff', // Background for non-image areas
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: 'high',
-      });
-
-      // Convert canvas to data URL
-      const dataURL = croppedCanvas.toDataURL('image/png');
-
-      // Log the cropped image data URL
-      console.log(`Crop Region: ${region.name}`, dataURL);
-
-      // Add the data URL to the crop recommendations array
-      this.cropRecommans.push(dataURL);
-
-      // Log the final array of crop recommendations after all regions are processed
-      if (index === cropRegions.length - 1) {
-        console.log(this.cropRecommans);
-      }
-
-    });
-    this.setCropBoxTo1280x800();
-  }
-
-  downloadCropRecommans(imageUrl: string) {
-    const img = new Image();
-    img.crossOrigin = 'anonymous'; // For CORS if needed
-    img.src = imageUrl;
-
-    img.onload = () => {
-      // Create canvas
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d')!;
-
-      // Set canvas dimensions
-      canvas.width = 1280;
-      canvas.height = 800;
-
-      // Draw image resized to 1280x800
-      ctx.drawImage(img, 0, 0, 1280, 800);
-
-      // Convert to blob and trigger download
-      canvas.toBlob(blob => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `resized-image-${Date.now()}.jpg`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
-      }, 'image/jpeg', 0.9);
-    };
-
-    img.onerror = () => {
-      console.error('Failed to load image');
-    };
+    this.status.set(null);
+    this.cropper?.destroy();
+    this.cropper = undefined;
+    this.cropSize.set(null);
+    this.suggestions.set([]);
+    this.revokeImageUrl();
+    // Das <img> lädt die neue URL, danach startet onImageLoaded() den Cropper
+    this.imageUrl.set(URL.createObjectURL(file));
   }
 
   // #endregion
 
-  // Default Placeholder from TagAlongStory
-  tagalongstory: ITagalongStory = {
-    id: 0,
-    name: '',
-    icon: 'string',
-    storyIconBase64: '',
-    gameType: this.defaultGameType,
-    enabled: true,
-  };
+  // #region Cropper
 
-  // State management for story creation flow
-  isFromCreateStory: boolean = false;
+  onImageLoaded(): void {
+    const img = this.imageRef?.nativeElement;
+    if (!img) return;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private router: Router
-  ) {
-    // Check if coming from createstory
-    this.isFromCreateStory = !!sessionStorage.getItem('pendingStoryState');
+    this.naturalSize.set({ width: img.naturalWidth, height: img.naturalHeight });
+    this.suggestions.set(this.buildSuggestions(img));
+    this.createCropper();
   }
 
-  //#region Handling File when clicked on Text
+  /** Erstellt den Cropper; mit `restore` wird ein zuvor gewählter Ausschnitt (in Bildpixeln) exakt wiederhergestellt. */
+  private createCropper(restore?: { data: Cropper.Data; activeSuggestion: number | null }): void {
+    const img = this.imageRef?.nativeElement;
+    const editor = this.editorRef?.nativeElement;
+    if (!img || !editor) return;
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        if (this.imageElement) {
-          if(this.cropper){
-            this.cropper.destroy()
-          }
-          const img = new Image();
-          img.src = e.target?.result as string;
-          img.onload = () => {
-            this.uploadedImageSize = img.naturalWidth + " x "+ img.naturalHeight;
-          }
-          this.imageElement.nativeElement.src = e.target?.result as string;
-          this.initializeCropper();
+    this.cropper?.destroy();
+    this.editorSize = { width: editor.clientWidth, height: editor.clientHeight };
+    this.cropper = new Cropper(img, {
+      aspectRatio: ASPECT_RATIO,
+      viewMode: 1,
+      dragMode: 'move',
+      autoCropArea: 1,
+      // Der Browser dreht Handyfotos bereits anhand der EXIF-Daten, Cropper soll das nicht nochmal tun
+      checkOrientation: false,
+      background: false,
+      toggleDragModeOnDblclick: false,
+      wheelZoomRatio: 0.1,
+      // Cropper skaliert bei reinen Höhenänderungen den Ausschnitt falsch → Größenänderungen selbst behandeln
+      responsive: false,
+      preview: this.previewRef?.nativeElement,
+      ready: () => {
+        this.fitRatio = this.computeFitRatio();
+        this.zoomPercent.set(MIN_ZOOM);
+        if (restore) {
+          this.withoutUserTracking(() => {
+            this.cropper!.rotateTo(restore.data.rotate);
+            this.fitCanvas();
+            this.cropper!.setData({ x: restore.data.x, y: restore.data.y, width: restore.data.width, height: restore.data.height });
+          });
+          this.activeSuggestion.set(restore.activeSuggestion);
         } else {
-          console.error("Fehler: this.imageElement ist undefined!");
+          this.activeSuggestion.set(0); // autoCropArea 1 = Vorschlag "Ganzes Bild"
         }
-      };
-
-      reader.readAsDataURL(file);
-    }
-  }
-
-  //#endregion
-
-  isDragging = false;
-
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    this.isDragging = true;
-  }
-
-  onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    this.isDragging = false;
-  }
-
-  onDrop(event: DragEvent) {
-    event.preventDefault();
-    this.isDragging = false;
-
-    if (event.dataTransfer?.files) {
-      const file = event.dataTransfer.files[0];
-      this.handleFile(file);
-    }
-  }
-
-  private handleFile(file: File) {
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        if (this.imageElement) {
-          if(this.cropper){
-            this.cropper.destroy()
-          }
-          const img = new Image();
-          img.src = e.target?.result as string;
-          img.onload = () => {
-            this.uploadedImageSize = img.naturalWidth + " x "+ img.naturalHeight;
-          }
-
-
-          this.imageElement.nativeElement.src = e.target?.result as string;
-          this.initializeCropper();
-        } else {
-          console.error("Fehler: this.imageElement ist undefined!");
-        }
-      };
-
-      reader.readAsDataURL(file);
-    } else {
-      console.warn('Invalid file type');
-    }
-  }
-  onPersonSelected(event: any) {
-    const value = event.target.value;
-    this.selectedPersonId.set(value);
-    console.log('Selected Person ID:', this.selectedPersonId());
-  }
-
-  //#region Save TagAlongStory and Steps to DB
-  async saveToDb() : Promise<void>{
-    const croppedCanvas = this.cropper.getCroppedCanvas({
-      width: 1280,
-      height: 800,
-      fillColor: '#fff', // Background for non-image areas
-      imageSmoothingEnabled: true,
-      imageSmoothingQuality: 'high',
+      },
+      crop: event => {
+        this.cropSize.set({ width: Math.round(event.detail.width), height: Math.round(event.detail.height) });
+      },
+      cropstart: () => this.activeSuggestion.set(null),
+      zoom: event => this.onCropperZoom(event),
     });
-    
-    const newImageBase64 = croppedCanvas.toDataURL('image/png').split(',')[1];
-    let imageUpload: ImageModel;
-    
-    if(this.selectedPersonId()){
-      imageUpload = {
-        description: this.description(),
-        personId: this.selectedPersonId(),
-        base64Image: newImageBase64
-      };
-    } else {
-      // Wait for the person to be fetched and set
-      console.log('Person after fetch:', this.selectedPersonId());
-      imageUpload = {
-        description: this.description(),
-        personId: null,
-        base64Image: newImageBase64
-      };
-    }
-
-    const newImage = croppedCanvas.toDataURL('image/png');
-
-    console.log(croppedCanvas);
-
-    console.log('Image to upload:', imageUpload);
-    this.imagesService.uploadImage(imageUpload).subscribe(
-      {
-        next: data=>{
-          console.log(data);
-          window.location.reload();
-        },
-        error: err=>{
-          "Upload fehlgeschlagen" + err.message;
-        },
-      }
-    )
   }
-  //#endregion
 
-  // Neue Methode für Titel-Bild Upload aus CreateStory
-  saveAndReturnTitleImage() {
-    if (!this.cropper) {
-      console.error('Cropper not initialized');
+  private onCropperZoom(event: Cropper.ZoomEvent): void {
+    const min = this.fitRatio * MIN_ZOOM / 100;
+    const max = this.fitRatio * MAX_ZOOM / 100;
+    const { ratio, oldRatio } = event.detail;
+
+    if (ratio < min * 0.999 || ratio > max * 1.001) {
+      event.preventDefault();
+      const clamped = ratio < min ? min : max;
+      if (Math.abs(oldRatio - clamped) > 1e-6) this.cropper?.zoomTo(clamped);
       return;
     }
 
-    // Get the cropped canvas with exact dimensions
-    const croppedCanvas = this.cropper.getCroppedCanvas({
-      width: 1280,
-      height: 800,
+    this.zoomPercent.set(Math.round(ratio / this.fitRatio * 100));
+    if (!this.applying) this.activeSuggestion.set(null);
+  }
+
+  setZoom(percent: number): void {
+    const clamped = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, percent));
+    this.cropper?.zoomTo(this.fitRatio * clamped / 100);
+  }
+
+  zoomBy(delta: number): void {
+    this.setZoom(this.zoomPercent() + delta);
+  }
+
+  onZoomInput(event: Event): void {
+    this.setZoom(Number((event.target as HTMLInputElement).value));
+  }
+
+  rotate(degrees: number): void {
+    if (!this.cropper) return;
+    this.withoutUserTracking(() => {
+      this.cropper!.rotate(degrees);
+      this.fitCanvas();
+      this.maximizeCropBox();
+    });
+    this.activeSuggestion.set(null);
+  }
+
+  reset(): void {
+    this.applySuggestion(0);
+  }
+
+  applySuggestion(index: number): void {
+    const suggestion = this.suggestions()[index];
+    if (!this.cropper || !suggestion) return;
+    this.withoutUserTracking(() => {
+      this.cropper!.rotateTo(0);
+      this.fitCanvas();
+      this.cropper!.setData({
+        x: suggestion.x,
+        y: suggestion.y,
+        width: suggestion.width,
+        height: suggestion.height,
+      });
+    });
+    this.activeSuggestion.set(index);
+  }
+
+  onEditorKeydown(event: KeyboardEvent): void {
+    if (!this.cropper) return;
+    const step = event.shiftKey ? 50 : 10;
+    switch (event.key) {
+      case 'ArrowLeft': this.cropper.move(-step, 0); break;
+      case 'ArrowRight': this.cropper.move(step, 0); break;
+      case 'ArrowUp': this.cropper.move(0, -step); break;
+      case 'ArrowDown': this.cropper.move(0, step); break;
+      case '+':
+      case '=': this.zoomBy(ZOOM_STEP); break;
+      case '-': this.zoomBy(-ZOOM_STEP); break;
+      case '0': this.reset(); break;
+      default: return;
+    }
+    event.preventDefault();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      const editor = this.editorRef?.nativeElement;
+      if (!this.cropper || !editor) return;
+      const changed = Math.abs(editor.clientWidth - this.editorSize.width) > 1
+        || Math.abs(editor.clientHeight - this.editorSize.height) > 1;
+      if (!changed) return;
+      // gewählten Ausschnitt in Bildpixeln merken und im neu vermessenen Editor wiederherstellen
+      this.createCropper({ data: this.cropper.getData(), activeSuggestion: this.activeSuggestion() });
+    }, 150);
+  }
+
+  private computeFitRatio(): number {
+    const container = this.cropper!.getContainerData();
+    const canvas = this.cropper!.getCanvasData(); // naturalWidth/-Height berücksichtigen die Drehung
+    return Math.min(container.width / canvas.naturalWidth, container.height / canvas.naturalHeight);
+  }
+
+  // ganzes Bild sichtbar und zentriert (= 100 %)
+  private fitCanvas(): void {
+    const cropper = this.cropper!;
+    this.fitRatio = this.computeFitRatio();
+    cropper.zoomTo(this.fitRatio);
+    const container = cropper.getContainerData();
+    const canvas = cropper.getCanvasData();
+    cropper.setCanvasData({ left: (container.width - canvas.width) / 2, top: (container.height - canvas.height) / 2 });
+    this.zoomPercent.set(MIN_ZOOM);
+  }
+
+  private maximizeCropBox(): void {
+    const canvas = this.cropper!.getCanvasData();
+    const width = Math.min(canvas.width, canvas.height * ASPECT_RATIO);
+    const height = width / ASPECT_RATIO;
+    this.cropper!.setCropBoxData({
+      left: canvas.left + (canvas.width - width) / 2,
+      top: canvas.top + (canvas.height - height) / 2,
+      width,
+      height,
+    });
+  }
+
+  private withoutUserTracking(fn: () => void): void {
+    this.applying = true;
+    try {
+      fn();
+    } finally {
+      this.applying = false;
+    }
+  }
+
+  // #endregion
+
+  // #region Vorschläge
+
+  /** 16:10-Ausschnitte an typischen Stellen des Originalbilds, jeweils mit kleinem Vorschaubild. */
+  private buildSuggestions(img: HTMLImageElement): CropSuggestion[] {
+    const W = img.naturalWidth;
+    const H = img.naturalHeight;
+    const maxWidth = Math.min(W, H * ASPECT_RATIO);
+    const wider = W / H > ASPECT_RATIO * 1.05;
+    const taller = W / H < ASPECT_RATIO / 1.05;
+
+    const region = (label: string, scale: number, centerX: number, centerY: number) => {
+      const width = maxWidth * scale;
+      const height = width / ASPECT_RATIO;
+      const x = Math.min(Math.max(centerX * W - width / 2, 0), W - width);
+      const y = Math.min(Math.max(centerY * H - height / 2, 0), H - height);
+      return { label, x: Math.round(x), y: Math.round(y), width: Math.round(width), height: Math.round(height) };
+    };
+
+    const candidates = [
+      region('Ganzes Bild', 1, 0.5, 0.5),
+      ...(wider ? [region('Links', 1, 0, 0.5), region('Rechts', 1, 1, 0.5)] : []),
+      ...(taller ? [region('Oben', 1, 0.5, 0), region('Unten', 1, 0.5, 1)] : []),
+      region('Nahaufnahme', 0.6, 0.5, 0.5),
+      region('Nahaufnahme oben', 0.6, 0.5, 0.3),
+    ];
+
+    // nahezu gleiche Ausschnitte nur einmal anbieten
+    const unique = candidates.filter((c, i) => !candidates.slice(0, i).some(prev =>
+      prev.width === c.width && Math.abs(prev.x - c.x) < W * 0.03 && Math.abs(prev.y - c.y) < H * 0.03
+    ));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 320;
+    canvas.height = 200;
+    const ctx = canvas.getContext('2d')!;
+    return unique.map(c => {
+      ctx.drawImage(img, c.x, c.y, c.width, c.height, 0, 0, canvas.width, canvas.height);
+      return { ...c, thumbnail: canvas.toDataURL('image/jpeg', 0.8) };
+    });
+  }
+
+  // #endregion
+
+  // #region Speichern / Herunterladen
+
+  private exportDataUrl(): string {
+    return this.cropper!.getCroppedCanvas({
+      width: OUTPUT_WIDTH,
+      height: OUTPUT_HEIGHT,
       fillColor: '#fff',
       imageSmoothingEnabled: true,
       imageSmoothingQuality: 'high',
-    });
-
-    // Convert to data URL
-    const dataURL = croppedCanvas.toDataURL('image/png');
-    
-    // Store the cropped image in sessionStorage
-    sessionStorage.setItem('croppedTitleImage', dataURL);
-    
-    // Navigate back to createstory
-    this.router.navigate(['/createstory']);
+    }).toDataURL('image/jpeg', 0.92);
   }
 
-  // Neue Methode für Szenen-Bild Upload aus CreateStory
-  saveAndReturnSceneImage() {
-    if (!this.cropper) {
-      console.error('Cropper not initialized');
+  save(): void {
+    if (!this.canSave() || !this.cropper) return;
+    const dataUrl = this.exportDataUrl();
+
+    if (this.storyImageType) {
+      sessionStorage.setItem(this.storyImageType === 'title' ? 'croppedTitleImage' : 'croppedSceneImage', dataUrl);
+      this.router.navigate(['/createstory']);
       return;
     }
 
-    // Get the cropped canvas with exact dimensions
-    const croppedCanvas = this.cropper.getCroppedCanvas({
-      width: 1280,
-      height: 800,
-      fillColor: '#fff',
-      imageSmoothingEnabled: true,
-      imageSmoothingQuality: 'high',
+    const description = this.description().trim();
+    this.saving.set(true);
+    this.imagesService.uploadImage({
+      description,
+      personId: this.selectedPersonId(),
+      base64Image: dataUrl.split(',')[1],
+    }).subscribe({
+      next: () => {
+        this.saving.set(false);
+        this.clearImage();
+        this.description.set('');
+        this.selectedPersonId.set(null);
+        this.status.set({ kind: 'success', text: `Bild „${description}“ wurde gespeichert.` });
+      },
+      error: err => {
+        this.saving.set(false);
+        this.showError('Speichern fehlgeschlagen', err);
+      },
     });
-
-    // Convert to data URL
-    const dataURL = croppedCanvas.toDataURL('image/png');
-    
-    // Store the cropped image in sessionStorage
-    sessionStorage.setItem('croppedSceneImage', dataURL);
-    
-    // Navigate back to createstory
-    this.router.navigate(['/createstory']);
   }
 
-  onCancel() {
-    if (this.isFromCreateStory) {
-      // If coming from createstory, clean up and return without saving
+  download(): void {
+    if (!this.cropper) return;
+    const name = this.description().trim().toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-').replace(/^-|-$/g, '') || 'pepper-bild';
+    const link = document.createElement('a');
+    link.href = this.exportDataUrl();
+    link.download = `${name}-${OUTPUT_WIDTH}x${OUTPUT_HEIGHT}.jpg`;
+    document.body.appendChild(link); // Firefox braucht den Link im DOM
+    link.click();
+    link.remove();
+  }
+
+  cancel(): void {
+    if (this.storyImageType) {
       sessionStorage.removeItem('pendingStoryState');
+      this.router.navigate(['/createstory']);
     } else {
-      // Original behavior for regular image upload
-      this.description.set("");
-      this.selectedPersonId.set(null);
-      if (this.imageElement) {
-        this.imageElement.nativeElement.src = '';
-      }
-      if (this.cropper) {
-        this.cropper.destroy();
-      }
+      this.router.navigate(['/pictures']);
     }
   }
 
-  // Helper method to get the image type from session storage
-  getImageType(): string {
-    const pendingState = sessionStorage.getItem('pendingStoryState');
-    if (pendingState) {
-      const storyState = JSON.parse(pendingState);
-      return storyState.imageType || 'title';
+  private clearImage(): void {
+    this.cropper?.destroy();
+    this.cropper = undefined;
+    this.revokeImageUrl();
+    this.imageUrl.set(null);
+    this.naturalSize.set(null);
+    this.cropSize.set(null);
+    this.suggestions.set([]);
+    this.activeSuggestion.set(null);
+  }
+
+  // #endregion
+
+  private revokeImageUrl(): void {
+    const url = this.imageUrl();
+    if (url) URL.revokeObjectURL(url);
+  }
+
+  private showError(prefix: string, err: any): void {
+    const detail = err?.error?.message || err?.message || 'Unbekannter Fehler';
+    this.status.set({ kind: 'error', text: `${prefix}: ${detail}` });
+  }
+
+  private readStoryImageType(): StoryImageType | null {
+    const pending = sessionStorage.getItem('pendingStoryState');
+    if (!pending) return null;
+    try {
+      return JSON.parse(pending).imageType === 'scene' ? 'scene' : 'title';
+    } catch {
+      return 'title';
     }
-    return 'title';
   }
 }

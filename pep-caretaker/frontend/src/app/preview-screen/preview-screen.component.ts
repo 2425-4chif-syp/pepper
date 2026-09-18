@@ -1,5 +1,7 @@
 // ...existing code...
 import { Component, inject, signal, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { pictureUrl } from '../image-url';
 import { Tas } from '../models/tas.model';
 import { PreviewService } from '../service/preview.service';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
@@ -11,7 +13,7 @@ import { ImageResponse } from '../models/image-response.model';
 
 @Component({
   selector: 'app-preview-screen',
-  imports: [RouterLink],
+  imports: [AuthSrcDirective, RouterLink],
   templateUrl: './preview-screen.component.html',
   styleUrl: './preview-screen.component.css',
   standalone: true
@@ -50,6 +52,7 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
   private isSpeechPausing = false; // Flag um zu verhindern, dass onend die Position überschreibt
 
   imageService = inject(ImageServiceService);
+  readonly pictureUrl = pictureUrl;
   image = signal<ImagePreview | null>(null);
 
   getImage(id: number): void {
@@ -236,7 +239,7 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
     const imageId = this.currentScene?.image?.id;
     if (!imageId) return '/assets/images/defaultIcon2.jpg';
     
-    return `https://vm107.htl-leonding.ac.at/imagor/unsafe/fit-in/800x0/https%3A%2F%2Fvm107.htl-leonding.ac.at%2Fapi%2Fimage%2Fpicture%2F${imageId}?ngsw-bypass=true`;
+    return pictureUrl(imageId);
   }
 
   // ⏸️ Pause Progress Tracking

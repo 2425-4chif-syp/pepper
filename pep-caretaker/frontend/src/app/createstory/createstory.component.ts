@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { AuthSrcDirective } from '../auth-src.directive';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ImageServiceService } from '../service/image-service.service';
@@ -6,6 +7,7 @@ import { ImageDto } from '../models/imageDto.model';
 import { ImageJson } from '../models/image-json.model';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { authHeaders } from '../auth.interceptor';
 
 interface Scene {
   speech: string;
@@ -17,7 +19,7 @@ interface Scene {
 
 @Component({
   selector: 'app-createstory',
-  imports: [DragDropModule, CommonModule, FormsModule],
+  imports: [AuthSrcDirective, DragDropModule, CommonModule, FormsModule],
   templateUrl: './createstory.component.html',
 })
 export class CreatestoryComponent {
@@ -50,6 +52,15 @@ export class CreatestoryComponent {
     'Umher sehen',
     'Winken',
   ];
+
+  // Nur im Dropdown ausgeblendet. moves/moveNames bleiben unverändert, weil die Move-ID
+  // aus der Position abgeleitet wird (Index + 1).
+  private readonly hiddenMoveNames = ['Hurra'];
+
+  // bestehende Szenen mit ausgeblendetem Move behalten ihn in der Auswahl, damit die Anzeige stimmt
+  selectableMoveNames(current?: string): string[] {
+    return this.moveNames.filter(name => !this.hiddenMoveNames.includes(name) || name === current);
+  }
 
   scenes: Scene[] = [];
   isSidebarVisible = false;
@@ -246,7 +257,7 @@ private loadImagesOld(): void {
 
     // Titel parallel laden (niedrigere Priorität) - nur wenn nicht bereits vorhanden
     if (!this.hasExistingData || !this.titleName) {
-      fetch(`/api/tagalongstories/${storyId}`)
+      fetch(`/api/tagalongstories/${storyId}`, { headers: authHeaders() })
       .then(response => response.json())
       .then(data => {
         console.log(data.name);
@@ -283,7 +294,7 @@ private loadImagesOld(): void {
   loadScenes(storyId: number) {
     this.isLoadingScenes = true;
     console.log('🔄 Loading scenes...');
-    fetch(`/api/tagalongstories/${storyId}/steps`)
+    fetch(`/api/tagalongstories/${storyId}/steps`, { headers: authHeaders() })
       .then((response) => response.json())
       .then((data) => {
         // 🚀 SOFORTIGE Anzeige: Szenen ohne Bilder erstellen
@@ -462,7 +473,7 @@ private loadImagesOld(): void {
   addScene() {
     const newScene = {
       speech: '',
-      movement: this.moveNames[0],
+      movement: this.selectableMoveNames()[0],
       duration: this.duration[0], // Should be 5
       image: 'assets/images/imageNotFound.png',
       isDragOver: false,
@@ -513,7 +524,7 @@ private loadImagesOld(): void {
         console.log(`🔄 UPDATE: Aktualisiere Geschichte ID ${this.storyId}`);
         response = await fetch(`/api/tagalongstories/${this.storyId}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...authHeaders() },
           body: JSON.stringify(storyData),
         });
       } else {
@@ -521,7 +532,7 @@ private loadImagesOld(): void {
         console.log('🆕 CREATE: Erstelle neue Geschichte');
         response = await fetch(`/api/tagalongstories`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...authHeaders() },
           body: JSON.stringify(storyData),
         });
       }
@@ -563,7 +574,7 @@ private loadImagesOld(): void {
       // Lösche alle bestehenden Szenen
       const deleteResponse = await fetch(`/api/tagalongstories/${this.storyId}/steps`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
       });
       
       if (!deleteResponse.ok) {
@@ -619,7 +630,7 @@ private loadImagesOld(): void {
 
         const response = await fetch(`/api/tagalongstories/${this.storyId}/steps`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...authHeaders() },
           body: JSON.stringify(sceneData),
         });
 
@@ -730,11 +741,11 @@ private loadImagesOld(): void {
     }
     
     // 🚨 FIX: Imageserver URLs zu base64 konvertieren (mit und ohne Port)
-    if (imagePath.includes('vm107.htl-leonding.ac.at') && imagePath.includes('/api/image/picture/')) {
+    if (imagePath.includes('/api/image/picture/')) {
       console.log('🔄 Konvertiere Imageserver-URL zu base64:', imagePath);
       
       try {
-        const response = await fetch(imagePath);
+        const response = await fetch(imagePath, { headers: authHeaders() });
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }

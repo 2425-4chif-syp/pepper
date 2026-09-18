@@ -1,0 +1,129 @@
+{
+  "realm": "pepper",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "admin"
+      },
+      {
+        "name": "caretaker"
+      },
+      {
+        "name": "resident"
+      },
+      {
+        "name": "robot",
+        "description": "Pepper-Apps (Service-Account pepper-robot): nur lesen + Spielstände speichern"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "angular-frontend-local",
+      "name": "pep-caretaker frontend (local dev)",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:4200/*",
+        "http://127.0.0.1:4200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200",
+        "http://127.0.0.1:4200"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "+"
+      }
+    },
+    {
+      "clientId": "pepper-backend",
+      "enabled": true,
+      "bearerOnly": true
+    },
+    {
+      "clientId": "pepper-robot",
+      "name": "Pepper-Roboter-Apps",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "pepper-robot-local-dev-secret",
+      "serviceAccountsEnabled": true,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "firstName": "Local",
+      "lastName": "Admin",
+      "email": "admin@pepper.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin",
+        "default-roles-pepper"
+      ]
+    },
+    {
+      "username": "caretaker",
+      "firstName": "Local",
+      "lastName": "Caretaker",
+      "email": "caretaker@pepper.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "caretaker",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "caretaker",
+        "default-roles-pepper"
+      ]
+    },
+    {
+      "username": "resident",
+      "firstName": "Local",
+      "lastName": "Resident",
+      "email": "resident@pepper.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "resident",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "resident",
+        "default-roles-pepper"
+      ]
+    },
+    {
+      "username": "service-account-pepper-robot",
+      "enabled": true,
+      "serviceAccountClientId": "pepper-robot",
+      "realmRoles": [
+        "robot",
+        "default-roles-pepper"
+      ]
+    }
+  ]
+}

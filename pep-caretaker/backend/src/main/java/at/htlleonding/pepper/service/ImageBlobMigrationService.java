@@ -29,6 +29,9 @@ public class ImageBlobMigrationService {
                 return;
             }
 
+            // both are StartupEvent observers without a defined order, so don't rely on MinioService.onStart
+            minioService.ensureBucket();
+
             connection.setAutoCommit(false);
             ensureNewColumns(connection);
 

@@ -48,6 +48,7 @@ public class GameScoreResource {
 
     @GET
     @Path("player/{playerId}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getScoresByPlayer(@PathParam("playerId") Long playerId) {
         return Response.ok(gameScoreService.getByPlayer(playerId)).build();
     }
@@ -65,6 +66,7 @@ public class GameScoreResource {
     }
 
     @POST
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response createGameScore(GameScoreDto gameScoreDto) {
         return Response.status(Response.Status.CREATED)
                 .entity(gameScoreService.create(gameScoreDto))

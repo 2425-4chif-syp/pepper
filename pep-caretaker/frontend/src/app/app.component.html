@@ -1,24 +1,6 @@
-<div id="appComp" data-theme="light" class="h-full overflow-hidden">
-  <nav class="fixed top-0 left-0 right-0 z-50">
+<div id="appComp" data-theme="light" class="min-h-screen overflow-hidden bg-base-100 text-base-content">
+  <nav class="fixed top-0 left-0 right-0 z-50" aria-label="Hauptnavigation">
     <div class="navbar bg-base-100">
-      <!-- Nur für Admin & Caretaker: Menü-Button -->
-      @if (!isResident()) {
-        <div class="flex-none">
-          <label for="my-drawer" class="btn btn-square btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              class="inline-block h-5 w-5 stroke-current">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </label>
-        </div>
-      }
       <div class="flex-1">
         <a routerLink="/" class="btn btn-ghost text-xl">PEPPER Dashboard</a>
       </div>
@@ -29,13 +11,9 @@
           Hallo, {{currentUser()}}
         </span>
         
-        <a href="https://vm107.htl-leonding.ac.at/mealplan/foods" class="btn btn-info btn-sm">
-          <span class="hidden sm:inline">Speiseplan</span>
-        </a>
-        
         <!-- ✅ Logout Button mit DaisyUI Styling -->
-        <button class="btn btn-error btn-sm" (click)="logout()">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button type="button" class="btn btn-error btn-sm" (click)="logout()" aria-label="Abmelden">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
@@ -43,8 +21,8 @@
         </button>
 
                 <!-- Darkmode Button -->
-        <button (click)="onDarkmode()" class="btn btn-square btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <button type="button" (click)="onDarkmode()" class="btn btn-square btn-ghost" aria-label="Dunkelmodus" title="Dunkelmodus" [attr.aria-pressed]="isDarkmodeActive()">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
           </svg>
         </button>
@@ -55,36 +33,6 @@
   <!-- Spacer: gleiche Höhe wie die Navbar, damit Inhalt nicht vom fixed Header überlappt wird -->
   <div class="h-16" aria-hidden="true"></div>
 
-  <div class="drawer z-50">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-    </div>
-    <div class="drawer-side">
-      <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-        <!-- Sidebar content hier -->
-        
-        <!-- Nur für Admin & Caretaker -->
-        @if (canViewPictures()) {
-          <li><a routerLink="/pictures" (click)="closeDrawer()">Bilder</a></li>
-        }
-        
-        @if (canViewStories()) {
-          <li><a routerLink="/tagalongstory" (click)="closeDrawer()">MitMachGeschichte</a></li>
-        }
-        
-        <!-- Für Bewohner -->
-        @if (isResident()) {
-          <li><a routerLink="/my-pictures" (click)="closeDrawer()">Meine Bilder</a></li>
-        }
-        
-        <!-- Für alle -->
-        <li><a href="https://2425-4chif-syp.github.io/01-projekte-2025-4chif-syp-pepper-minigames/" target="_blank">Link zur Dokumentation</a></li>
-        
-      </ul>
-    </div>
-  </div>
-  
   <router-outlet></router-outlet>
   
 </div>

@@ -57,7 +57,7 @@
       <div class="flex-shrink-0">
         <ng-container *ngIf="hasValidImageFromStory(story); else defaultImage">
           <img 
-            [src]="getImageSrcFromStory(story)" 
+            [appAuthSrc]="getImageSrcFromStory(story)" 
             [alt]="story.name + ' Titelbild'"
             class="w-16 h-16 rounded-lg object-cover shadow-md border border-gray-200"
             loading="lazy"

@@ -19,7 +19,7 @@
                     </td>
                     <td>
                         <select [(ngModel)]="step.move" class="select select-bordered w-full max-w-xs">
-                            <option *ngFor="let move of moves; let j = index" [value]="move">{{ moveNames[j] }}</option>
+                            <ng-container *ngFor="let move of moves; let j = index"><option *ngIf="isMoveSelectable(move, step.move)" [value]="move">{{ moveNames[j] }}</option></ng-container>
                         </select>
                     </td>
                     <td>

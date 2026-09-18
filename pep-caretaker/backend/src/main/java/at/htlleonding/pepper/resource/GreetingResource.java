@@ -16,7 +16,7 @@ public class GreetingResource {
     SmallTalkService smallTalkService;
 
     @POST
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String chat(String input) {

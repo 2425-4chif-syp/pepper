@@ -1,4 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { pictureUrl } from '../image-url';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { Person } from '../models/person.model';
 import { ResidentServiceService } from '../service/resident-service.service';
@@ -11,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-resident-details',
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [AuthSrcDirective, RouterLink, CommonModule, FormsModule],
   templateUrl: './resident-details.component.html',
   styleUrl: './resident-details.component.css'
 })
@@ -122,9 +124,9 @@ export class ResidentDetailsComponent implements OnInit {
    * Build an Imagor URL for an image id. Uses backend host encoding similar to other components.
    * width: pixel width to fit into (height auto)
    */
-  getImagorUrl(imageId: number, width = 800): string {
+  getImagorUrl(imageId: number | undefined, width = 800): string {
     if (!imageId) return '';
-    return `https://vm107.htl-leonding.ac.at/imagor/unsafe/fit-in/${width}x0/http%3A%2F%2Fbackend%3A8080%2Fapi%2Fimage%2Fpicture%2F${imageId}?ngsw-bypass=true`;
+    return pictureUrl(imageId, width);
   }
 
   onImageSelected(event: Event) {

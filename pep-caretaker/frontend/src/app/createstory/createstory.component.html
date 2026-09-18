@@ -49,7 +49,7 @@
            (drop)="onDropToTitle($event); isDragOverTitle = false"
            (click)="navigateToImageUpload()"
            title="Klicken um Titelbild hochzuladen">
-        <img [src]="titleImage" class="w-full h-full object-cover" alt="Titelbild Vorschau"/>
+        <img [appAuthSrc]="titleImage" class="w-full h-full object-cover" alt="Titelbild Vorschau"/>
         
         <!-- Hover-Overlay für Upload-Hinweis -->
         <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center pointer-events-none">
@@ -80,7 +80,7 @@
         <textarea class="w-full border p-2 rounded focus:border-[#22BABB] focus:outline-none focus:ring-1 focus:ring-[#22BABB] transition-all" placeholder="Gesprochener Text" [(ngModel)]="scene.speech"></textarea>
         <div class="flex gap-2 mt-2">
           <select class="border p-2 rounded focus:border-[#22BABB] focus:outline-none focus:ring-1 focus:ring-[#22BABB] transition-all" (change)="updateMovement($event, scene)">
-            <option *ngFor="let moveName of moveNames" [value]="moveName" [selected]="moveName === scene.movement">{{ moveName }}</option>
+            <option *ngFor="let moveName of selectableMoveNames(scene.movement)" [value]="moveName" [selected]="moveName === scene.movement">{{ moveName }}</option>
           </select>
           <select class="border p-2 rounded focus:border-[#22BABB] focus:outline-none focus:ring-1 focus:ring-[#22BABB] transition-all" [(ngModel)]="scene.duration">
             <option *ngFor="let dur of duration" [ngValue]="dur">{{ dur }}s</option>
@@ -99,7 +99,7 @@
              (drop)="onDropToScene($event, scene)"
              (click)="navigateToSceneImageUpload(i)"
              title="Klicken um Bild hochzuladen">
-          <img [src]="scene.image" class="w-full h-full object-cover" alt="Szenenbild"/>
+          <img [appAuthSrc]="scene.image" class="w-full h-full object-cover" alt="Szenenbild"/>
           
           <!-- Hover-Overlay für Upload-Hinweis -->
           <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center">
@@ -186,7 +186,7 @@
          draggable="true"
          (dragstart)="onDragStart($event, image)"
          (click)="setSceneImage(selectedScene, image)">
-      <img [src]="image.href" 
+      <img [appAuthSrc]="image.href" 
            class="w-full h-auto rounded shadow pointer-events-none" 
            [alt]="image.description"/>
       <p class="text-xs text-gray-600 mt-1 text-center">{{ image.description }}</p>

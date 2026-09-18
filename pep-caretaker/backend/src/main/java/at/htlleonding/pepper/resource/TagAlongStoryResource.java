@@ -30,7 +30,7 @@ public class TagAlongStoryResource {
     TagAlongStoryService tagAlongStoryService;
 
     @GET
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     @Operation(summary = "Get all tag along stories")
     public Response getAllTagAlongStory(@QueryParam("withoutDisabled") Boolean withoutDisabled) {
         return Response.ok(tagAlongStoryService.getAll(withoutDisabled)).build();
@@ -38,7 +38,7 @@ public class TagAlongStoryResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     @Operation(summary = "Get one tag along story with id")
     public Response getTagAlongStoriesById(@PathParam("id") Long id) {
         return Response.ok(tagAlongStoryService.getById(id)).build();
@@ -84,7 +84,7 @@ public class TagAlongStoryResource {
 
     @GET
     @Path("/{id}/steps")
-    @RolesAllowed({"admin", "caretaker", "resident"})
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     @Operation(summary = "Get all steps by game id")
     public Response getStepsById(@PathParam("id") Long id) {
         return Response.ok(tagAlongStoryService.getSteps(id)).build();

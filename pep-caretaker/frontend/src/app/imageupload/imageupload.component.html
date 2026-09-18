@@ -1,202 +1,209 @@
-<div class="min-h-screen flex flex-col">
-  <div class="container mx-auto p-5 flex-grow">
-    <div class="w-full mb-4 p-8 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer"
-      (click)="fileInput.click()"
-      (dragover)="onDragOver($event)"
-      (dragleave)="onDragLeave($event)"
-      (drop)="onDrop($event)"
-      [class.border-blue-500]="isDragging"
-      [class.bg-blue-50]="isDragging">
-      
-      <input (change)="onFileSelected($event)" type="file" #fileInput accept="image/*" class="hidden" />
-      <p class="text-gray-600">
-        <span class="text-blue-600 font-medium">Klicken to upload</span> 
-        or drag and drop
+<main class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <header class="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold sm:text-3xl">{{ pageTitle }}</h1>
+      <p class="mt-1 text-base-content/80">
+        Bilder werden für Pepper auf {{ outputWidth }} × {{ outputHeight }} px (16:10) zugeschnitten.
       </p>
-      <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF</p>
     </div>
-    
-    <div class="grid grid-cols-2 py-3 gap-40">
-      <table class="table rounded-md" style="background-color: #9EF8EE;">
-        <tbody>
-          <tr>
-            <td class="font-bold text-lg">Dimension von PEPPER</td>
-            <td class="font-semibold text-lg">1280 x 800</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <table class="table rounded-md" style="background-color: #9EF8EE;">
-        <tbody>
-          <tr>
-            <td class="font-bold text-lg">Dimension vom BILD</td>
-            <td class="font-semibold text-lg">{{uploadedImageSize}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="grid grid-cols-3">
-      <!-- Image Cropper Container-->
-      <div class="rounded-md col-span-2 image-container w-full h-96 bg-gray-200 relative overflow-hidden">
-        <img #image src="" class="max-w-full max-h-full" style="width: 70%;" />
-      </div>
-    
-      <!-- Text Input Fields -->
-      <div class="pt-1 pl-4 col-span-1 mt-0">
-        <input title="Bezeichnung des Bildes eingeben" [(ngModel)]="description" type="text" placeholder="Bezeichnung" class="w-full p-2 mb-2 border rounded" />
-        <!--<input title="Vorname der Person zu der das Bild gehört" [(ngModel)]="firstName" type="text" placeholder="Vorname" class="w-full p-2 mb-2 border rounded" />
-        <input title="Nachname der Person zu der das Bild gehört" [(ngModel)]="lastName" type="text" placeholder="Lastname" class="w-full p-2 mb-2 border rounded" /> 
-      -->
-        <select  (change)="onPersonSelected($event)" title="Person auswählen" [(ngModel)]="selectedPersonId" class="w-full p-2 mb-2 border rounded">
-          <option value="" disabled selected>Person auswählen</option>
-          <option *ngFor="let person of persons()" [value]="person.id">
-            {{ person.firstName }} {{ person.lastName }}
-          </option>
-        </select>
-        <!-- Cropper Functions Buttons using flexbox -->
-        <div class="flex flex-col gap-5 mt-12">
-          <button title="Setzt alles zurück" (click)="reset()" style="background-color: #9EF8EE;" class="btn btn-outline w-full h-20 flex items-center justify-center gap-2 transition-all hover:bg-primary hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-              <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-lg font-semibold">ZURÜCKSETZEN</span>
-          </button>
-          
-          
-          <button title="Lade das aktuelle Bild gecroppt runter" (click)="cropTo1280x800()" style="background-color: #9EF8EE;" class="w-full h-20 btn btn-outline">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-            </svg>
-            BILD HERUNTERLADEN          
-          </button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="mt-4">
-      <label for="zoomRange" class="block text-sm font-medium text-gray-700">ZOOM STUFE</label>
-      <input for="zoomRange" #zoomRange type="range" min="0.05" max="2" step="0.05" value="0" class="zoom-range w-full custom-range" />
+    @if (imageUrl()) {
+      <button type="button" class="btn btn-outline" (click)="openFilePicker()">
+        <svg class="h-5 w-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0-12l-4 4m4-4l4 4" />
+        </svg>
+        Anderes Bild
+      </button>
+    }
+  </header>
 
-    </div>
-    
-    <button title="Zeige vom Bild ein Paar Vorschläge" (click)="cropVariants()" style="background-color: #348888;" class="btn w-full text-white" >
-      <span >{{ showSuggestions && (cropRecommans.length != 0) ? 'VORSCHLÄGE AUSBLENDEN' : 'VORSCHLÄGE ANZEIGEN' }}</span>
+  <!-- Meldungen: Erfolg höflich ansagen, Fehler sofort -->
+  <div aria-live="polite">
+    @if (status(); as s) {
+      <div class="alert mb-6 flex items-center justify-between text-left" [class.alert-success]="s.kind === 'success'" [class.alert-error]="s.kind === 'error'"
+           [attr.role]="s.kind === 'error' ? 'alert' : 'status'">
+        <span>{{ s.text }}</span>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="status.set(null)" aria-label="Meldung schließen">✕</button>
+      </div>
+    }
+  </div>
+
+  <input #fileInput id="image-file" type="file" accept="image/*" class="sr-only" tabindex="-1" aria-hidden="true"
+         (change)="onFileInput($event)" />
+
+  @if (!imageUrl()) {
+    <button type="button"
+            class="dropzone flex min-h-[50vh] w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed p-8 text-center transition-colors
+                   focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary"
+            [class.border-base-300]="!isDragging()"
+            [class.border-primary]="isDragging()"
+            [class.bg-base-200]="isDragging()"
+            (click)="openFilePicker()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+      <svg class="h-16 w-16 text-base-content/60" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+      <span class="text-xl font-semibold">Bild auswählen</span>
+      <span class="text-base-content/80">
+        <span class="hidden sm:inline">oder hierher ziehen · </span>JPG, PNG, WebP oder GIF
+      </span>
     </button>
-    
-    <div class="grid grid-cols-5 mt-5 p-5 gap-10 bg-base-200 rounded-md">
-      @for (item of cropRecommans; track $index) {
-        <div *ngIf="showSuggestions" class="group relative hover:drop-shadow-2xl rounded-md overflow-hidden" (click)="downloadCropRecommans(item)">
-          <img src="{{item}}" alt="Pizza" class="block w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span class="text-white font-bold text-lg cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+  } @else {
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
+      <!-- Editor -->
+      <section class="min-w-0" aria-labelledby="editor-heading">
+        <h2 id="editor-heading" class="sr-only">Ausschnitt wählen</h2>
+
+        <div #editor class="editor h-[55svh] min-h-64 max-h-[40rem] overflow-hidden rounded-2xl bg-base-300
+                    focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary"
+             tabindex="0" role="group" aria-label="Bildausschnitt" aria-describedby="editor-help"
+             (keydown)="onEditorKeydown($event)">
+          <img #image [src]="imageUrl()" (load)="onImageLoaded()" alt="Ausgewähltes Bild" class="block max-w-full" />
+        </div>
+        <p id="editor-help" class="mt-2 text-sm text-base-content/70">
+          Bild ziehen zum Verschieben, Rahmen an den Ecken anpassen.
+          <span class="hidden sm:inline">Tastatur: Pfeiltasten verschieben, + / − zoomen, 0 setzt zurück.</span>
+        </p>
+
+        <!-- Werkzeuge -->
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <div class="flex min-w-[16rem] flex-1 items-center gap-2">
+            <button type="button" class="btn btn-square btn-ghost" (click)="zoomBy(-zoomStep)"
+                    [disabled]="zoomPercent() <= minZoom" aria-label="Verkleinern">
+              <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" d="M5 12h14" />
               </svg>
-            </span>
+            </button>
+            <label for="zoom" class="sr-only">Zoom</label>
+            <input id="zoom" type="range" class="range range-sm flex-1"
+                   [min]="minZoom" [max]="maxZoom" step="5" [value]="zoomPercent()"
+                   [attr.aria-valuetext]="zoomPercent() + ' Prozent'" (input)="onZoomInput($event)" />
+            <button type="button" class="btn btn-square btn-ghost" (click)="zoomBy(zoomStep)"
+                    [disabled]="zoomPercent() >= maxZoom" aria-label="Vergrößern">
+              <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+            <output for="zoom" class="w-14 text-right tabular-nums">{{ zoomPercent() }} %</output>
+          </div>
+
+          <div class="flex gap-2">
+            <button type="button" class="btn btn-square btn-ghost" (click)="rotate(-90)" aria-label="Nach links drehen" title="Nach links drehen">
+              <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+              </svg>
+            </button>
+            <button type="button" class="btn btn-square btn-ghost" (click)="rotate(90)" aria-label="Nach rechts drehen" title="Nach rechts drehen">
+              <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+              </svg>
+            </button>
+            <button type="button" class="btn btn-ghost" (click)="reset()">Zurücksetzen</button>
           </div>
         </div>
-      }
-    </div>
-    <div>
-      <div class="p-5 flex justify-around">
-        <!-- Show different buttons based on context -->
-        <ng-container *ngIf="isFromCreateStory; else normalUpload">
-          <!-- Buttons for story creation flow -->
-          <ng-container *ngIf="getImageType() === 'title'; else sceneImageButtons">
-            <button (click)="saveAndReturnTitleImage()" [disabled]="!description()" style="background-color: #22BABB;" class="btn text-white font-extrabold w-[25%]">
-              TITELBILD ÜBERNEHMEN
+
+        <!-- Größen -->
+        <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+          @if (naturalSize(); as n) {
+            <div class="flex gap-1"><dt class="text-base-content/70">Original:</dt><dd class="font-medium tabular-nums">{{ n.width }} × {{ n.height }} px</dd></div>
+          }
+          @if (cropSize(); as c) {
+            <div class="flex gap-1"><dt class="text-base-content/70">Ausschnitt:</dt><dd class="font-medium tabular-nums">{{ c.width }} × {{ c.height }} px</dd></div>
+          }
+          <div class="flex gap-1"><dt class="text-base-content/70">Pepper:</dt><dd class="font-medium tabular-nums">{{ outputWidth }} × {{ outputHeight }} px</dd></div>
+        </dl>
+        @if (isUpscaled()) {
+          <div class="alert alert-warning mt-3 text-sm" role="status">
+            <span>Der Ausschnitt ist kleiner als {{ outputWidth }} × {{ outputHeight }} px und wird vergrößert – er kann auf Pepper unscharf wirken.</span>
+          </div>
+        }
+
+        <!-- Vorschläge -->
+        @if (suggestions().length > 0) {
+          <section class="mt-8" aria-labelledby="suggestions-heading">
+            <h2 id="suggestions-heading" class="text-lg font-semibold">Vorschläge</h2>
+            <p class="text-sm text-base-content/70">Antippen, um den Ausschnitt zu übernehmen.</p>
+            <ul class="mt-3 flex snap-x gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible xl:grid-cols-4">
+              @for (s of suggestions(); track s.label; let i = $index) {
+                <li class="w-40 shrink-0 snap-start sm:w-auto">
+                  <button type="button"
+                          class="suggestion w-full overflow-hidden rounded-xl border-2 bg-base-100 text-left transition
+                                 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary"
+                          [class.border-primary]="activeSuggestion() === i"
+                          [class.border-base-300]="activeSuggestion() !== i"
+                          [attr.aria-pressed]="activeSuggestion() === i"
+                          (click)="applySuggestion(i)">
+                    <img [src]="s.thumbnail" alt="" class="block aspect-[16/10] w-full object-cover" />
+                    <span class="flex items-center justify-between gap-2 px-3 py-2 text-sm font-medium">
+                      {{ s.label }}
+                      @if (activeSuggestion() === i) {
+                        <svg class="h-5 w-5 text-primary" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      }
+                    </span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      </section>
+
+      <!-- Vorschau, Angaben, Aktionen -->
+      <aside class="flex min-w-0 flex-col gap-6 lg:sticky lg:top-20">
+        <section aria-labelledby="preview-heading">
+          <h2 id="preview-heading" class="mb-2 text-lg font-semibold">Vorschau auf Pepper</h2>
+          <div #preview class="crop-preview aspect-[16/10] w-full overflow-hidden rounded-xl bg-base-200"
+               role="img" aria-label="Vorschau des gewählten Ausschnitts"></div>
+        </section>
+
+        <form class="flex flex-col gap-4" (ngSubmit)="save()">
+          @if (!storyImageType) {
+            <label class="form-control w-full">
+              <span class="label-text mb-1 font-medium">Bezeichnung <span aria-hidden="true">*</span></span>
+              <input type="text" name="description" class="input input-bordered w-full" required autocomplete="off"
+                     placeholder="z. B. Ausflug in den Tierpark" [(ngModel)]="description" />
+            </label>
+
+            <label class="form-control w-full">
+              <span class="label-text mb-1 font-medium">Person <span class="font-normal text-base-content/70">(optional)</span></span>
+              <select name="person" class="select select-bordered w-full" [(ngModel)]="selectedPersonId">
+                <option [ngValue]="null">Keine Person</option>
+                @for (person of persons(); track person.id) {
+                  <option [ngValue]="person.id">{{ person.lastName }} {{ person.firstName }}</option>
+                }
+              </select>
+            </label>
+          }
+
+          <div class="flex flex-col gap-3">
+            <button type="submit" class="btn btn-save w-full" [disabled]="!canSave()">
+              @if (saving()) {
+                <span class="loading loading-spinner" aria-hidden="true"></span>
+                Wird gespeichert …
+              } @else {
+                {{ storyImageType === 'title' ? 'Als Titelbild übernehmen'
+                   : storyImageType === 'scene' ? 'Als Szenenbild übernehmen'
+                   : 'Bild speichern' }}
+              }
             </button>
-          </ng-container>
-          
-          <ng-template #sceneImageButtons>
-            <button (click)="saveAndReturnSceneImage()" [disabled]="!description()" style="background-color: #22BABB;" class="btn text-white font-extrabold w-[25%]">
-              SZENENBILD ÜBERNEHMEN
+            @if (!storyImageType && !description().trim()) {
+              <p class="-mt-1 text-sm text-base-content/70">Zum Speichern bitte eine Bezeichnung eingeben.</p>
+            }
+            <button type="button" class="btn btn-outline w-full" (click)="download()">
+              <svg class="h-5 w-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
+              </svg>
+              Herunterladen
             </button>
-          </ng-template>
-          
-          <button (click)="onCancel()" routerLink="/createstory" style="background-color: #F24405;" class="btn w-[25%] text-white">
-            ZURÜCK ZUR GESCHICHTE
-          </button>
-        </ng-container>
-        
-        <ng-template #normalUpload>
-          <!-- Original buttons for normal image upload -->
-          <button (click)="saveToDb()" [disabled]="!description()" style="background-color: #22BABB;" class="btn text-white font-extrabold w-[25%]">
-            BILD SPEICHERN
-          </button>
-          <button (click)="onCancel()" style="background-color: #F24405;" class="btn w-[25%]">
-            <a class="text-white">HOCHLADEN ABBRECHEN</a>
-          </button>
-        </ng-template>
-      </div>
+            <button type="button" class="btn btn-ghost w-full" (click)="cancel()">
+              {{ storyImageType ? 'Zurück zur Geschichte' : 'Abbrechen' }}
+            </button>
+          </div>
+        </form>
+      </aside>
     </div>
-  </div>
-</div>
-
-<style>
-  .custom-range {
-    appearance: none;
   }
-  
-  .custom-range::-webkit-slider-runnable-track {
-    height: 0.8em; /* Adjust the track */
-    background: #a995ff;
-    border-radius: 1em;
-  }
-  
-  .custom-range::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
-    background: #6d4cff;
-    border-radius: 50%;
-    cursor: pointer;
-    appearance: none;
-    margin-top: -4px; /* Align thumb to track */
-  }
-
-  .buttons-wrapper {
-  margin-top: 2rem; /* Standard-Abstand */
-  transition: margin-top 0.3s ease-in-out; /* Flüssige Animation */
-  }
-
-  /* Wenn die Vorschläge angezeigt werden */
-  .push-buttons-down {
-    margin-top: 6rem; /* Größerer Abstand, um Platz für die Vorschläge zu schaffen */
-  }
-
-  /* Flexbox für den Hauptcontainer */
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Inhalte am Anfang des Containers ausrichten */
-    align-items: stretch; /* Vollständige Breite nutzen */
-  }
-
-  /* Verhindern, dass die Buttons fixiert sind */
-  .buttons-wrapper {
-    position: static; /* Entfernt eventuelle Fixierung */
-  }
-  .btn.btn-outline {
-    background: transparent !important;
-    color: var(--btn-color, #348888) !important;
-    border: 2px solid var(--btn-color, #348888) !important;
-  }
-  .btn.btn-outline:hover,
-
-  .btn.btn-outline:focus {
-    background: var(--btn-color, #348888) !important;
-    color: #ffffff !important;
-    border-color: var(--btn-color, #348888) !important;
-  }
-
-  /* Ensure SVG icons inherit button color */
-  .btn svg {
-    color: currentColor;
-  }
-
-  /* Optional: smaller transition for nicer effect */
-  .btn.btn-outline {
-    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
-  }
-</style>
+</main>
