@@ -1,7 +1,0 @@
-# See https://github.com/compose-spec/compose-spec/issues/510
-# The syntax error below is reported due to a bug in the docker compose sepc.
-include:
-  - postgres.yaml
-  - keycloak.yaml
-#  - backend.yaml
-#  - frontend.yaml
