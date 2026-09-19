@@ -8,6 +8,7 @@ import { ImageJson } from '../models/image-json.model';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { authHeaders } from '../auth.interceptor';
+import { pictureUrl } from '../image-url';
 
 interface Scene {
   speech: string;
@@ -63,6 +64,8 @@ export class CreatestoryComponent {
   }
 
   scenes: Scene[] = [];
+  saving = signal(false);
+  saveError = signal<string | null>(null);
   isSidebarVisible = false;
   selectedScene: Scene | null = null;
   // bild von pngtree => gratis
@@ -144,10 +147,13 @@ export class CreatestoryComponent {
     const returnedImage = sessionStorage.getItem('croppedTitleImage');
     const returnedSceneImage = sessionStorage.getItem('croppedSceneImage');
     
-    if (pendingState && (returnedImage || returnedSceneImage)) {
-      // State wiederherstellen
+    const cancelled = sessionStorage.getItem('storyImageCancelled') === 'true';
+
+    if (pendingState && (returnedImage || returnedSceneImage || cancelled)) {
+      // State wiederherstellen (auch wenn der Upload abgebrochen wurde)
       const storyState = JSON.parse(pendingState);
       this.titleName = storyState.titleName;
+      this.titleImage = storyState.titleImage || this.titleImage;
       this.scenes = storyState.scenes;
       this.storyId = storyState.storyId;
       
@@ -168,6 +174,7 @@ export class CreatestoryComponent {
       sessionStorage.removeItem('pendingStoryState');
       sessionStorage.removeItem('croppedTitleImage');
       sessionStorage.removeItem('croppedSceneImage');
+      sessionStorage.removeItem('storyImageCancelled');
       
       console.log('Story state restored with new image');
     }
@@ -255,37 +262,19 @@ private loadImagesOld(): void {
     // 🚀 OPTIMIERUNG: Szenen sofort laden (höchste Priorität)
     this.loadScenes(storyId);
 
-    // Titel parallel laden (niedrigere Priorität) - nur wenn nicht bereits vorhanden
-    if (!this.hasExistingData || !this.titleName) {
-      fetch(`/api/tagalongstories/${storyId}`, { headers: authHeaders() })
+    // Titel und Titelbild laden. Das Titelbild wird per ID referenziert (kein Base64), damit es beim
+    // Speichern unverändert bleibt und nicht erneut hochgeladen wird.
+    fetch(`/api/tagalongstories/${storyId}`, { headers: authHeaders() })
       .then(response => response.json())
       .then(data => {
-        console.log(data.name);
-        this.titleName = data.name
+        if (!this.hasExistingData || !this.titleName) {
+          this.titleName = data.name;
+        }
+        if (data.storyIcon?.id) {
+          this.titleImage = pictureUrl(data.storyIcon.id);
+        }
       })
       .catch(error => console.error('Fehler beim Abrufen:', error));
-    } else {
-      console.log('✅ Story-Titel bereits verfügbar, API-Call übersprungen');
-    }
-
-    // Titelbild parallel laden (niedrigste Priorität) - nur wenn nicht bereits vorhanden
-    if (!this.hasExistingData || !this.existingStoryData?.imageUrl) {
-      this.service.getTitleImage(storyId).subscribe({
-        next: data => {        
-          console.log("Titelbild erhalten:", data);
-          if (data) {
-            this.titleImage = 'data:image/png;base64,' + data;        
-          } else {
-            this.titleImage = 'assets/images/imageNotFound.png';
-          }
-        },
-        error: error => {
-          console.warn("Fehler beim Laden des Titelbildes:", error);
-          this.titleImage = 'assets/images/imageNotFound.png';
-        }
-      });
-    } else {
-    }
 
     // Diese alten Base64 Aufrufe entfernen wir
     // this.service.getImageBase64(storyId).subscribe(...)
@@ -305,7 +294,8 @@ private loadImagesOld(): void {
             speech: scene.text,
             movement: this.moveNames[moveIndex] || scene.move.name,
             duration: +scene.durationInSeconds,
-            image: 'assets/images/imageNotFound.png', // Platzhalter - KEIN Base64!
+            // Bild direkt über seine ID referenzieren, damit es auch ohne geladene Bildliste erhalten bleibt
+            image: scene.image?.id ? pictureUrl(scene.image.id) : 'assets/images/imageNotFound.png',
             isDragOver: false,
           };
         });
@@ -492,75 +482,55 @@ private loadImagesOld(): void {
     this.isSidebarVisible = !this.isSidebarVisible;
   }
   async saveButton() {
-    if (!this.titleName || !this.titleImage) {
-      console.error('Titel oder Bild fehlen');
+    if (this.saving()) return;
+    this.saveError.set(null);
+
+    if (!this.titleName) {
+      this.saveError.set('Bitte einen Titel eingeben.');
+      return;
+    }
+    if (this.isDefaultTitleImage()) {
+      this.saveError.set('Bitte ein Titelbild auswählen (Bild anklicken oder aus „Bilder anzeigen“ hineinziehen).');
       return;
     }
 
-    console.log('🚀 SAVE: Verarbeite Titelbild:', this.titleImage.substring(0, 50) + '...');
-
-    // Konvertiere das Titelbild zu base64, falls es das Standard-Bild ist
-    const convertedTitleImage = await this.convertImageToBase64(this.titleImage);
-    
-    console.log('✅ SAVE: Konvertiertes Titelbild:', convertedTitleImage.substring(0, 50) + '...');
-
-    const storyData = {
-      name: this.titleName,
-      icon: convertedTitleImage,
-      gameType: { id: 'TAG_ALONG_STORY', name: 'Mitmachgeschichten' },
-      enabled: true,
-    };
-
-    console.log('📦 SAVE: Sende Daten an Backend:', {
-      ...storyData,
-      icon: storyData.icon.substring(0, 50) + '... [' + storyData.icon.length + ' chars]'
-    });
-
+    this.saving.set(true);
     try {
-      let response;
+      const iconRef = await this.imageRef(this.titleImage);
+      const storyData = {
+        name: this.titleName,
+        icon: iconRef.image,
+        iconId: iconRef.imageId,
+        gameType: { id: 'TAG_ALONG_STORY', name: 'Mitmachgeschichten' },
+        enabled: true,
+      };
 
-      if (this.storyId) {
-        // **UPDATE bestehende Geschichte**
-        console.log(`🔄 UPDATE: Aktualisiere Geschichte ID ${this.storyId}`);
-        response = await fetch(`/api/tagalongstories/${this.storyId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', ...authHeaders() },
-          body: JSON.stringify(storyData),
-        });
-      } else {
-        // **NEUE Geschichte erstellen**
-        console.log('🆕 CREATE: Erstelle neue Geschichte');
-        response = await fetch(`/api/tagalongstories`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', ...authHeaders() },
-          body: JSON.stringify(storyData),
-        });
-      }
-
+      const response = await fetch(this.storyId ? `/api/tagalongstories/${this.storyId}` : `/api/tagalongstories`, {
+        method: this.storyId ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        body: JSON.stringify(storyData),
+      });
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ Backend Error:', response.status, errorText);
-        throw new Error(`Fehler beim Speichern: ${response.statusText}`);
+        throw new Error(await errorMessage(response, 'Geschichte konnte nicht gespeichert werden'));
       }
 
       const data = await response.json();
-      console.log(`Geschichte gespeichert mit ID: ${data.id}`);
-
       this.storyId = data.id; // Speichert die ID für spätere Updates
 
       await this.saveScenes();
-      window.location.href = '/tagalongstory';
-
+      this.router.navigate(['/tagalongstory']);
     } catch (error) {
       console.error('Fehler beim Speichern der Geschichte:', error);
+      this.saveError.set(error instanceof Error ? error.message : 'Speichern fehlgeschlagen.');
+    } finally {
+      this.saving.set(false);
     }
   }
 
 
   async saveScenes() {
     if (!this.storyId) {
-      console.error('Keine Story-ID vorhanden.');
-      return;
+      throw new Error('Keine Story-ID vorhanden.');
     }
 
     // 🔍 DEBUG: Aktuelle Scene-Werte anzeigen
@@ -569,84 +539,97 @@ private loadImagesOld(): void {
       console.log(`Scene ${index + 1}: duration = ${scene.duration}, movement = ${scene.movement}`);
     });
 
-    try {
-      // 🚀 FIX: Erst alle Szenen löschen, dann neu erstellen
-      // Lösche alle bestehenden Szenen
-      const deleteResponse = await fetch(`/api/tagalongstories/${this.storyId}/steps`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', ...authHeaders() },
-      });
-      
-      if (!deleteResponse.ok) {
-        console.warn('⚠️ Warnung beim Löschen alter Szenen:', deleteResponse.status);
-      } else {
-        console.log('✅ Alle alten Szenen erfolgreich gelöscht');
-      }
-      
-      // **Neue Szenen speichern**
-      for (const [index, scene] of this.scenes.entries()) {
-        console.log(`🔍 Raw scene object:`, scene);
-        
-        const moveIndex = this.moveNames.indexOf(scene.movement);
-        const moveId = moveIndex !== -1 ? moveIndex + 1 : 1;
-
-        // 🔍 DEBUG: Scene-Duration vor Speichern
-        console.log(`Scene ${index + 1} vor Speichern:`, {
-          duration: scene.duration,
-          type: typeof scene.duration,
-          isValid: scene.duration > 0,
-          rawValue: scene.duration
-        });
-
-        // 🚀 FIX: Duration validieren und Default-Wert setzen
-        const duration = (scene.duration && scene.duration > 0) ? Number(scene.duration) : 5;
-        console.log(`Scene ${index + 1}: Using duration = ${duration} (original: ${scene.duration}, type: ${typeof scene.duration})`);
-
-        // Test: Hardcode 15 to see if backend accepts it
-        const testDuration = 15;
-        console.log(`🧪 TEST: Sending hardcoded duration = ${testDuration}`);
-
-        // Konvertiere das Bild zu base64, falls es das Standard-Bild ist
-        const convertedImage = await this.convertImageToBase64(scene.image);        // Konvertiere das Titelbild auch zu base64, falls es das Standard-Bild ist
-        const convertedTitleImage = await this.convertImageToBase64(this.titleImage);
-
-        const sceneData = {
-          game: {
-            name: this.titleName,
-            icon: convertedTitleImage,
-            gameType: { id: 'TAG_ALONG_STORY', name: 'Mitmachgeschichten' },
-            enabled: true
-          },
-          index: index + 1,
-          image: convertedImage,
-          image_desc: 'Beschreibung des Bildes',
-          move: { id: moveId, name: scene.movement, description: this.moves[moveIndex] || 'Unbekannt' },
-          text: scene.speech,
-          durationInSeconds: scene.duration, 
-        };
-
-        console.log(`📤 Sending scene ${index + 1} with durationInSeconds: ${sceneData.durationInSeconds}`);
-        console.log('📤 Full payload:', JSON.stringify(sceneData, null, 2));
-
-        const response = await fetch(`/api/tagalongstories/${this.storyId}/steps`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', ...authHeaders() },
-          body: JSON.stringify(sceneData),
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('❌ Backend Error:', response.status, errorText);
-          throw new Error(`Fehler beim Speichern der Szene: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log(`✅ Scene ${index + 1} saved with ID: ${data.id}`);
-        console.log('📥 Backend response:', JSON.stringify(data, null, 2));
-      }
-    } catch (error) {
-      console.error('Fehler beim Speichern der Szenen:', error);
+    // Alte Szenen merken; sie werden erst NACH dem Anlegen der neuen gelöscht, damit ihre
+    // Bilder noch existieren, wenn die neuen Szenen sie per ID referenzieren.
+    const oldStepsResponse = await fetch(`/api/tagalongstories/${this.storyId}/steps`, { headers: authHeaders() });
+    if (!oldStepsResponse.ok) {
+      throw new Error(await errorMessage(oldStepsResponse, 'Bestehende Szenen konnten nicht geladen werden'));
     }
+    const oldStepIds: number[] = (await oldStepsResponse.json()).map((step: { id: number }) => step.id);
+
+    // Base64-Upload -> Bild-ID, damit dasselbe Bild in mehreren Szenen nur einmal gespeichert wird
+    const uploadedImageIds = new Map<string, number>();
+
+    // **Neue Szenen speichern**
+    for (const [index, scene] of this.scenes.entries()) {
+      console.log(`🔍 Raw scene object:`, scene);
+      
+      const moveIndex = this.moveNames.indexOf(scene.movement);
+      const moveId = moveIndex !== -1 ? moveIndex + 1 : 1;
+
+      // 🔍 DEBUG: Scene-Duration vor Speichern
+      console.log(`Scene ${index + 1} vor Speichern:`, {
+        duration: scene.duration,
+        type: typeof scene.duration,
+        isValid: scene.duration > 0,
+        rawValue: scene.duration
+      });
+
+      // 🚀 FIX: Duration validieren und Default-Wert setzen
+      const duration = (scene.duration && scene.duration > 0) ? Number(scene.duration) : 5;
+      console.log(`Scene ${index + 1}: Using duration = ${duration} (original: ${scene.duration}, type: ${typeof scene.duration})`);
+
+      const imageRef = await this.imageRef(scene.image, uploadedImageIds);
+
+      const sceneData = {
+        index: index + 1,
+        ...imageRef,
+        image_desc: 'Beschreibung des Bildes',
+        move: { id: moveId, name: scene.movement, description: this.moves[moveIndex] || 'Unbekannt' },
+        text: scene.speech,
+        durationInSeconds: scene.duration, 
+      };
+
+      console.log(`📤 Sending scene ${index + 1} with durationInSeconds: ${sceneData.durationInSeconds}`);
+      console.log('📤 Full payload:', JSON.stringify(sceneData, null, 2));
+
+      const response = await fetch(`/api/tagalongstories/${this.storyId}/steps`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        body: JSON.stringify(sceneData),
+      });
+
+      if (!response.ok) {
+        throw new Error(await errorMessage(response, `Szene ${index + 1} konnte nicht gespeichert werden`));
+      }
+
+      const data = await response.json();
+      if (imageRef.image && data.image?.id) {
+        uploadedImageIds.set(imageRef.image, data.image.id);
+      }
+      console.log(`✅ Scene ${index + 1} saved with ID: ${data.id}`);
+      console.log('📥 Backend response:', JSON.stringify(data, null, 2));
+    }
+
+    for (const stepId of oldStepIds) {
+      const deleteResponse = await fetch(`/api/tagalongstories/${this.storyId}/steps/${stepId}`, {
+        method: 'DELETE',
+        headers: authHeaders(),
+      });
+      if (!deleteResponse.ok) {
+        throw new Error(await errorMessage(deleteResponse, 'Alte Szene konnte nicht entfernt werden'));
+      }
+    }
+  }
+
+  /**
+   * Gespeicherte Bilder nur per ID referenzieren, neue Uploads nur einmal hochladen (uploadedImageIds)
+   * und das Platzhalterbild gar nicht speichern.
+   */
+  private async imageRef(
+    image: string,
+    uploadedImageIds = new Map<string, number>()
+  ): Promise<{ imageId?: number; image?: string }> {
+    if (!image || this.isDefaultImage({ image } as Scene)) {
+      return {};
+    }
+    const serverId = image.match(/\/image\/picture\/(\d+)/)?.[1];
+    if (serverId) {
+      return { imageId: Number(serverId) };
+    }
+    const base64 = await this.convertImageToBase64(image);
+    const knownId = uploadedImageIds.get(base64);
+    return knownId ? { imageId: knownId } : { image: base64 };
   }
 
   // Drag & Drop Methoden
@@ -804,4 +787,15 @@ private loadImagesOld(): void {
     this.searchTerm = '';
     this.onSearchChange();
   }
+}
+
+/** Fehlermeldung aus der JSON-ErrorResponse des Backends, sonst ein allgemeiner Text mit Statuscode. */
+async function errorMessage(response: Response, fallback: string): Promise<string> {
+  try {
+    const body = await response.json();
+    if (body?.message) return `${fallback}: ${body.message}`;
+  } catch {
+    // kein JSON
+  }
+  return `${fallback} (HTTP ${response.status})`;
 }

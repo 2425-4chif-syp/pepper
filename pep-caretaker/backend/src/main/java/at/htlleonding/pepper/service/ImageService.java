@@ -5,16 +5,22 @@ import at.htlleonding.pepper.dto.ImageDto;
 import at.htlleonding.pepper.dto.ImageLinkDto;
 import at.htlleonding.pepper.model.Image;
 import at.htlleonding.pepper.model.Person;
+import at.htlleonding.pepper.model.Game;
+import at.htlleonding.pepper.repository.GameRepository;
 import at.htlleonding.pepper.repository.ImageRepository;
 import at.htlleonding.pepper.repository.PersonRepository;
+import at.htlleonding.pepper.repository.StepRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.NotFoundException;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.function.Function;
 
 @ApplicationScoped
@@ -28,6 +34,12 @@ public class ImageService {
 
     @Inject
     MinioService minioService;
+
+    @Inject
+    StepRepository stepRepository;
+
+    @Inject
+    GameRepository gameRepository;
 
     public record Picture(byte[] bytes, String contentType, String fileName) {
     }
@@ -121,7 +133,39 @@ public class ImageService {
         if (image == null) {
             throw new NotFoundException("Image " + id + " not found");
         }
+        List<String> stories = storiesUsing(image);
+        if (!stories.isEmpty()) {
+            throw new ClientErrorException(
+                    "Das Bild wird noch in folgenden Mitmachgeschichten verwendet: " + String.join(", ", stories),
+                    409);
+        }
         deleteImage(image);
+    }
+
+    /** Names of the stories whose title or one of whose scenes shows this image. */
+    public List<String> storiesUsing(Image image) {
+        Stream<Game> asIcon = gameRepository.list("storyIcon", image).stream();
+        Stream<Game> inSteps = stepRepository.list("image", image).stream().map(step -> step.getGame());
+        return Stream.concat(asIcon, inSteps)
+                .filter(game -> game != null)
+                .map(Game::getName)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Deletes an image that was uploaded for a story (object key starts with {@code ownedKeyPrefix}) once
+     * nothing references it anymore. Library images that stories only reference are kept.
+     */
+    @Transactional
+    public void deleteIfOwnedAndUnused(Image image, String ownedKeyPrefix) {
+        if (image == null || image.getObjectKey() == null || !image.getObjectKey().startsWith(ownedKeyPrefix)) {
+            return;
+        }
+        stepRepository.flush();
+        if (storiesUsing(image).isEmpty()) {
+            deleteImage(image);
+        }
     }
 
     @Transactional

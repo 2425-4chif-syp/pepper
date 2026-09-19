@@ -96,8 +96,8 @@ export class PictureOverviewComponent {
               href: this.transformImageUrl(image.href),
               originalHref: image.href 
             })).reverse();
-            this.images.set(encodedImages);
             this.standartImages.set(encodedImages);
+            this.aktiverFilter(); // aktiven Filter (z. B. nach dem Löschen) beibehalten
           console.log(this.images());
         },
         error: err=>{
@@ -112,6 +112,8 @@ export class PictureOverviewComponent {
   }
 
   selectedImage = signal<ImageJson | null>(null);
+  deleting = signal(false);
+  deleteError = signal<string | null>(null);
 
   // Fokus beim Öffnen auf den Schließen-Button, damit Tastatur/Screenreader im Dialog landen
   @ViewChild('closeButton') set closeButton(button: ElementRef<HTMLButtonElement> | undefined) {
@@ -130,6 +132,7 @@ export class PictureOverviewComponent {
 
   closePreview() {
     this.selectedImage.set(null);
+    this.deleteError.set(null);
   }
 
   downloadImage() {
@@ -174,15 +177,21 @@ export class PictureOverviewComponent {
 
   deleteImage() {
     const image = this.selectedImage();
-    if (!image || !image.description) return;
+    if (!image || this.deleting()) return;
+    if (!confirm(`Möchten Sie das Bild „${image.description || 'ohne Beschreibung'}“ wirklich löschen?`)) return;
 
+    this.deleting.set(true);
+    this.deleteError.set(null);
     this.imagesService.deleteImage(image.id).subscribe({
       next: () => {
-        this.closePreview()
+        this.deleting.set(false);
+        this.closePreview();
         this.loadImages();
       },
       error: err => {
+        this.deleting.set(false);
         console.error('Error deleting image:', err);
+        this.deleteError.set(err?.error?.message || `Das Bild konnte nicht gelöscht werden (HTTP ${err?.status ?? '?'}).`);
       }
     });
   }

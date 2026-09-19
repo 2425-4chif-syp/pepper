@@ -64,25 +64,6 @@ export class ImageServiceService {
     return this.http.get<ImageJson>(`${environment.apiUrl}image/pictures/${imageId}`);
   }
 
-  getTitleImage(id: number): Observable<string | null> {
-    const apiUrl = '/api/tagalongstories/' + id + '/image';
-    return new Observable(observer => {
-      this.http.get(apiUrl, { responseType: 'text' }).subscribe(
-        response => {
-          if (response) {
-            observer.next(response); // Der Base64-String wird direkt zurückgegeben
-          } else {
-            observer.next(null);
-          }
-          observer.complete();
-        },
-        error => {
-          observer.error(error);
-        }
-      );
-    });
-  }
-  
   deleteImage(id: number){
     return this.http.delete("/api/image/" + id, httpOptions)
   }

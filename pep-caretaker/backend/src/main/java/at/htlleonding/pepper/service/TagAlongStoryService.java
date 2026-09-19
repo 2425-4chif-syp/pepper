@@ -11,6 +11,7 @@ import at.htlleonding.pepper.model.Move;
 import at.htlleonding.pepper.model.Step;
 import at.htlleonding.pepper.repository.GameRepository;
 import at.htlleonding.pepper.repository.GameTypeRepository;
+import at.htlleonding.pepper.repository.ImageRepository;
 import at.htlleonding.pepper.repository.MoveRepository;
 import at.htlleonding.pepper.repository.StepRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -25,6 +26,8 @@ import java.util.List;
 public class TagAlongStoryService {
 
     private static final String TAG_ALONG_STORY = "TAG_ALONG_STORY";
+    private static final String STEP_IMAGE_PREFIX = "story-step/";
+    private static final String ICON_IMAGE_PREFIX = "story/";
 
     @Inject
     GameRepository gameRepository;
@@ -40,6 +43,9 @@ public class TagAlongStoryService {
 
     @Inject
     ImageService imageService;
+
+    @Inject
+    ImageRepository imageRepository;
 
     public List<TagAlongStoryDto> getAll(Boolean withoutDisabled) {
         List<Game> games = Boolean.TRUE.equals(withoutDisabled)
@@ -69,7 +75,7 @@ public class TagAlongStoryService {
         if (gameDto == null) {
             throw new BadRequestException("Tag along story is required");
         }
-        if (gameDto.icon() == null || gameDto.icon().isBlank()) {
+        if (gameDto.iconId() == null && (gameDto.icon() == null || gameDto.icon().isBlank())) {
             throw new BadRequestException("The icon of tag along story is required");
         }
 
@@ -78,14 +84,7 @@ public class TagAlongStoryService {
         game.setEnabled(Boolean.TRUE.equals(gameDto.isEnabled()));
         game.setGameType(resolveGameType(gameDto.gameType()));
 
-        Image image = imageService.storeImage(
-                gameDto.icon(),
-                null,
-                null,
-                "Bild fuer Mitmachgeschichte",
-                "story"
-        );
-        game.setStoryIcon(image);
+        game.setStoryIcon(resolveIcon(gameDto));
         gameRepository.persist(game);
         return game;
     }
@@ -106,18 +105,12 @@ public class TagAlongStoryService {
         if (gameDto.gameType() != null) {
             existingGame.setGameType(resolveGameType(gameDto.gameType()));
         }
-        if (gameDto.icon() != null && !gameDto.icon().isBlank()) {
+        if (gameDto.iconId() != null || (gameDto.icon() != null && !gameDto.icon().isBlank())) {
             Image oldIcon = existingGame.getStoryIcon();
-            Image newIcon = imageService.storeImage(
-                    gameDto.icon(),
-                    null,
-                    null,
-                    "Bild fuer Mitmachgeschichte",
-                    "story"
-            );
+            Image newIcon = resolveIcon(gameDto);
             existingGame.setStoryIcon(newIcon);
-            if (oldIcon != null) {
-                imageService.deleteImage(oldIcon);
+            if (oldIcon != null && !oldIcon.equals(newIcon)) {
+                imageService.deleteIfOwnedAndUnused(oldIcon, ICON_IMAGE_PREFIX);
             }
         }
 
@@ -127,19 +120,10 @@ public class TagAlongStoryService {
     @Transactional
     public void delete(Long id) {
         Game game = findTagAlongStory(id);
-        List<Step> steps = stepRepository.findByGameId(id);
-        for (Step step : steps) {
-            Image image = step.getImage();
-            stepRepository.delete(step);
-            if (image != null) {
-                imageService.deleteImage(image);
-            }
-        }
+        deleteAllSteps(id);
         Image storyIcon = game.getStoryIcon();
         gameRepository.delete(game);
-        if (storyIcon != null) {
-            imageService.deleteImage(storyIcon);
-        }
+        imageService.deleteIfOwnedAndUnused(storyIcon, ICON_IMAGE_PREFIX);
     }
 
     public List<StepResponseDto> getSteps(Long gameId) {
@@ -163,7 +147,9 @@ public class TagAlongStoryService {
         step.setDurationInSeconds(stepDto.durationInSeconds());
         step.setMove(resolveMove(stepDto.move()));
 
-        if (stepDto.image() != null && !stepDto.image().isBlank()) {
+        if (stepDto.imageId() != null) {
+            step.setImage(findImage(stepDto.imageId()));
+        } else if (stepDto.image() != null && !stepDto.image().isBlank()) {
             Image image = imageService.storeImage(
                     stepDto.image(),
                     null,
@@ -189,12 +175,36 @@ public class TagAlongStoryService {
             throw new BadRequestException("Step does not belong to game " + gameId);
         }
 
+        removeStep(step);
+        return step;
+    }
+
+    private void deleteAllSteps(Long gameId) {
+        for (Step step : stepRepository.findByGameId(gameId)) {
+            removeStep(step);
+        }
+    }
+
+    private void removeStep(Step step) {
         Image image = step.getImage();
         stepRepository.delete(step);
-        if (image != null) {
-            imageService.deleteImage(image);
+        imageService.deleteIfOwnedAndUnused(image, STEP_IMAGE_PREFIX);
+    }
+
+    /** An existing image referenced by {@code iconId}, otherwise the uploaded {@code icon} stored as a new image. */
+    private Image resolveIcon(GameDto gameDto) {
+        if (gameDto.iconId() != null) {
+            return findImage(gameDto.iconId());
         }
-        return step;
+        return imageService.storeImage(gameDto.icon(), null, null, "Bild fuer Mitmachgeschichte", "story");
+    }
+
+    private Image findImage(Long id) {
+        Image image = imageRepository.findById(id);
+        if (image == null) {
+            throw new NotFoundException("Image " + id + " not found");
+        }
+        return image;
     }
 
     private Game findTagAlongStory(Long id) {

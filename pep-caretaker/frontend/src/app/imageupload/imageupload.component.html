@@ -168,13 +168,22 @@
             </label>
 
             <label class="form-control w-full">
-              <span class="label-text mb-1 font-medium">Person <span class="font-normal text-base-content/70">(optional)</span></span>
+              <span class="label-text mb-1 font-medium">Verwendung</span>
               <select name="person" class="select select-bordered w-full" [(ngModel)]="selectedPersonId">
-                <option [ngValue]="null">Keine Person</option>
-                @for (person of persons(); track person.id) {
-                  <option [ngValue]="person.id">{{ person.lastName }} {{ person.firstName }}</option>
-                }
+                <option [ngValue]="null">Bild für Mitmachgeschichten (keine Person)</option>
+                <optgroup label="Personenbezogenes Bild von …">
+                  @for (person of persons(); track person.id) {
+                    <option [ngValue]="person.id">{{ person.lastName }} {{ person.firstName }}</option>
+                  }
+                </optgroup>
               </select>
+              <span class="mt-1 text-sm text-base-content/70">
+                @if (selectedPersonId() === null) {
+                  Erscheint unter „Bilder für Mitmachgeschichten“ und kann im Geschichten-Editor verwendet werden.
+                } @else {
+                  Erscheint unter „Personenbezogene Bilder“ (z. B. für das Memory dieser Person).
+                }
+              </span>
             </label>
           }
 

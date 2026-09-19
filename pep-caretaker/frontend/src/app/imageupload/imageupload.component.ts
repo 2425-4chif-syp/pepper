@@ -440,7 +440,8 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
 
   cancel(): void {
     if (this.storyImageType) {
-      sessionStorage.removeItem('pendingStoryState');
+      // pendingStoryState bleibt, damit der Editor die ungespeicherten Änderungen wiederherstellt
+      sessionStorage.setItem('storyImageCancelled', 'true');
       this.router.navigate(['/createstory']);
     } else {
       this.router.navigate(['/pictures']);

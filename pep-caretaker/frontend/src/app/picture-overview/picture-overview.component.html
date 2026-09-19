@@ -74,6 +74,12 @@
         class="min-h-0 w-full flex-1 bg-base-200 object-contain"
       />
 
+      @if (deleteError()) {
+        <div role="alert" class="alert alert-error mx-4 mt-4">
+          <span>{{ deleteError() }}</span>
+        </div>
+      }
+
       <div class="flex justify-center gap-4 p-4">
         <button
           type="button"
@@ -84,10 +90,11 @@
         </button>
         <button
           type="button"
-          class="px-6 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-500"
+          class="px-6 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-500 disabled:opacity-60"
+          [disabled]="deleting()"
           (click)="deleteImage()"
         >
-          Löschen
+          {{ deleting() ? 'Wird gelöscht …' : 'Löschen' }}
         </button>
       </div>
     </div>

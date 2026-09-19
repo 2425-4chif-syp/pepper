@@ -31,6 +31,8 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
   progress = signal<number>(0);
   remainingSeconds = signal<number>(0);
   isMuted = signal<boolean>(false); // 🔇 Mute State
+  // Chromium unter Linux hat ohne --enable-speech-dispatcher keine Stimmen → Sprachausgabe bleibt stumm
+  noVoices = signal<boolean>(false);
 
   private sceneTimer: any = null;
   private progressTimer: any = null;
@@ -109,6 +111,7 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(){
+    this.checkVoices();
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.actId = Number(params['id']);
@@ -118,6 +121,8 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    clearTimeout(this.voiceCheckTimer);
+    this.speechSynthesis.onvoiceschanged = null;
     this.clearTimers();
     this.stopSpeech(); // 🔇 Stoppe Sprachausgabe beim Verlassen
   }
@@ -315,6 +320,8 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
     
     // Konfiguration für deutsche Sprache
     this.currentUtterance.lang = 'de-DE'; // Deutsch
+    const germanVoice = this.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith('de'));
+    if (germanVoice) this.currentUtterance.voice = germanVoice;
     this.currentUtterance.rate = 0.9; // Sprechgeschwindigkeit (0.1 bis 10)
     this.currentUtterance.pitch = 1; // Tonhöhe (0 bis 2)
     this.currentUtterance.volume = 1; // Lautstärke (0 bis 1)
@@ -339,8 +346,22 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
       }
     };
 
-    // Starte Sprachausgabe
-    this.speechSynthesis.speak(this.currentUtterance);
+    this.currentUtterance.onerror = (event) => {
+      // 'interrupted'/'canceled' kommen von Pause/Szenenwechsel und sind erwartet
+      if (event.error !== 'interrupted' && event.error !== 'canceled') {
+        console.warn('🔇 Sprachausgabe fehlgeschlagen:', event.error,
+          '| Stimmen verfügbar:', this.speechSynthesis.getVoices().length);
+      }
+    };
+
+    // Starte Sprachausgabe. Chrome verwirft speak() direkt nach cancel() manchmal stillschweigend,
+    // daher kurz verzögern und prüfen, dass die Äußerung inzwischen nicht ersetzt wurde.
+    const utterance = this.currentUtterance;
+    setTimeout(() => {
+      if (this.currentUtterance === utterance) {
+        this.speechSynthesis.speak(utterance);
+      }
+    }, 50);
     
     console.log('🔊 Spreche ab Position:', startFromIndex, '- Text:', textToSpeak.substring(0, 30) + '...');
   }
@@ -394,6 +415,8 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
       console.log('⏸️ Pausierter Text:', this.currentTextToSpeak.substring(0, 50) + '...');
       console.log('⏸️ Verbleibender Text:', this.currentTextToSpeak.substring(this.spokenCharacterIndex, this.spokenCharacterIndex + 30) + '...');
     } else {
+      // Noch nicht gestartete (verzögerte) Äußerung verwerfen
+      this.currentUtterance = undefined;
       console.log('⏸️ Keine aktive Sprachausgabe zum Pausieren');
     }
   }
@@ -441,6 +464,19 @@ export class PreviewScreenComponent implements OnInit, OnDestroy {
       }
       console.log('🔊 Laut geschaltet');
     }
+  }
+
+  private voiceCheckTimer?: ReturnType<typeof setTimeout>;
+
+  // Stimmen werden asynchron geladen: erst nach kurzer Wartezeit als "keine vorhanden" werten
+  private checkVoices(): void {
+    if (!('speechSynthesis' in window)) {
+      this.noVoices.set(true);
+      return;
+    }
+    const update = () => this.noVoices.set(this.speechSynthesis.getVoices().length === 0);
+    this.speechSynthesis.onvoiceschanged = update;
+    this.voiceCheckTimer = setTimeout(update, 1500);
   }
 
   get currentScene(): Tas | null {

@@ -6,6 +6,15 @@
       <p class="text-sm text-gray-200">Szene {{ currentSceneIndex + 1 }} / {{ steps().length }}</p>
     </div>
 
+    @if (noVoices()) {
+      <div role="alert" class="alert alert-warning mx-auto mb-2 max-w-2xl text-sm">
+        <span>
+          Dieser Browser stellt keine Sprachausgabe bereit, der Text wird daher nicht vorgelesen.
+          Unter Linux bitte Firefox verwenden oder Chromium/Chrome mit <code>--enable-speech-dispatcher</code> starten.
+        </span>
+      </div>
+    }
+
     <!-- Video (fills remaining vertical space) -->
     <div class="flex-1 w-full flex items-center justify-center">
       <video #videoPlayer class="w-full max-h-[75vh] max-w-[95%] rounded-lg shadow-lg object-cover bg-black"
