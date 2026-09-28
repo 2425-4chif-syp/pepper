@@ -38,19 +38,22 @@ services:
     depends_on:
       - pep-db
 
+  # minio/minio ist seit 2025 nur noch mit Anmeldung abrufbar (auch auf quay.io).
+  # bitnamilegacy ist dasselbe MinIO, frei ziehbar. Datenpfad liegt dort unter
+  # /bitnami/minio/data und der Prozess laeuft als Benutzer 1001.
   pep-minio:
-    image: minio/minio:latest
+    image: bitnamilegacy/minio:latest
     container_name: minio
     restart: unless-stopped
-    command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: admin123
+      MINIO_DEFAULT_BUCKETS: pep-caretaker-images
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - minio_data:/data
+      - minio_data:/bitnami/minio/data
 
   # Bild-Resizer vor dem Backend. Auf vm107 laeuft dasselbe unter /imagor/.
   # HTTP_LOADER_FORWARD_HEADERS gibt den Bearer-Token des Aufrufers an das Backend weiter -

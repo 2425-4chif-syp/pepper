@@ -62,25 +62,26 @@ services:
         condition: service_healthy
     networks: [pepper_net]
 
+  # MinIO verteilt seine eigenen Images (minio/minio auf Docker Hub wie auch
+  # quay.io/minio/minio) seit 2025 nur noch mit Anmeldung - ein anonymes Pull
+  # scheitert mit "pull access denied". bitnamilegacy ist dasselbe MinIO in
+  # Bitnamis Paketierung und frei abrufbar. Auf den Digest festgenagelt, weil
+  # dieser Namensraum eingefroren ist und keine Updates mehr bekommt.
   minio:
-    image: minio/minio:latest
+    image: bitnamilegacy/minio@sha256:451fe6858cb770cc9d0e77ba811ce287420f781c7c1b806a386f6896471a349c
     container_name: minio
     restart: unless-stopped
-    command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      # Legt den Bucket beim Start an, falls er fehlt
+      MINIO_DEFAULT_BUCKETS: pep-caretaker-images
     volumes:
-      - minio_data:/data
+      - minio_data:/bitnami/minio/data
     # Nur intern erreichbar - die Bilder laufen ueber das Backend, nicht direkt
     expose:
       - "9000"
       - "9001"
-    healthcheck:
-      test: ["CMD-SHELL", "mc ready local || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
     networks: [pepper_net]
 
   imagor:
@@ -142,6 +143,10 @@ volumes:
 
 networks:
   pepper_net:
-    # Fester Name, damit mealplan.yaml dasselbe Netz benutzt. Nicht "external":
-    # so legt compose es an, falls es fehlt, und uebernimmt es, wenn es schon da ist.
+    # Das Netz teilen sich Caretaker- und Mealplan-Container. Es gehoert damit
+    # keiner der beiden Compose-Dateien: als "external" deklariert, fasst compose
+    # es nicht an. Ohne das versucht compose bei jedem Start, das Netz neu
+    # anzulegen, scheitert an den angehaengten Mealplan-Containern und laesst
+    # die eigenen Dienste gestoppt zurueck.
     name: compose_pepper_net
+    external: true

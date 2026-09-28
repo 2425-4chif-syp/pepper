@@ -90,7 +90,9 @@ jobs:
             # Nur das Backend neu ziehen und ersetzen. Kein "down": Postgres, Keycloak
             # und die Mealplan-Container laufen weiter. Kein --remove-orphans, das
             # wuerde die Mealplan-Container aus demselben Projekt entfernen.
+            # --no-deps: Postgres und MinIO laufen bereits, die sollen von einem
+            # Anwendungs-Deploy nicht neu gestartet werden
             docker compose -f docker-compose.yaml pull backend
-            docker compose -f docker-compose.yaml up -d backend
+            docker compose -f docker-compose.yaml up -d --no-deps backend
             docker image prune -f
             docker compose -f docker-compose.yaml ps
