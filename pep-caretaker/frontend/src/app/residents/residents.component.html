@@ -1,189 +1,113 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <div class="bg-white shadow-lg rounded-xl p-6 mb-6">
-            <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Personenübersicht</h1>
-                    <p class="text-gray-600">Verwalten Sie Bewohner und Betreuer</p>
-                </div>
-                <button routerLink="/residentAdd" 
-                        style="background-color: #FA7F08;" 
-                        class="btn text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                    </svg>
-                    Neue Person anlegen
-                </button>
-            </div>
-            
-            <!-- Filter Buttons -->
-            <div class="flex gap-3 flex-wrap">
-                <button 
-                    (click)="setFilter('all')"
-                    [ngClass]="filterMode() === 'all' ? 'bg-gray-800 text-white shadow-lg scale-105' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                    class="px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    Alle
-                    <span class="bg-white/20 px-2 py-0.5 rounded-full text-sm">{{residents().length}}</span>
-                </button>
-                
-                <button 
-                    (click)="setFilter('workers')"
-                    [ngClass]="filterMode() === 'workers' ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'"
-                    class="px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                    </svg>
-                    Betreuer
-                    <span [ngClass]="filterMode() === 'workers' ? 'bg-white/20' : 'bg-blue-200'" 
-                          class="px-2 py-0.5 rounded-full text-sm">{{workersCount()}}</span>
-                </button>
-                
-                <button 
-                    (click)="setFilter('residents')"
-                    [ngClass]="filterMode() === 'residents' ? 'bg-green-600 text-white shadow-lg scale-105' : 'bg-green-50 text-green-700 hover:bg-green-100'"
-                    class="px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                    </svg>
-                    Bewohner
-                    <span [ngClass]="filterMode() === 'residents' ? 'bg-white/20' : 'bg-green-200'" 
-                          class="px-2 py-0.5 rounded-full text-sm">{{residentsCount()}}</span>
-                </button>
-            </div>
-        </div>
+<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
-        <!-- Personen Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (resident of sortedAndFilteredResidents(); track resident.id) {
-            <div class="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div class="p-6">
-                    <!-- Profilbild & Name -->
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="relative">
-                            <img 
-                                [appAuthSrc]="getProfileImage(resident.id)" 
-                                [alt]="resident.firstName + ' ' + resident.lastName"
-                                class="w-16 h-16 rounded-full object-cover border-4 border-gray-100 shadow-md"
-                                (error)="$any($event.target).src='assets/default-avatar.svg'">
-                            <!-- Status Badge -->
-                            <div [ngClass]="resident.isWorker ? 'bg-blue-500' : 'bg-green-500'" 
-                                 class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white shadow-sm"
-                                 [title]="resident.isWorker ? 'Betreuer' : 'Bewohner'">
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-800">
-                                {{resident.firstName}} {{resident.lastName}}
-                            </h3>
-                            <p class="text-sm text-gray-500">
-                                <span [ngClass]="resident.isWorker ? 'text-blue-600' : 'text-green-600'" class="font-medium">
-                                    {{resident.isWorker ? 'Betreuer' : 'Bewohner'}}
-                                </span>
-                                @if (!resident.isWorker && resident.roomNo) {
-                                    <span class="text-gray-400">• Zimmer {{resident.roomNo}}</span>
-                                }
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Aktionen -->
-                    <div class="flex gap-2 pt-4 border-t border-gray-100">
-                        <button 
-                            [routerLink]="['/residentDetails', resident.id]" 
-                            style="background-color: #348888;" 
-                            class="flex-1 text-white py-2 px-4 rounded-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                            </svg>
-                            Details
-                        </button>
-                        
-                        <button 
-                            (click)="deletePerson(resident.id)" 
-                            class="bg-red-50 text-red-600 hover:bg-red-100 py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
-
-        <!-- Empty State -->
-        @if (residents().length === 0) {
-        <div class="bg-white shadow-md rounded-xl p-12 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <h3 class="text-xl font-semibold text-gray-700 mb-2">Keine Personen vorhanden</h3>
-            <p class="text-gray-500 mb-6">Legen Sie die erste Person an, um zu beginnen.</p>
-            <button routerLink="/residentAdd" 
-                    style="background-color: #FA7F08;" 
-                    class="text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-200">
-                Erste Person anlegen
-            </button>
-        </div>
-        }
+  <!-- Kopf -->
+  <header class="mb-8">
+    <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="t-display">Personen</h1>
+        <p class="t-callout mt-1 text-base-content/55">Bewohner und Betreuer verwalten</p>
+      </div>
+      <button routerLink="/residentAdd" type="button" class="btn btn-primary pressable gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Neue Person anlegen
+      </button>
     </div>
+
+    <!-- Filter: nur der aktive trägt Farbe -->
+    <div class="tabs tabs-boxed inline-flex bg-base-300/40 p-1" role="tablist">
+      <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+              [class.tab-active]="filterMode() === 'all'"
+              [attr.aria-selected]="filterMode() === 'all'"
+              (click)="setFilter('all')">
+        Alle
+        <span class="t-caption opacity-60">{{residents().length}}</span>
+      </button>
+      <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+              [class.tab-active]="filterMode() === 'workers'"
+              [attr.aria-selected]="filterMode() === 'workers'"
+              (click)="setFilter('workers')">
+        Betreuer
+        <span class="t-caption opacity-60">{{workersCount()}}</span>
+      </button>
+      <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+              [class.tab-active]="filterMode() === 'residents'"
+              [attr.aria-selected]="filterMode() === 'residents'"
+              (click)="setFilter('residents')">
+        Bewohner
+        <span class="t-caption opacity-60">{{residentsCount()}}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Personen -->
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    @for (resident of sortedAndFilteredResidents(); track resident.id) {
+    <div class="surface-card p-5">
+      <!-- Profilbild & Name -->
+      <div class="mb-4 flex items-center gap-4">
+        <div class="relative shrink-0">
+          <img
+            [appAuthSrc]="getProfileImage(resident.id)"
+            [alt]="resident.firstName + ' ' + resident.lastName"
+            class="size-14 rounded-full border border-base-300/60 object-cover"
+            (error)="$any($event.target).src='assets/default-avatar.svg'">
+          <!-- Rolle als Punkt: Betreuer neutral, Bewohner grün -->
+          <span [ngClass]="resident.isWorker ? 'bg-base-content/40' : 'bg-success'"
+                class="absolute -bottom-0.5 -right-0.5 size-4 rounded-full border-2 border-base-100"
+                [title]="resident.isWorker ? 'Betreuer' : 'Bewohner'">
+          </span>
+        </div>
+        <div class="min-w-0 flex-1">
+          <h3 class="t-title3 truncate">
+            {{resident.firstName}} {{resident.lastName}}
+          </h3>
+          <p class="t-caption text-base-content/55">
+            {{resident.isWorker ? 'Betreuer' : 'Bewohner'}}
+            @if (!resident.isWorker && resident.roomNo) {
+              <span> · Zimmer {{resident.roomNo}}</span>
+            }
+          </p>
+        </div>
+      </div>
+
+      <!-- Aktionen -->
+      <div class="flex gap-2 border-t border-base-300/60 pt-4">
+        <button type="button"
+                [routerLink]="['/residentDetails', resident.id]"
+                class="btn btn-primary btn-sm pressable flex-1 gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+          </svg>
+          Details
+        </button>
+
+        <button type="button"
+                (click)="deletePerson(resident.id)"
+                class="btn btn-ghost btn-sm pressable text-base-content/50 hover:bg-error/10 hover:text-error"
+                [attr.aria-label]="resident.firstName + ' ' + resident.lastName + ' löschen'">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Leerer Zustand -->
+  @if (residents().length === 0) {
+  <div class="surface-card px-6 py-16 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 size-14 text-base-content/25" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+    <h3 class="t-title2">Keine Personen vorhanden</h3>
+    <p class="t-callout mt-2 text-base-content/55">Legen Sie die erste Person an, um zu beginnen.</p>
+    <button routerLink="/residentAdd" type="button" class="btn btn-primary pressable mt-6">
+      Erste Person anlegen
+    </button>
+  </div>
+  }
 </div>
-
-<style>
-/* Toggle Switch Styles */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #e83e8c;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-</style>

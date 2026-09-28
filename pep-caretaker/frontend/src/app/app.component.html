@@ -1,30 +1,57 @@
-<div id="appComp" data-theme="light" class="min-h-screen overflow-hidden bg-base-100 text-base-content">
-  <nav class="fixed top-0 left-0 right-0 z-50" aria-label="Hauptnavigation">
-    <div class="navbar bg-base-100">
+<div id="appComp" class="min-h-screen bg-base-200 text-base-content">
+  <!-- Transluzente Chrome: Inhalt scrollt darunter durch, weiche Kante statt Trennlinie -->
+  <nav class="fixed top-0 left-0 right-0 z-50 material border-b border-base-300/50"
+       aria-label="Hauptnavigation">
+    <div class="navbar mx-auto max-w-7xl px-4 bg-transparent">
       <div class="flex-1">
-        <a routerLink="/" class="btn btn-ghost text-xl">PEPPER Dashboard</a>
+        <a routerLink="/"
+           class="btn btn-ghost pressable px-3 t-title3 normal-case hover:bg-base-content/5">
+          PEPPER
+          <span class="font-normal text-base-content/55">Dashboard</span>
+        </a>
       </div>
-      
-      <div class="flex-none gap-2">
+
+      <div class="flex-none items-center gap-1 sm:gap-2">
         <!-- User Info -->
-        <span class="text-sm hidden md:inline">
+        <span class="t-callout hidden text-base-content/60 md:inline">
           Hallo, {{currentUser()}}
         </span>
-        
-        <!-- ✅ Logout Button mit DaisyUI Styling -->
-        <button type="button" class="btn btn-error btn-sm" (click)="logout()" aria-label="Abmelden">
-          <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+
+        <!-- Theme-Umschalter: Sonne und Mond blenden ineinander -->
+        <button type="button" (click)="onDarkmode()"
+                class="btn btn-ghost btn-circle pressable hover:bg-base-content/5"
+                aria-label="Dunkelmodus umschalten" title="Dunkelmodus umschalten"
+                [attr.aria-pressed]="isDarkmodeActive()">
+          <span class="relative block size-5">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                 stroke-width="1.6" stroke="currentColor"
+                 class="absolute inset-0 size-5 transition-all duration-300 ease-standard"
+                 [class.opacity-0]="isDarkmodeActive()"
+                 [class.-rotate-90]="isDarkmodeActive()"
+                 [class.scale-50]="isDarkmodeActive()">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                 stroke-width="1.6" stroke="currentColor"
+                 class="absolute inset-0 size-5 transition-all duration-300 ease-standard"
+                 [class.opacity-0]="!isDarkmodeActive()"
+                 [class.rotate-90]="!isDarkmodeActive()"
+                 [class.scale-50]="!isDarkmodeActive()">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            </svg>
+          </span>
+        </button>
+
+        <!-- Logout: sekundäre Aktion, deshalb dezent - nicht als Alarmfarbe -->
+        <button type="button" class="btn btn-ghost btn-sm pressable gap-2 hover:bg-base-content/5"
+                (click)="logout()" aria-label="Abmelden">
+          <svg class="size-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           <span class="hidden sm:inline">Logout</span>
-        </button>
-
-                <!-- Darkmode Button -->
-        <button type="button" (click)="onDarkmode()" class="btn btn-square btn-ghost" aria-label="Dunkelmodus" title="Dunkelmodus" [attr.aria-pressed]="isDarkmodeActive()">
-          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-          </svg>
         </button>
       </div>
     </div>
@@ -34,5 +61,5 @@
   <div class="h-16" aria-hidden="true"></div>
 
   <router-outlet></router-outlet>
-  
+
 </div>

@@ -1,0 +1,63 @@
+:host {
+  display: contents;
+}
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-4);
+  background-color: var(--scrim);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: sheet-scrim-in var(--dur-base) var(--ease-standard) both;
+}
+
+.sheet-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(56rem, 100%);
+  max-height: min(85vh, 60rem);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  overflow: hidden;
+  /* Ein- und Ausgang laufen denselben Weg: aus der Mitte heraus, in die Mitte zurück */
+  transform-origin: var(--sheet-origin, center);
+  animation: sheet-in var(--dur-base) var(--ease-standard) both;
+}
+
+@keyframes sheet-scrim-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Blur und Skalierung zusammen: die Fläche kommt als Material an, statt nur aufzutauchen */
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Reduzierte Bewegung heisst sanfter, nicht gar nicht */
+@media (prefers-reduced-motion: reduce) {
+  .sheet-panel {
+    animation: sheet-scrim-in var(--dur-fast) linear both;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .sheet-backdrop {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

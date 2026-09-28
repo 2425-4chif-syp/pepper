@@ -7,7 +7,6 @@ interface HomeTile {
   description: string;
   route: string;
   image: string;
-  accent: string;
 }
 
 @Component({
@@ -46,21 +45,18 @@ export class HomePageComponent implements OnInit {
         description: 'Geschichten erstellen, bearbeiten und für Pepper freigeben.',
         route: '/tagalongstory',
         image: 'assets/images/TagAlong.jpg',
-        accent: 'border-t-success',
       },
       this.isAdmin() && {
         title: 'Bewohner',
         description: 'Bewohnerinnen und Bewohner anlegen und verwalten.',
         route: '/residents',
         image: 'assets/images/PersonenEintrag.png',
-        accent: 'border-t-info',
       },
       staff && {
         title: 'Bilder',
         description: 'Fotos hochladen, ansehen und herunterladen.',
         route: '/pictures',
         image: 'assets/images/Bilder.png',
-        accent: 'border-t-error',
       },
     ].filter((t): t is HomeTile => !!t);
   }

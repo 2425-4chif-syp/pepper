@@ -6,7 +6,8 @@ on:
       - main
     paths:
       - 'pep-caretaker/frontend/**'
-      - '.github/workflows/**'
+      - 'deploy/compose/**'
+      - '.github/workflows/build-deploy-frontend.yaml'
   workflow_dispatch:
 
 jobs:
@@ -54,18 +55,31 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Copy deployment files to VM
+        if: github.ref_name == 'main'
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "deploy/compose/docker-compose.yaml"
+          target: /home/stuetzadm/deploy/sync
+          overwrite: true
+
       - name: Deploy to VM
-        uses: appleboy/ssh-action@v0.1.10
+        if: github.ref_name == 'main'
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-             cd /home/stuetzadm/deploy/compose
-              echo "Current working dir:"
-              pwd
-              echo "Content of dir:"
-              ls -lah
-              docker compose -f docker-compose.yaml down --rmi all
-              docker compose -f docker-compose.yaml build --no-cache
-              docker compose -f docker-compose.yaml up -d
+            set -e
+            cd /home/stuetzadm/deploy/compose
+            cp /home/stuetzadm/deploy/sync/deploy/compose/docker-compose.yaml ./docker-compose.yaml
+            # Nur das Frontend austauschen. Kein "down" und kein --remove-orphans,
+            # damit Postgres, Keycloak und die Mealplan-Container unberuehrt bleiben.
+            docker compose -f docker-compose.yaml pull www
+            docker compose -f docker-compose.yaml up -d www
+            docker image prune -f
+            docker compose -f docker-compose.yaml ps

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { IStep } from '../../models/tagalongstories.model';
+import { IStep } from '../models/tagalongstories.model';
 import { FormsModule } from '@angular/forms';
-import { MoveHandler } from '../../models/tagalongstories.model';
+import { MoveHandler } from '../models/tagalongstories.model';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-addstep',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './addstep.component.html',
   styleUrl: './addstep.component.css'
 })

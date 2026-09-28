@@ -2,8 +2,8 @@
   <div class="flex-1 bg-black/80 flex flex-col p-6 relative">
     <!-- Header / Info -->
     <div class="text-center mb-2">
-      <h2 class="text-xl font-semibold mb-1 text-white">Video / Preview</h2>
-      <p class="text-sm text-gray-200">Szene {{ currentSceneIndex + 1 }} / {{ steps().length }}</p>
+      <h2 class="t-title3 mb-1 text-white">Video / Preview</h2>
+      <p class="text-sm text-base-content/70">Szene {{ currentSceneIndex + 1 }} / {{ steps().length }}</p>
     </div>
 
     @if (noVoices()) {
@@ -27,20 +27,20 @@
     <!-- Controls (absolutely positioned near bottom center) -->
     <div class="absolute bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
       <div class="flex items-center gap-2">
-        <button (click)="prevScene()" class="px-4 py-2 bg-[#9EF8EE] text-black rounded-lg shadow"
+        <button (click)="prevScene()" class="px-4 py-2 bg-base-200 text-base-content rounded-lg shadow"
           [disabled]="steps().length === 0 || currentSceneIndex === 0">Prev</button>
-        <button (click)="togglePlay()" class="px-6 py-2 bg-[#348888] text-white rounded-lg shadow"
+        <button (click)="togglePlay()" class="btn btn-primary pressable"
           [disabled]="ended()">{{ isPlaying() ? 'Pause' : 'Play' }}</button>
-        <button (click)="nextScene()" class="px-4 py-2 bg-[#9EF8EE] text-black rounded-lg shadow"
+        <button (click)="nextScene()" class="px-4 py-2 bg-base-200 text-base-content rounded-lg shadow"
           [disabled]="ended()">Next</button>
         
         <!-- 🔊🔇 Mute/Unmute Button -->
         <button (click)="toggleMute()" 
                 class="px-4 py-2 rounded-lg shadow transition-colors"
-                [class.bg-gray-400]="isMuted()"
-                [class.text-white]="isMuted()"
-                [class.bg-[#22BABB]]="!isMuted()"
-                [class.text-black]="!isMuted()"
+                [class.bg-base-300]="isMuted()"
+                [class.text-base-content]="isMuted()"
+                [class.bg-primary]="!isMuted()"
+                [class.text-base-content]="!isMuted()"
                 title="{{ isMuted() ? 'Ton einschalten' : 'Ton ausschalten' }}">
           @if (isMuted()) {
             <!-- Stumm Icon -->
@@ -59,23 +59,23 @@
 
       <!-- Scene progress bar centered -->
       <div class="w-64">
-        <div class="h-2 bg-gray-700 rounded overflow-hidden">
-          <div class="h-full bg-[#348888]" [style.width.%]="(progress()) * 100"></div>
+        <div class="h-2 bg-neutral rounded overflow-hidden">
+          <div class="h-full bg-primary" [style.width.%]="(progress()) * 100"></div>
         </div>
         <div class="flex justify-center mt-1">
-          <p class="text-xs text-gray-200">{{ remainingSeconds() }}s</p>
+          <p class="text-xs text-base-content/70">{{ remainingSeconds() }}s</p>
         </div>
       </div>
     </div>
 
     @if (ended()) {
-      <div class="absolute inset-0 bg-black-50 flex items-center justify-center p-6">
-        <div class="bg-white rounded-lg p-8 text-center max-w-md shadow-2xl">
-          <div class="text-2xl font-bold text-gray-800 mb-3">Die Geschichte ist zu Ende</div>
-          <div class="text-sm text-gray-600 mb-6">Für erneutes Abspielen drücken</div>
+      <div class="absolute inset-0 bg-black/50 flex items-center justify-center p-6">
+        <div class="bg-base-100 rounded-lg p-8 text-center max-w-md shadow-2xl">
+          <div class="t-title1 text-base-content mb-3">Die Geschichte ist zu Ende</div>
+          <div class="text-sm text-base-content/60 mb-6">Für erneutes Abspielen drücken</div>
           <div class="flex items-center justify-center gap-4">
             <button (click)="restartStory()" 
-                    class="px-6 py-3 bg-[#348888] hover:bg-[#2a6d6d] text-white font-semibold rounded-lg transition-colors">
+                    class="btn btn-primary pressable">
               Nochmal abspielen
             </button>
           </div>
@@ -84,11 +84,11 @@
     }
   </div>
 
-  <aside class="w-[44%] max-w-[720px] bg-white border-l border-gray-200 p-6 overflow-y-auto mt-32"
+  <aside class="w-[44%] max-w-[720px] bg-base-100 border-l border-base-300 p-6 overflow-y-auto mt-32"
     style="height: calc(100vh - 8rem);">
     <div class="flex justify-end mb-2">
-      <button routerLink="/tagalongstory" style="background-color: #F24405; color: white;"
-        class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors flex items-center gap-2">
+      <button routerLink="/tagalongstory" 
+        class="px-4 py-2 bg-base-300 hover:bg-base-300 text-base-content rounded-lg transition-colors flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -96,24 +96,24 @@
       </button>
     </div>
     <header class="mb-4">
-      <h2 class="text-2xl font-semibold text-gray-800">{{ 'Szenen Preview' }}</h2>
-      <p class="text-sm text-gray-500 mt-1">{{ currentScene?.move?.description || '' }}</p>
+      <h2 class="t-title1 text-base-content">{{ 'Szenen Preview' }}</h2>
+      <p class="text-sm text-base-content/60 mt-1">{{ currentScene?.move?.description || '' }}</p>
     </header>
 
     <section class="mb-6">
-      <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ currentScene?.text || 'Kein Text vorhanden' }}</p>
+      <p class="text-base-content leading-relaxed whitespace-pre-line">{{ currentScene?.text || 'Kein Text vorhanden' }}</p>
     </section>
 
     <section>
-      <h3 class="text-lg font-medium text-gray-800 mb-3">Bild</h3>
+      <h3 class="text-lg font-medium text-base-content mb-3">Bild</h3>
       <div class="w-full">
         <div
-          class="w-full rounded-lg overflow-hidden border-2 border-transparent hover:border-[#348888] transition-colors">
-          <div class="w-full h-80 bg-gray-100 flex items-center justify-center overflow-hidden">
+          class="w-full rounded-lg overflow-hidden border-2 border-transparent hover:border-primary transition-colors">
+          <div class="w-full h-80 bg-base-200 flex items-center justify-center overflow-hidden">
             <img [appAuthSrc]="pictureUrl(currentScene?.image?.id)" class="w-full h-full object-cover" />
           </div>
-          <div class="p-2 bg-white">
-            <div class="text-sm font-medium text-gray-800 truncate">{{ currentScene?.image?.description || 'Kein Titel' }}</div>
+          <div class="p-2 bg-base-100">
+            <div class="text-sm font-medium text-base-content truncate">{{ currentScene?.image?.description || 'Kein Titel' }}</div>
           </div>
         </div>
       </div>

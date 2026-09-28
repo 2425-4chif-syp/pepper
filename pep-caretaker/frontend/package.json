@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "bootstrap": "^5.3.3",
     "cropperjs": "^1.6.2",
     "keycloak-js": "^26.2.1",
     "rxjs": "~7.8.0",

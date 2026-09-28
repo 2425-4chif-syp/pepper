@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PreviewScreenComponent } from './preview-screen.component';
+import { testProviders } from '../../testing/test-providers';
 
 describe('PreviewScreenComponent', () => {
   let component: PreviewScreenComponent;
@@ -8,7 +9,8 @@ describe('PreviewScreenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PreviewScreenComponent]
+      imports: [PreviewScreenComponent],
+      providers: [...testProviders]
     })
     .compileComponents();
 

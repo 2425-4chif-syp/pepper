@@ -1,48 +1,18 @@
-/* Marken-Türkis, dunkel genug für weiße Schrift (Kontrast > 4.5:1) */
-.btn-save {
-  background-color: #2b7272;
-  border-color: #2b7272;
-  color: #fff;
+/* Kein eigener Button mehr: Farben kommen aus dem Theme, damit hell und dunkel stimmen.
+   Der Name lehnt sich nicht mehr an DaisyUIs btn-* an, um Kollisionen zu vermeiden. */
+.save-action {
+  background-color: oklch(var(--p));
+  border-color: oklch(var(--p));
+  color: oklch(var(--pc));
 }
-.btn-save:hover {
-  background-color: #1f5656;
-  border-color: #1f5656;
+.save-action:hover {
+  background-color: oklch(var(--p) / 0.9);
+  border-color: oklch(var(--p) / 0.9);
 }
 
 .suggestion:hover {
   border-color: oklch(var(--p) / 0.6);
 }
-
-/* Cropper-Elemente liegen außerhalb der View-Kapselung → ::ng-deep.
-   Größere, gut sichtbare Anfasser für Touch-Bedienung. */
-.editor ::ng-deep .cropper-view-box {
-  outline: 2px solid #fff;
-  outline-color: rgba(255, 255, 255, 0.9);
-}
-.editor ::ng-deep .cropper-line {
-  background-color: transparent;
-}
-.editor ::ng-deep .cropper-point {
-  width: 16px;
-  height: 16px;
-  opacity: 1;
-  background-color: #fff;
-  border: 2px solid #2b7272;
-  border-radius: 50%;
-}
-.editor ::ng-deep .cropper-point.point-n,
-.editor ::ng-deep .cropper-point.point-s { margin-left: -8px; }
-.editor ::ng-deep .cropper-point.point-e,
-.editor ::ng-deep .cropper-point.point-w { margin-top: -8px; }
-.editor ::ng-deep .cropper-point.point-n { top: -8px; }
-.editor ::ng-deep .cropper-point.point-s { bottom: -8px; }
-.editor ::ng-deep .cropper-point.point-e { right: -8px; }
-.editor ::ng-deep .cropper-point.point-w { left: -8px; }
-.editor ::ng-deep .cropper-point.point-ne { top: -8px; right: -8px; }
-.editor ::ng-deep .cropper-point.point-nw { top: -8px; left: -8px; }
-.editor ::ng-deep .cropper-point.point-sw { bottom: -8px; left: -8px; }
-.editor ::ng-deep .cropper-point.point-se { bottom: -8px; right: -8px; width: 16px; height: 16px; opacity: 1; }
-.editor ::ng-deep .cropper-point.point-se::before { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .suggestion { transition: none; }

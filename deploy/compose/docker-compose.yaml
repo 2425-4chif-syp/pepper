@@ -1,0 +1,147 @@
+# Produktionsstack pep-caretaker auf vm107.
+#
+# Wird von .github/workflows/ nach /home/stuetzadm/deploy/compose/ kopiert und dort
+# gestartet. Die Mealplan-Anwendung liegt in mealplan.yaml daneben und benutzt dieselbe
+# Postgres-Instanz und dasselbe Netz - deshalb hier niemals mit --remove-orphans
+# arbeiten, das wuerde deren Container abraeumen.
+#
+# Geheimnisse stehen in /home/stuetzadm/deploy/compose/.env (siehe .env.example),
+# nicht im Repository.
+name: compose
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Bestehendes Datenverzeichnis - enthaelt auch die Keycloak-Datenbank
+      - ./db-postgres/db:/var/lib/postgresql/data
+      - ./db-postgres/import:/import
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d db"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [pepper_net]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    container_name: keycloak
+    restart: unless-stopped
+    command:
+      - start-dev
+      - --proxy-headers=xforwarded
+      # Themes nicht zwischenspeichern, damit ein neues Theme ohne Neustart greift
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_HOSTNAME: vm107.htl-leonding.ac.at
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "false"
+      KC_PROXY: edge
+    ports:
+      - "8081:8080"
+    volumes:
+      # Pepper-Login-Theme (Realm-Einstellung: Login theme = pepper)
+      - ./keycloak-themes/pepper:/opt/keycloak/themes/pepper:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [pepper_net]
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    # Nur intern erreichbar - die Bilder laufen ueber das Backend, nicht direkt
+    expose:
+      - "9000"
+      - "9001"
+    healthcheck:
+      test: ["CMD-SHELL", "mc ready local || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [pepper_net]
+
+  imagor:
+    image: shumc/imagor:latest
+    container_name: imagor
+    restart: unless-stopped
+    command:
+      - -imagor-unsafe
+      - -imagor-auto-webp
+    environment:
+      PORT: 8000
+      # Der Bild-Endpoint des Backends ist geschuetzt. imagor muss den Bearer-Token
+      # des Aufrufers weiterreichen, sonst bekommt es 401 und liefert nichts.
+      # nginx gibt den Authorization-Header bereits an imagor weiter.
+      HTTP_LOADER_FORWARD_HEADERS: Authorization
+      # Der Glob wird gegen Host UND Port geprueft - ohne ":*" wird backend:8080 abgelehnt
+      HTTP_LOADER_ALLOWED_SOURCES: "backend:*,vm107.htl-leonding.ac.at:*"
+    ports:
+      - "8000:8000"
+    networks: [pepper_net]
+
+  backend:
+    image: ghcr.io/2425-4chif-syp/01-projekte-2025-4chif-syp-pepper-minigames/pepper-backend:latest
+    container_name: backend
+    restart: unless-stopped
+    pull_policy: always
+    environment:
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/db
+      QUARKUS_DATASOURCE_USERNAME: app
+      QUARKUS_DATASOURCE_PASSWORD: app
+      # Bilddaten liegen in MinIO, Postgres haelt nur noch die Metadaten
+      MINIO_URL: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      MINIO_SECURE: "false"
+      CHATGPT_API_KEY: ${CHATGPT_API_KEY}
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks: [pepper_net]
+
+  www:
+    image: ghcr.io/2425-4chif-syp/01-projekte-2025-4chif-syp-pepper-minigames/pepper-frontend:latest
+    container_name: www
+    restart: unless-stopped
+    pull_policy: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks: [pepper_net]
+
+volumes:
+  minio_data:
+
+networks:
+  pepper_net:
+    # Fester Name, damit mealplan.yaml dasselbe Netz benutzt. Nicht "external":
+    # so legt compose es an, falls es fehlt, und uebernimmt es, wenn es schon da ist.
+    name: compose_pepper_net

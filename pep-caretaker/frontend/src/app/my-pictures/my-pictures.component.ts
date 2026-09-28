@@ -1,5 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthSrcDirective } from '../auth-src.directive';
+import { pictureUrl } from '../image-url';
 import { ImageServiceService } from '../service/image-service.service';
 import { RoleService } from '../role.service';
 import { ResidentServiceService } from '../service/resident-service.service';
@@ -8,7 +10,7 @@ import { catchError, of, switchMap, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-pictures',
-  imports: [CommonModule],
+  imports: [CommonModule, AuthSrcDirective],
   templateUrl: './my-pictures.component.html',
   styleUrl: './my-pictures.component.css'
 })
@@ -17,6 +19,10 @@ export class MyPicturesComponent implements OnInit {
   roleService = inject(RoleService);
   residentService = inject(ResidentServiceService);
   
+  /** Bilder kommen ueber den Bild-Endpoint statt als Base64 im JSON - so greifen
+   *  Lazy-Loading, Blob-Cache und (sofern konfiguriert) die Groessenanpassung. */
+  readonly thumbUrl = (id: number | undefined) => pictureUrl(id, 600);
+
   myImages = signal<ImageDto[]>([]);
   loading = signal<boolean>(true);
   userName = signal<string>('');

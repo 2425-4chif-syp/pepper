@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthSrcDirective } from '../auth-src.directive';
+import { SheetComponent } from '../ui/sheet/sheet.component';
 import { pictureUrl } from '../image-url';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { Person } from '../models/person.model';
@@ -13,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-resident-details',
-  imports: [AuthSrcDirective, RouterLink, CommonModule, FormsModule],
+  imports: [AuthSrcDirective, RouterLink, CommonModule, FormsModule, SheetComponent],
   templateUrl: './resident-details.component.html',
   styleUrl: './resident-details.component.css'
 })

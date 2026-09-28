@@ -8,8 +8,16 @@ export const environment = {
   },
   // relative, so nginx (prod) or the ng-serve proxy (dev) decides which backend answers
   apiUrl: '/api/',
-  // imagor would resize images server-side, but it fetches them from the backend without a token and the
-  // picture endpoint requires one. Uploads are already cropped to 1280x800, so images come straight from
-  // apiUrl (loaded with the token by AuthSrcDirective). Set { url, sourceBaseUrl } to re-enable imagor.
-  imagor: null as { url: string; sourceBaseUrl: string } | null,
+  // imagor verkleinert Bilder serverseitig: eine Kachel lädt dann ~400px statt des 1280x800-Originals.
+  //
+  // Damit das funktioniert, muss imagor den Bearer-Token an das Backend weiterreichen - der
+  // Bild-Endpoint ist geschützt. nginx schickt den Header bereits an imagor
+  // (`proxy_set_header Authorization $http_authorization;`), imagor selbst braucht dafür aber noch
+  //     HTTP_LOADER_FORWARD_HEADERS=Authorization
+  // auf dem imagor-Container auf vm107 (siehe docker/docker-compose.yaml für die lokale Variante).
+  //
+  // Solange das dort nicht gesetzt ist, antwortet imagor mit einem Fehler - AuthSrcDirective fällt
+  // dann automatisch auf den direkten Backend-Pfad zurück, die Bilder erscheinen also trotzdem.
+  // Auf `null` setzen, um imagor ganz zu überspringen.
+  imagor: { url: '/imagor', sourceBaseUrl: 'http://backend:8080/api/' } as { url: string; sourceBaseUrl: string } | null,
 };

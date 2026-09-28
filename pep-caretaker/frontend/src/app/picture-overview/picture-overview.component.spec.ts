@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PictureOverviewComponent } from './picture-overview.component';
+import { testProviders } from '../../testing/test-providers';
 
 describe('PictureOverviewComponent', () => {
   let component: PictureOverviewComponent;
@@ -8,7 +9,8 @@ describe('PictureOverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PictureOverviewComponent]
+      imports: [PictureOverviewComponent],
+      providers: [...testProviders]
     })
     .compileComponents();
 

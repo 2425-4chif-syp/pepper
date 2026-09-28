@@ -1,11 +1,27 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="pepper" style="color-scheme: light">
 <head>
   <meta charset="utf-8">
-  <title>Pepper Admin</title>
+  <title>PEPPER Dashboard</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/x-icon" href="pepper.ico">
+  <script>
+    // Theme vor dem ersten Paint setzen, sonst blitzt kurz das helle Theme auf.
+    // Dieselbe Reihenfolge wie im ThemeService: Wahl -> System -> hell.
+    (function () {
+      try {
+        var stored = localStorage.getItem('pepper-theme');
+        var theme = stored === 'pepper' || stored === 'pepper-dark'
+          ? stored
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'pepper-dark' : 'pepper');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme === 'pepper-dark' ? 'dark' : 'light';
+      } catch (e) { /* Storage blockiert: helles Theme aus dem Markup bleibt */ }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

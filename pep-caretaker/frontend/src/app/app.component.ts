@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { RoleService } from './role.service';
 import { InactivityService } from './inactivity.service';
+import { ThemeService } from './service/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ import { InactivityService } from './inactivity.service';
 })
 export class AppComponent implements OnInit {
   title = 'PepperAngular';
+
+  private theme = inject(ThemeService);
 
   constructor(
     private authGuard: AuthGuard, 
@@ -30,18 +33,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private isDarkmode:boolean = false;
-  
   public isDarkmodeActive(): boolean {
-    return this.isDarkmode;
+    return this.theme.isDark();
   }
 
-  public onDarkmode():void{
-    this.isDarkmode = !this.isDarkmode;
-    const theme = this.isDarkmode ? 'dark' : 'light';
-    document.getElementById("appComp")?.setAttribute('data-theme', theme);
+  public onDarkmode(): void {
+    this.theme.toggle();
   }
-  
+
 // ✅ Logout-Funktion die sicherstellt, dass User zum Login zurückkehrt
   public logout(): void {
     console.log('Logging out...');

@@ -1,0 +1,8 @@
+/*
+ * Kacheln ausserhalb des Sichtbereichs müssen nicht gerechnet oder gezeichnet werden.
+ * contain-intrinsic-size hält dabei den Platz frei, damit die Scrollhöhe stimmt.
+ */
+.picture-tile {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 14rem;
+}

@@ -1,111 +1,77 @@
 import { CommonModule } from '@angular/common';
 import { authHeaders } from '../auth.interceptor';
 import { AuthSrcDirective } from '../auth-src.directive';
-import { pictureUrl } from '../image-url';
-import { Component, ElementRef, HostListener, ViewChild, inject, signal } from '@angular/core';
+import { pictureUrl, picturePath } from '../image-url';
+import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
 import { ImageServiceService } from '../service/image-service.service';
-import { ImageModel } from '../models/image.model';
+import { ImageBlobCacheService } from '../service/image-blob-cache.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { ImageDto } from '../models/imageDto.model';
 import { ImageJson } from '../models/image-json.model';
+import { SheetComponent } from '../ui/sheet/sheet.component';
+
+type PictureFilter = 'All' | 'Stories' | 'People';
+
+/** Breite der Kachel-Variante. Reicht für die Grid-Grösse inkl. Retina. */
+const THUMB_WIDTH = 400;
+/** Breite im geöffneten Dialog. */
+const PREVIEW_WIDTH = 1600;
 
 @Component({
   selector: 'app-picture-overview',
-  imports: [AuthSrcDirective, CommonModule, RouterModule],
+  imports: [AuthSrcDirective, CommonModule, RouterModule, SheetComponent],
   templateUrl: './picture-overview.component.html',
   styleUrl: './picture-overview.component.css'
 })
-export class PictureOverviewComponent {
+export class PictureOverviewComponent implements OnInit {
 
   constructor(private router: Router) {}
 
   imagesService = inject(ImageServiceService);
-  readonly pictureUrl = pictureUrl;
-  images = signal<ImageJson[]>([]);
-  standartImages = signal<ImageJson[]>([])
+  private blobCache = inject(ImageBlobCacheService);
 
-  tmpImages = this.images()
-  activeButton = signal<string>("All")
+  readonly thumbUrl = (id: number | undefined) => pictureUrl(id, THUMB_WIDTH);
+  readonly previewUrl = (id: number | undefined) => pictureUrl(id, PREVIEW_WIDTH);
 
-  aktiverFilter = this.showAllImages
+  standartImages = signal<ImageJson[]>([]);
+  activeButton = signal<PictureFilter>('All');
+  loading = signal(true);
+  loadError = signal<string | null>(null);
 
-  showAllImages(){
-    this.aktiverFilter = this.showAllImages
-    this.activeButton.set('All')
-    this.images.set(this.standartImages())
-  }
-
-  showImageOfStories(){
-    let saveArr: ImageJson[] = []
-    this.activeButton.set('Stories')
-
-    this.aktiverFilter = this.showImageOfStories
-
-    for (const element of this.standartImages()) {
-      if(element.person == null){
-        saveArr.push(element)
-      }
+  /** Gefiltert wird abgeleitet - so überlebt der aktive Filter jedes Neuladen von selbst. */
+  images = computed<ImageJson[]>(() => {
+    const all = this.standartImages();
+    switch (this.activeButton()) {
+      case 'Stories': return all.filter(image => image.person == null);
+      case 'People': return all.filter(image => image.person != null);
+      default: return all;
     }
-    console.log(saveArr)
-    this.images.set(saveArr)
-  }
+  });
 
-  showImageOfPersons(){
-    let saveArr: ImageJson[] = []
-    this.activeButton.set('People')
-
-    this.aktiverFilter = this.showImageOfPersons
-
-    for (const element of this.standartImages()) {
-      if(element.person != null){
-        saveArr.push(element)
-      }
-    }
-    console.log(saveArr)
-    this.images.set(saveArr)
-  }
+  showAllImages() { this.activeButton.set('All'); }
+  showImageOfStories() { this.activeButton.set('Stories'); }
+  showImageOfPersons() { this.activeButton.set('People'); }
 
   ngOnInit(): void {
     this.loadImages();
-    this.aktiverFilter;
-  }
-  transformImageUrl(originalUrl: string): string {
-    if (!originalUrl) return '';
-    
-    try {
-      const transformedUrl = originalUrl.replace(
-        'vm107.htl-leonding.ac.at:8080', 
-        'backend:8080'
-      );
-      
-      return encodeURIComponent(transformedUrl);
-    } catch (error) {
-      console.error('Error transforming URL:', error);
-      return originalUrl;
-    }
   }
 
   loadImages(): void {
-    this.imagesService.getImageNew().subscribe(
-      {
-        next: data=>{
-            // Map and then reverse so newest images (assumed at the end) appear first
-            const encodedImages = data.items.map(image => ({
-              ...image,
-              href: this.transformImageUrl(image.href),
-              originalHref: image.href 
-            })).reverse();
-            this.standartImages.set(encodedImages);
-            this.aktiverFilter(); // aktiven Filter (z. B. nach dem Löschen) beibehalten
-          console.log(this.images());
-        },
-        error: err=>{
-          "Laden fehlgeschlagen" + err.message;
-        },
-      }
-    )
-  };
+    this.loading.set(true);
+    this.loadError.set(null);
+    this.imagesService.getImageNew().subscribe({
+      next: data => {
+        // Neueste Bilder (am Ende der Liste) zuerst anzeigen
+        this.standartImages.set([...data.items].reverse());
+        this.loading.set(false);
+      },
+      error: err => {
+        this.loading.set(false);
+        this.loadError.set(`Die Bilder konnten nicht geladen werden (HTTP ${err?.status ?? '?'}).`);
+        console.error('Laden der Bilder fehlgeschlagen:', err);
+      },
+    });
+  }
 
   goToUpload() {
     this.router.navigate(['/imageUpload']);
@@ -115,11 +81,6 @@ export class PictureOverviewComponent {
   deleting = signal(false);
   deleteError = signal<string | null>(null);
 
-  // Fokus beim Öffnen auf den Schließen-Button, damit Tastatur/Screenreader im Dialog landen
-  @ViewChild('closeButton') set closeButton(button: ElementRef<HTMLButtonElement> | undefined) {
-    button?.nativeElement.focus();
-  }
-
   @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.selectedImage()) this.closePreview();
@@ -127,7 +88,6 @@ export class PictureOverviewComponent {
 
   openPreview(image: ImageJson) {
     this.selectedImage.set(image);
-    console.log(this.selectedImage());
   }
 
   closePreview() {
@@ -137,42 +97,40 @@ export class PictureOverviewComponent {
 
   downloadImage() {
     const image = this.selectedImage();
-    if (!image || !image.href) return;
+    if (!image) return;
 
-    const originalUrl = (image as any).originalHref || decodeURIComponent(image.href);
+    const source = picturePath(image.id);
+    const fileName = (image.description?.replace(/\s+/g, '_') || 'image') + '.jpg';
 
-  fetch(apiPathOf(originalUrl), { headers: authHeaders() })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.blob();
-    })
-    .then(blob => {
+    fetch(source, { headers: authHeaders() })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = fileName;
 
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = (image.description?.replace(/\s+/g, '_') || 'image') + '.jpg';
+        document.body.appendChild(a);
+        a.click();
 
-      document.body.appendChild(a);
-      a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      })
+      .catch(error => {
+        console.error('Fehler beim Herunterladen des Bildes:', error);
 
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
-      console.log('Bild erfolgreich heruntergeladen:', image.description);
-    })
-    .catch(error => {
-      console.error('Fehler beim Herunterladen des Bildes:', error);
-
-      const a = document.createElement('a');
-      a.href = originalUrl;
-      a.download = (image.description?.replace(/\s+/g, '_') || 'image') + '.jpg';
-      a.target = '_blank'; 
-      a.click();
-    });
+        const a = document.createElement('a');
+        a.href = source;
+        a.download = fileName;
+        a.target = '_blank';
+        a.click();
+      });
   }
 
   deleteImage() {
@@ -185,6 +143,9 @@ export class PictureOverviewComponent {
     this.imagesService.deleteImage(image.id).subscribe({
       next: () => {
         this.deleting.set(false);
+        // Gelöschtes Bild aus dem Blob-Cache werfen, sonst bliebe es bis zum Reload sichtbar
+        this.blobCache.invalidate(this.thumbUrl(image.id));
+        this.blobCache.invalidate(this.previewUrl(image.id));
         this.closePreview();
         this.loadImages();
       },
@@ -194,15 +155,5 @@ export class PictureOverviewComponent {
         this.deleteError.set(err?.error?.message || `Das Bild konnte nicht gelöscht werden (HTTP ${err?.status ?? '?'}).`);
       }
     });
-  }
-}
-
-// Backend-hrefs sind absolut (http://localhost:8080/api/...); über den eigenen Origin laden, damit Proxy/nginx greift
-function apiPathOf(url: string): string {
-  try {
-    const parsed = new URL(url, window.location.origin);
-    return parsed.pathname.startsWith('/api/') ? parsed.pathname + parsed.search : url;
-  } catch {
-    return url;
   }
 }

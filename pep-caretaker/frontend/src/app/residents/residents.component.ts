@@ -4,13 +4,15 @@ import { pictureUrl } from '../image-url';
 import { Person } from '../models/person.model';
 import { ResidentServiceService } from '../service/resident-service.service';
 import { ImageServiceService } from '../service/image-service.service';
-import { error } from 'console';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PersonDto } from '../models/person-dto.model';
-import { forkJoin, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
+/** Breite der Profilbilder im Raster (56px Anzeige, Reserve fuer Retina). */
+const PROFILE_WIDTH = 160;
 
 // Erweitere das Person-Interface mit der Memory-Eigenschaft
 interface PersonWithMemory extends Person {
@@ -88,22 +90,20 @@ export class ResidentsComponent {
   }
 
   loadProfileImages(persons: Person[]) {
-    const imageRequests = persons.map(person => 
-      this.imageService.getImageById(person.id).pipe(
-        map(images => ({ personId: person.id, images })),
-        catchError(() => of({ personId: person.id, images: [] }))
-      )
-    );
-
-    forkJoin(imageRequests).subscribe(results => {
+    // Eine Liste fuer alle: /image/pictures liefert Id und zugehoerige Person, ganz ohne Base64.
+    // Vorher lief pro Person ein Request, der die Bilder als Base64 mitgeschickt hat.
+    this.imageService.getImageNew().pipe(
+      map(response => response.items),
+      catchError(() => of([]))
+    ).subscribe(items => {
       const imageMap = new Map<number, string>();
-      results.forEach(result => {
-        if (result.images.length > 0) {
-          // Verwende Base64-Daten direkt als Data-URL
-          const base64Image = result.images[0].base64Image;
-          imageMap.set(result.personId, pictureUrl(result.images[0]?.id));
+      for (const item of items) {
+        const personId = item.person?.id;
+        // Erstes Bild je Person gewinnt - dieselbe Auswahl wie vorher
+        if (personId != null && !imageMap.has(personId)) {
+          imageMap.set(personId, pictureUrl(item.id, PROFILE_WIDTH));
         }
-      });
+      }
       this.profileImages.set(imageMap);
     });
   }

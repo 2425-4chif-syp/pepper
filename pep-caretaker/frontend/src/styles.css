@@ -1,15 +1,219 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 /* Cropper.js (Bildzuschnitt in imageupload) */
 @import 'cropperjs/dist/cropper.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.roboto {
-    font-family: "Roboto", sans-serif;
+/* ============================================================
+   Design-Tokens
+   Eine Quelle der Wahrheit fuer Typografie, Abstaende, Radien,
+   Materialien und Motion. Farben kommen aus den DaisyUI-Themes
+   (tailwind.config.js) - hier steht bewusst kein Hex-Wert.
+   ============================================================ */
+
+:root {
+  /* Systemschrift: bringt optisches Sizing und Tracking-Tabellen schon mit */
+  --font-ui: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
+             system-ui, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Typo: Tracking ist groessenabhaengig, Leading skaliert gegenlaeufig */
+  --t-display-size: clamp(2.25rem, 4vw, 3rem);
+  --t-display-lh: 1.05;
+  --t-display-ls: -0.022em;
+
+  --t-title1-size: 2rem;
+  --t-title1-lh: 1.1;
+  --t-title1-ls: -0.02em;
+
+  --t-title2-size: 1.5rem;
+  --t-title2-lh: 1.2;
+  --t-title2-ls: -0.015em;
+
+  --t-title3-size: 1.25rem;
+  --t-title3-lh: 1.25;
+  --t-title3-ls: -0.01em;
+
+  --t-body-size: 1.0625rem;
+  --t-body-lh: 1.5;
+  --t-body-ls: 0em;
+
+  --t-callout-size: 0.9375rem;
+  --t-callout-lh: 1.45;
+  --t-callout-ls: 0em;
+
+  --t-caption-size: 0.8125rem;
+  --t-caption-lh: 1.35;
+  --t-caption-ls: 0.008em;
+
+  /* Abstaende: 4px-Basis, in rem damit groessere Systemschrift das Layout mitskaliert */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+
+  /* Radien */
+  --r-control: 0.625rem;
+  --r-card: 0.875rem;
+  --r-sheet: 1.125rem;
+  --r-pill: 980px;
+
+  /* Material (transluzente Chrome-Flaechen) */
+  --material-bg: rgb(255 255 255 / 0.72);
+  --material-border: rgb(255 255 255 / 0.5);
+  --material-blur: 20px;
+  --material-saturate: 180%;
+  --scrim: rgb(0 0 0 / 0.4);
+
+  /* Schatten: groessere Flaechen wirken dicker */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 16px rgb(0 0 0 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.1);
+  --shadow-sheet: 0 8px 24px rgb(0 0 0 / 0.12), 0 32px 64px rgb(0 0 0 / 0.24);
+
+  /* Motion: kritisch gedaempft, kein Overshoot */
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 400ms;
 }
 
-/* Loading dots animation */
+[data-theme='pepper-dark'] {
+  --material-bg: rgb(28 28 30 / 0.72);
+  --material-border: rgb(255 255 255 / 0.12);
+  --scrim: rgb(0 0 0 / 0.6);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 16px rgb(0 0 0 / 0.3);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 32px rgb(0 0 0 / 0.45);
+  --shadow-sheet: 0 8px 24px rgb(0 0 0 / 0.6), 0 32px 64px rgb(0 0 0 / 0.5);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-size: var(--t-body-size);
+    line-height: var(--t-body-lh);
+  }
+
+  /* Sichtbarer, einheitlicher Fokus - Tastaturbedienung ist Teil des Designs */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+    border-radius: var(--r-control);
+  }
+}
+
+@layer components {
+  /* Typo-Skala: ersetzt gestapelte text-3xl/font-bold/tracking-widest Kombis */
+  .t-display {
+    font-size: var(--t-display-size);
+    line-height: var(--t-display-lh);
+    letter-spacing: var(--t-display-ls);
+    font-weight: 600;
+  }
+  .t-title1 {
+    font-size: var(--t-title1-size);
+    line-height: var(--t-title1-lh);
+    letter-spacing: var(--t-title1-ls);
+    font-weight: 600;
+  }
+  .t-title2 {
+    font-size: var(--t-title2-size);
+    line-height: var(--t-title2-lh);
+    letter-spacing: var(--t-title2-ls);
+    font-weight: 600;
+  }
+  .t-title3 {
+    font-size: var(--t-title3-size);
+    line-height: var(--t-title3-lh);
+    letter-spacing: var(--t-title3-ls);
+    font-weight: 590;
+  }
+  .t-body {
+    font-size: var(--t-body-size);
+    line-height: var(--t-body-lh);
+    letter-spacing: var(--t-body-ls);
+    font-weight: 400;
+  }
+  .t-callout {
+    font-size: var(--t-callout-size);
+    line-height: var(--t-callout-lh);
+    letter-spacing: var(--t-callout-ls);
+  }
+  .t-caption {
+    font-size: var(--t-caption-size);
+    line-height: var(--t-caption-lh);
+    letter-spacing: var(--t-caption-ls);
+  }
+
+  /* Transluzente Chrome-Flaeche: Inhalt scrollt darunter durch */
+  .material {
+    background-color: var(--material-bg);
+    -webkit-backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
+    backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
+  }
+
+  /* Karte: eine Definition fuer alle Uebersichtsseiten */
+  .surface-card {
+    background-color: oklch(var(--b1));
+    border: 1px solid oklch(var(--b3) / 0.6);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--dur-base) var(--ease-standard),
+                transform var(--dur-base) var(--ease-standard);
+  }
+  .surface-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  /* Feedback auf pointer-down, nicht erst beim Klick */
+  .pressable {
+    transition: transform var(--dur-fast) var(--ease-standard);
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+
+  /*
+   * Pflichtfeld, das beim Absenden leer war.
+   * Die Markierung bleibt stehen, bis etwas eingegeben wird; die Bewegung laeuft einmal
+   * kurz ab und zeigt nur, wohin man schauen soll.
+   */
+  .field-error,
+  .field-error:hover {
+    border-color: oklch(var(--er));
+    /* Zweiter Ring, damit die Kante auch auf heller Flaeche deutlich bleibt */
+    box-shadow: 0 0 0 3px oklch(var(--er) / 0.18);
+    background-color: oklch(var(--er) / 0.04);
+  }
+
+  .field-error:focus,
+  .field-error:focus-visible {
+    border-color: oklch(var(--er));
+    outline-color: oklch(var(--er));
+    box-shadow: 0 0 0 3px oklch(var(--er) / 0.22);
+  }
+
+  .field-error-shake {
+    animation: field-shake 400ms var(--ease-standard) both;
+  }
+
+  /* Weicher Uebergang statt 1px-Trennlinie unter fixer Chrome */
+  .scroll-edge {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 12px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 12px), transparent);
+  }
+}
+
+/* Ladepunkte - Farbe kommt aus dem Theme */
 .loader-dots {
   display: flex;
   gap: 0.5rem;
@@ -18,7 +222,7 @@
 .loader-dots span {
   width: 8px;
   height: 8px;
-  background-color: #22BABB;
+  background-color: oklch(var(--p));
   border-radius: 50%;
   animation: bounce 1.4s infinite ease-in-out both;
 }
@@ -39,5 +243,80 @@
   40% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+/* Kleine Ausschlaege, die schnell auslaufen - kein Wackeln um des Wackelns willen */
+@keyframes field-shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-6px); }
+  30%  { transform: translateX(5px); }
+  45%  { transform: translateX(-4px); }
+  60%  { transform: translateX(3px); }
+  75%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+/* ============================================================
+   Barrierefreiheit: drei unabhaengige Systemsignale
+   ============================================================ */
+
+/* Reduzierte Bewegung heisst sanftere Rueckmeldung, nicht gar keine */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--dur-fast) !important;
+    scroll-behavior: auto !important;
+  }
+  .pressable:active {
+    transform: none;
+  }
+  .loader-dots span {
+    animation: none;
+    opacity: 0.6;
+  }
+  /* Ohne Bewegung tragen roter Rahmen und Meldung die Information allein */
+  .field-error-shake {
+    animation: none;
+  }
+}
+
+/* Transluzente Flaechen werden deckend, Blur faellt weg */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --material-bg: oklch(var(--b1));
+    --scrim: rgb(0 0 0 / 0.75);
+  }
+  .material {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: oklch(var(--b1));
+    border-bottom: 1px solid oklch(var(--b3));
+  }
+}
+
+/* Mehr Kontrast: nahezu deckende Flaechen mit klarer Kante */
+@media (prefers-contrast: more) {
+  :root {
+    --material-bg: oklch(var(--b1));
+  }
+  .surface-card {
+    border-color: oklch(var(--bc) / 0.4);
+    border-width: 1px;
+  }
+  /* Kraeftigerer Rahmen statt zarter Flaeche */
+  .field-error,
+  .field-error:hover {
+    border-width: 2px;
+    background-color: transparent;
+  }
+  .material {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: oklch(var(--b1));
+    border-bottom: 1px solid oklch(var(--bc) / 0.3);
   }
 }

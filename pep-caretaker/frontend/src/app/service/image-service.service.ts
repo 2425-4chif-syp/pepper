@@ -1,12 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { inject, Injectable } from '@angular/core';
 import { STORY_URL } from '../app.config';
 import { Person } from '../models/person.model';
 import { ImageModel } from '../models/image.model';
 import { map, Observable } from 'rxjs';
 import { ImageDto } from '../models/imageDto.model';
-import { ImageJson } from '../models/image-json.model';
 import { ImageResponse } from '../models/image-response.model';
 import { ImagePreview } from '../models/image-preview.model';
 
@@ -34,7 +32,7 @@ export class ImageServiceService {
   }
 
   getImageBase64(id: number): Observable<string | null> {
-    const apiUrl = environment.apiUrl + 'tagalongstories/' + id + '/steps';
+    const apiUrl = this.url + 'tagalongstories/' + id + '/steps';
     return new Observable(observer => {
       this.http.get<any[]>(apiUrl).subscribe(
         response => {
@@ -59,21 +57,16 @@ export class ImageServiceService {
     });
   }
 
-  // Lade einzelnes Bild über Image-Server anhand der ID
-  getImageFromServer(imageId: number): Observable<ImageJson> {
-    return this.http.get<ImageJson>(`${environment.apiUrl}image/pictures/${imageId}`);
-  }
-
   deleteImage(id: number){
-    return this.http.delete("/api/image/" + id, httpOptions)
+    return this.http.delete(this.url + 'image/' + id, httpOptions)
   }
 
   deleteStory(id: number){
-    return this.http.delete("/api/tagalongstories/" + id, httpOptions)
+    return this.http.delete(this.url + 'tagalongstories/' + id, httpOptions)
   }
 
   enablingStory(id: number, isEnabled: boolean){
-    return this.http.put("/api/tagalongstories/" + id, {"isEnabled" : isEnabled}, httpOptions)
+    return this.http.put(this.url + 'tagalongstories/' + id, {"isEnabled" : isEnabled}, httpOptions)
   }
 
   getImageById(id: number){

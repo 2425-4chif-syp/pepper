@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddResidentComponent } from './add-resident.component';
+import { testProviders } from '../../testing/test-providers';
 
 describe('AddResidentComponent', () => {
   let component: AddResidentComponent;
@@ -8,7 +9,8 @@ describe('AddResidentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddResidentComponent]
+      imports: [AddResidentComponent],
+      providers: [...testProviders]
     })
     .compileComponents();
 

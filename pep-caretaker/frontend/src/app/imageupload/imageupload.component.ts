@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Cropper from 'cropperjs';
 import { ImageServiceService } from '../service/image-service.service';
@@ -42,6 +42,7 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
   private imagesService = inject(ImageServiceService);
   private personService = inject(ResidentServiceService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   readonly outputWidth = OUTPUT_WIDTH;
   readonly outputHeight = OUTPUT_HEIGHT;
@@ -75,14 +76,29 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
     return !!size && size.width < OUTPUT_WIDTH - 1;
   });
 
-  canSave = computed(() =>
-    !!this.cropSize() && !this.saving() && (this.storyImageType !== null || this.description().trim().length > 0)
+  /** true, sobald eine Bezeichnung nötig wäre, aber keine da ist. */
+  descriptionMissing = computed(() =>
+    this.storyImageType === null && this.description().trim().length === 0
   );
+
+  /** Bezeichnung fehlt und der Nutzer hat bereits auf Speichern geklickt. */
+  descriptionInvalid = signal(false);
+
+  canSave = computed(() => !!this.cropSize() && !this.saving() && !this.descriptionMissing());
+
+  /**
+   * Der Button bleibt klickbar, solange nur die Bezeichnung fehlt.
+   *
+   * Ein deaktivierter Button sagt nicht, was fehlt - er reagiert einfach nicht. Stattdessen
+   * nimmt er den Klick an und markiert das leere Feld.
+   */
+  canAttemptSave = computed(() => !!this.cropSize() && !this.saving());
 
   @ViewChild('editor') private editorRef?: ElementRef<HTMLDivElement>;
   @ViewChild('image') private imageRef?: ElementRef<HTMLImageElement>;
   @ViewChild('preview') private previewRef?: ElementRef<HTMLDivElement>;
   @ViewChild('fileInput') private fileInputRef?: ElementRef<HTMLInputElement>;
+  @ViewChild('descriptionInput') private descriptionRef?: ElementRef<HTMLInputElement>;
 
   private cropper?: Cropper;
   // Zoom-Faktor, bei dem das ganze Bild in den Editor passt (= 100 %)
@@ -396,8 +412,31 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
     }).toDataURL('image/jpeg', 0.92);
   }
 
+  /** Blendet die Fehlermarkierung aus, sobald der Nutzer etwas eintippt. */
+  onDescriptionInput(): void {
+    if (this.descriptionInvalid() && !this.descriptionMissing()) {
+      this.descriptionInvalid.set(false);
+    }
+  }
+
   save(): void {
-    if (!this.canSave() || !this.cropper) return;
+    if (!this.cropper || this.saving()) return;
+
+    // Fehlt die Bezeichnung, wird das Feld markiert statt stillschweigend nichts zu tun
+    if (this.descriptionMissing()) {
+      this.descriptionInvalid.set(true);
+      const input = this.descriptionRef?.nativeElement;
+      if (input) {
+        // Animation neu starten, auch wenn die Markierung schon stand
+        input.classList.remove('field-error-shake');
+        void input.offsetWidth;
+        input.classList.add('field-error-shake');
+        input.focus();
+      }
+      return;
+    }
+
+    if (!this.canSave()) return;
     const dataUrl = this.exportDataUrl();
 
     if (this.storyImageType) {
@@ -417,6 +456,7 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
         this.saving.set(false);
         this.clearImage();
         this.description.set('');
+        this.descriptionInvalid.set(false);
         this.selectedPersonId.set(null);
         this.status.set({ kind: 'success', text: `Bild „${description}“ wurde gespeichert.` });
       },
@@ -471,13 +511,21 @@ export class ImageuploadComponent implements OnInit, OnDestroy {
     this.status.set({ kind: 'error', text: `${prefix}: ${detail}` });
   }
 
+  /**
+   * Bestimmt, ob die Seite als Bildauswahl für den Geschichten-Editor läuft.
+   *
+   * Die Betriebsart steht in der Route (`/imageUpload?for=title|scene`) - der Aufrufer sagt
+   * also, wofür er die Seite öffnet. Früher wurde sie aus `pendingStoryState` im
+   * sessionStorage abgeleitet. Dieser Eintrag überlebt aber, wenn der Editor ohne Rückkehr
+   * verlassen wird (z. B. über das Logo im Header), und der nächste ganz normale Aufruf von
+   * „Bilder → Neues Bild“ erschien dann fälschlich als Geschichten-Bildauswahl.
+   *
+   * Zusätzlich muss der Story-Kontext wirklich existieren: ohne `pendingStoryState` gäbe es
+   * beim Speichern nichts, wohin das Bild zurückfließen könnte.
+   */
   private readStoryImageType(): StoryImageType | null {
-    const pending = sessionStorage.getItem('pendingStoryState');
-    if (!pending) return null;
-    try {
-      return JSON.parse(pending).imageType === 'scene' ? 'scene' : 'title';
-    } catch {
-      return 'title';
-    }
+    const requested = this.route.snapshot.queryParamMap.get('for');
+    if (requested !== 'title' && requested !== 'scene') return null;
+    return sessionStorage.getItem('pendingStoryState') ? requested : null;
   }
 }

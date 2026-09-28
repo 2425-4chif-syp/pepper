@@ -1,6 +1,6 @@
 .tile-img,
 .tile-arrow {
-  transition: transform 200ms ease;
+  transition: transform var(--dur-slow) var(--ease-standard);
 }
 
 .tile:hover .tile-img,

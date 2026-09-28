@@ -4,12 +4,11 @@ import { environment } from '../../environments/environment';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { STORY_URL } from '../app.config';
-import { ITagalongStory } from '../../models/tagalongstories.model';
+import { ITagalongStory } from '../models/tagalongstories.model';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ImageServiceService } from '../service/image-service.service';
-import e from 'express';
 
 @Component({
   selector: 'app-tagalongstory',

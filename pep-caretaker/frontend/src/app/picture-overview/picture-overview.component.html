@@ -1,136 +1,121 @@
-<div class="p-8 min-h-screen"> <!-- Heller Hintergrund -->
-  
-  <button (click)="goToUpload()" style="background-color: #FA7F08;" class="mt-0 w-full py-3 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500">
-    NEUES BILD HOCHLADEN
-  </button>
+<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
-  <div class="flex justify-between items-center mt-8">
-    <h1 class="text-3xl font-bold">Bilder - Überblick</h1>
-    <h1 class="text-3xl font-bold">{{images().length}} / {{standartImages().length}} Bilder</h1>
-  </div>
-  
-  <div class="mt-0">
-    <button
-      [ngStyle]="{ 'background-color': activeButton() === 'All' ? '#9EF8EE' : '#348888', 'color': activeButton() === 'All' ? 'black' : 'white' }"
-      (click)="showAllImages()"
-      class="mt-6 me-2 px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-blue-500"
-    >
-      Alle Bilder
-    </button>
-
-    <button
-      [ngStyle]="{ 'background-color': activeButton() === 'People' ? '#9EF8EE' : '#348888', 'color': activeButton() === 'People' ? 'black' : 'white' }"
-      (click)="showImageOfPersons()"
-      class="mt-6 me-2 px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-blue-500"
-    >
-      Personenbezogene Bilder
-    </button>
-
-    <button
-      [ngStyle]="{ 'background-color': activeButton() === 'Stories' ? '#9EF8EE' : '#348888', 'color': activeButton() === 'Stories' ? 'black' : 'white' }"
-      (click)="showImageOfStories()"
-      class="mt-6 px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-blue-500"
-    >
-      Bilder für Mitmachgeschichten
-    </button>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5">
-    <div *ngFor="let image of images()" class="bg-white shadow-lg rounded-lg overflow-hidden" (click)="openPreview(image)">
-      <!-- Thumbnail card: padded container with contain to show full image -->
-      <div class="p-3">
-        <div class="w-full bg-gray-50 rounded-md overflow-hidden flex items-center justify-center" style="height:12rem;">
-          <img [appAuthSrc]="pictureUrl(image?.id)"
-               [alt]="image.description"
-               loading="lazy"
-               class="max-w-full max-h-full object-contain rounded-md transition-transform duration-200 hover:scale-105">
-        </div>
-        <div style="background-color: #9EF8EE;" class="p-3 text-black text-center font-semibold truncate" [title]="image.description">
-          {{ image.description }}
-        </div>
-      </div>
+  <!-- Kopf: Titel und Anzahl links, primäre Aktion rechts -->
+  <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="t-display">Bilder</h1>
+      <p class="t-callout mt-1 text-base-content/55">
+        {{ images().length }} von {{ standartImages().length }} Bildern
+      </p>
     </div>
+
+    <button type="button" class="btn btn-primary pressable gap-2" (click)="goToUpload()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
+           stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      Neues Bild
+    </button>
+  </header>
+
+  <!-- Filter: nur der aktive trägt Farbe -->
+  <div class="tabs tabs-boxed mb-6 inline-flex bg-base-300/40 p-1" role="tablist">
+    <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+            [class.tab-active]="activeButton() === 'All'"
+            [attr.aria-selected]="activeButton() === 'All'"
+            (click)="showAllImages()">
+      Alle
+    </button>
+    <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+            [class.tab-active]="activeButton() === 'People'"
+            [attr.aria-selected]="activeButton() === 'People'"
+            (click)="showImageOfPersons()">
+      Personen
+    </button>
+    <button type="button" role="tab" class="tab t-callout gap-2 px-4"
+            [class.tab-active]="activeButton() === 'Stories'"
+            [attr.aria-selected]="activeButton() === 'Stories'"
+            (click)="showImageOfStories()">
+      Mitmachgeschichten
+    </button>
   </div>
 
-  <!-- Vorschau: schließen per ✕, Klick auf den Hintergrund oder Escape -->
-  <div *ngIf="selectedImage()" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-       (click)="closePreview()">
-    <div role="dialog" aria-modal="true" aria-labelledby="preview-title"
-         class="flex max-h-full w-full max-w-3xl flex-col overflow-hidden rounded-xl bg-base-100 shadow-2xl"
-         (click)="$event.stopPropagation()">
-      <div class="flex items-center justify-between gap-4 border-b border-base-300 py-2 pl-5 pr-2">
-        <h2 id="preview-title" class="truncate text-lg font-semibold">{{ selectedImage()?.description }}</h2>
-        <button #closeButton type="button" class="btn btn-circle btn-ghost shrink-0" (click)="closePreview()"
-                aria-label="Vorschau schließen" title="Schließen (Esc)">
-          <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+  @if (loadError()) {
+    <div role="alert" class="alert alert-error mb-6">
+      <span>{{ loadError() }}</span>
+      <button type="button" class="btn btn-sm" (click)="loadImages()">Erneut versuchen</button>
+    </div>
+  }
 
-      <img
-        [appAuthSrc]="pictureUrl(selectedImage()?.id, 1200)"
-        [alt]="selectedImage()?.description"
-        class="min-h-0 w-full flex-1 bg-base-200 object-contain"
-      />
-
-      @if (deleteError()) {
-        <div role="alert" class="alert alert-error mx-4 mt-4">
-          <span>{{ deleteError() }}</span>
+  @if (loading()) {
+    <!-- Platzhalter in Kachelgrösse: das Raster springt nicht, wenn die Bilder eintreffen -->
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      @for (placeholder of [1,2,3,4,5,6,7,8]; track placeholder) {
+        <div class="surface-card overflow-hidden">
+          <div class="skeleton aspect-[4/3] w-full rounded-none"></div>
+          <div class="px-3 py-3"><div class="skeleton h-4 w-2/3"></div></div>
         </div>
       }
-
-      <div class="flex justify-center gap-4 p-4">
-        <button
-          type="button"
-          (click)="downloadImage()"
-          class="px-6 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500"
-        >
-          Download
-        </button>
-        <button
-          type="button"
-          class="px-6 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-500 disabled:opacity-60"
-          [disabled]="deleting()"
-          (click)="deleteImage()"
-        >
-          {{ deleting() ? 'Wird gelöscht …' : 'Löschen' }}
-        </button>
-      </div>
     </div>
-  </div>
+  } @else if (images().length === 0) {
+    <div class="surface-card px-6 py-16 text-center">
+      <p class="t-title3">Keine Bilder in dieser Ansicht</p>
+      <p class="t-callout mt-2 text-base-content/55">
+        Laden Sie ein Bild hoch, um zu beginnen.
+      </p>
+      <button type="button" class="btn btn-primary pressable mt-6" (click)="goToUpload()">
+        Neues Bild hochladen
+      </button>
+    </div>
+  } @else {
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      <!-- track image.id: ein Filterklick baut die Kacheln nicht neu auf, die Bilder bleiben -->
+      @for (image of images(); track image.id) {
+        <button type="button"
+                class="picture-tile surface-card pressable overflow-hidden text-left"
+                (click)="openPreview(image)"
+                [attr.aria-label]="'Bild ' + (image.description || 'ohne Beschreibung') + ' öffnen'">
+          <div class="aspect-[4/3] w-full overflow-hidden bg-base-200">
+            <img [appAuthSrc]="thumbUrl(image.id)"
+                 [alt]="image.description"
+                 decoding="async"
+                 class="size-full object-cover">
+          </div>
+          <div class="t-callout truncate px-3 py-3 font-medium" [title]="image.description">
+            {{ image.description }}
+          </div>
+        </button>
+      }
+    </div>
+  }
 </div>
 
+@if (selectedImage(); as image) {
+  <app-sheet [heading]="image.description || 'Bild'" (closed)="closePreview()">
+    <div class="flex min-h-0 flex-1 items-center justify-center bg-base-200 p-2">
+      <img [appAuthSrc]="previewUrl(image.id)" [alt]="image.description"
+           class="max-h-[60vh] w-auto max-w-full object-contain" />
+    </div>
 
+    @if (deleteError()) {
+      <div role="alert" class="alert alert-error mx-5 mt-4 w-auto">
+        <span>{{ deleteError() }}</span>
+      </div>
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div sheetActions class="flex justify-end gap-2">
+      <button type="button" (click)="downloadImage()" class="btn btn-ghost pressable gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
+             stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Download
+      </button>
+      <button type="button" [disabled]="deleting()" (click)="deleteImage()"
+              class="btn btn-error btn-outline pressable">
+        {{ deleting() ? 'Wird gelöscht …' : 'Löschen' }}
+      </button>
+    </div>
+  </app-sheet>
+}

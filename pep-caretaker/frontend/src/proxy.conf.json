@@ -3,5 +3,11 @@
         "target": "http://localhost:8080",
         "secure": false,
         "changeOrigin": true
+    },
+    "/imagor/**": {
+        "target": "http://localhost:8000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": { "^/imagor": "" }
     }
 }

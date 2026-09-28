@@ -5,8 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'pep-caretaker/backend_v2/**'
-      - '.github/workflows/**'
+      - 'pep-caretaker/backend/**'
+      - 'deploy/compose/**'
+      - 'docker/keycloak-themes/**'
+      - '.github/workflows/build-deploy-backend.yaml'
   workflow_dispatch:
 
 jobs:
@@ -15,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: pep-caretaker/backend_v2
+        working-directory: pep-caretaker/backend
 
     steps:
       - name: Checkout code
@@ -29,8 +31,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: |
-          mvn -B clean package -DskipTests
+        run: mvn -B clean package -DskipTests
 
       - name: Set up docker buildx
         uses: docker/setup-buildx-action@v3
@@ -50,42 +51,46 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./pep-caretaker/backend_v2
-          file: ./pep-caretaker/backend_v2/src/main/docker/Dockerfile
+          context: ./pep-caretaker/backend
+          file: ./pep-caretaker/backend/src/main/docker/Dockerfile
           platforms: linux/amd64, linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository }}/pepper-backend:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # Compose-Datei und Login-Theme auf die VM spiegeln, damit die Konfiguration
+      # aus dem Repository kommt und nicht von Hand auf dem Server gepflegt wird.
+      - name: Copy deployment files to VM
+        if: github.ref_name == 'main'
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "deploy/compose/docker-compose.yaml,docker/keycloak-themes/pepper/**"
+          target: /home/stuetzadm/deploy/sync
+          overwrite: true
+
       - name: Deploy to VM (SSH)
-        uses: appleboy/ssh-action@v0.1.5
+        if: github.ref_name == 'main'
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             cd /home/stuetzadm/deploy/compose
-            echo "Current working dir:"
-            pwd
-            echo "Content of dir:"
-            ls -lah
-            docker compose -f docker-compose.yaml down --rmi all
-            docker compose -f docker-compose.yaml build --no-cache
-            docker compose -f docker-compose.yaml up -d
-
-
-#            if [ $(docker ps -q -f name=backend) ]; then
-#              docker stop backend
-#              docker rm backend
-#            fi
-#
-#            docker pull ${{ secrets.DOCKER_USERNAME }}/backend:latest
-#
-#            docker run -d \
-#              --env-file .env \
-#              --network pepperdb_postgres \
-#              --name backend \
-#              -p 8080:8080 \
-#              --restart unless-stopped \
-#              ${{ secrets.DOCKER_USERNAME }}/backend:latest
+            # Aus dem Sync-Ordner an die richtige Stelle legen
+            cp /home/stuetzadm/deploy/sync/deploy/compose/docker-compose.yaml ./docker-compose.yaml
+            mkdir -p ./keycloak-themes
+            rm -rf ./keycloak-themes/pepper
+            cp -r /home/stuetzadm/deploy/sync/docker/keycloak-themes/pepper ./keycloak-themes/pepper
+            # Nur das Backend neu ziehen und ersetzen. Kein "down": Postgres, Keycloak
+            # und die Mealplan-Container laufen weiter. Kein --remove-orphans, das
+            # wuerde die Mealplan-Container aus demselben Projekt entfernen.
+            docker compose -f docker-compose.yaml pull backend
+            docker compose -f docker-compose.yaml up -d backend
+            docker image prune -f
+            docker compose -f docker-compose.yaml ps

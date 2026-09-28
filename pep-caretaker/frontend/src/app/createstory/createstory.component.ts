@@ -407,9 +407,9 @@ private loadImagesOld(): void {
     };
     
     sessionStorage.setItem('pendingStoryState', JSON.stringify(storyState));
-    
-    // Zur Image Upload Seite navigieren
-    this.router.navigate(['/imageUpload']);
+
+    // Betriebsart in der Route mitgeben - die Upload-Seite rät sie nicht aus dem sessionStorage
+    this.router.navigate(['/imageUpload'], { queryParams: { for: 'title' } });
   }
 
   // Neue Methode für Navigation zur Image Upload Seite für Szenenbild
@@ -426,9 +426,8 @@ private loadImagesOld(): void {
     };
     
     sessionStorage.setItem('pendingStoryState', JSON.stringify(storyState));
-    
-    // Zur Image Upload Seite navigieren
-    this.router.navigate(['/imageUpload']);
+
+    this.router.navigate(['/imageUpload'], { queryParams: { for: 'scene' } });
   }
   setSceneImage(scene: Scene | null, image: ImageJson) {
     if (scene) {

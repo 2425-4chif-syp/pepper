@@ -1,0 +1,358 @@
+/* ============================================================
+   Pepper-Login
+   Dieselben Gestaltungsmerkmale wie das Dashboard: neutrale Flaechen, ein
+   einziger Akzent, Systemschrift mit groessenabhaengigem Tracking, ruhige
+   Bewegung. Gearbeitet wird ueber die CSS-Variablen von PatternFly - so
+   greift die Farbgebung auch auf Seiten, die hier nie einzeln angefasst
+   werden (Passwort vergessen, OTP, Fehlermeldungen).
+   ============================================================ */
+
+:root,
+html[data-pepper-theme='pepper'] {
+  --pepper-surface: #ffffff;
+  --pepper-page: #f5f5f7;
+  --pepper-border: #d2d2d7;
+  --pepper-text: #1d1d1f;
+  --pepper-text-dim: rgb(29 29 31 / 0.6);
+  --pepper-primary: #2f8080;
+  --pepper-primary-hover: #2a7373;
+  --pepper-on-primary: #ffffff;
+  --pepper-error: #ff3b30;
+  --pepper-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 16px rgb(0 0 0 / 0.06);
+}
+
+/* Der Umschalter im Dashboard setzt dieses Attribut; ohne ihn greift die
+   Systemeinstellung ueber die Klasse, die Keycloak selbst setzt. */
+html[data-pepper-theme='pepper-dark'],
+html.pf-v5-theme-dark:not([data-pepper-theme='pepper']) {
+  --pepper-surface: #1c1c1e;
+  --pepper-page: #000000;
+  --pepper-border: #3a3a3c;
+  --pepper-text: #f5f5f7;
+  --pepper-text-dim: rgb(245 245 247 / 0.6);
+  --pepper-primary: #4db6b6;
+  --pepper-primary-hover: #5cc3c3;
+  --pepper-on-primary: #00201f;
+  --pepper-error: #ff453a;
+  --pepper-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 16px rgb(0 0 0 / 0.3);
+}
+
+/* PatternFly auf die Pepper-Werte umstellen */
+:root {
+  --pf-v5-global--FontFamily--text: -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+                                    'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
+  --pf-v5-global--FontFamily--heading: var(--pf-v5-global--FontFamily--text);
+  --pf-v5-global--FontFamily--redhatVF--text: var(--pf-v5-global--FontFamily--text);
+  --pf-v5-global--FontFamily--redhatVF--heading: var(--pf-v5-global--FontFamily--text);
+
+  --pf-v5-global--primary-color--100: var(--pepper-primary);
+  --pf-v5-global--primary-color--200: var(--pepper-primary-hover);
+  --pf-v5-global--link--Color: var(--pepper-primary);
+  --pf-v5-global--link--Color--hover: var(--pepper-primary-hover);
+  --pf-v5-global--danger-color--100: var(--pepper-error);
+
+  --pf-v5-global--BackgroundColor--100: var(--pepper-surface);
+  --pf-v5-global--Color--100: var(--pepper-text);
+  --pf-v5-global--Color--200: var(--pepper-text-dim);
+  --pf-v5-global--BorderColor--100: var(--pepper-border);
+
+  --pf-v5-global--BorderRadius--sm: 0.625rem;
+  --pf-v5-global--BorderRadius--lg: 0.875rem;
+
+  --pf-v5-c-login__main--BackgroundColor: var(--pepper-surface);
+}
+
+/* ---- Seite ---- */
+
+.login-pf body,
+body.pepper-login {
+  /* Hintergrundbild des Standardthemes entfernen - die Flaeche bleibt ruhig */
+  background: var(--pepper-page) !important;
+  color: var(--pepper-text);
+  font-family: var(--pf-v5-global--FontFamily--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pf-v5-c-login {
+  padding: 2rem 1rem;
+}
+
+.pf-v5-c-login__container {
+  /* eine Spalte, wie im Elterntheme, nur etwas schmaler */
+  grid-template-columns: min(26rem, 100%);
+  justify-content: center;
+}
+
+/* ---- Wortmarke ueber dem Fenster ---- */
+
+#kc-header {
+  margin-bottom: 1.5rem;
+}
+
+#kc-header-wrapper {
+  padding: 0;
+  text-align: center;
+  /* Keycloak setzt hier sonst Versalien mit weitem Sperrsatz */
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.pepper-wordmark {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 590;
+  color: var(--pepper-text);
+}
+
+.pepper-wordmark__sub {
+  font-weight: 400;
+  color: var(--pepper-text-dim);
+}
+
+/* Logo des Standardthemes ausblenden, falls eine Seite es noch mitbringt */
+div.kc-logo-text {
+  display: none;
+}
+
+/* ---- Karte ---- */
+
+.pf-v5-c-login__main {
+  background-color: var(--pepper-surface);
+  border: 1px solid var(--pepper-border);
+  border-radius: 0.875rem;
+  box-shadow: var(--pepper-shadow);
+  overflow: hidden;
+}
+
+.pf-v5-c-login__main-header {
+  padding: 1.75rem 1.75rem 0;
+}
+
+#kc-page-title {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  /* groessere Schrift vertraegt engeres Tracking */
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--pepper-text);
+}
+
+.pf-v5-c-login__main-body {
+  padding: 1.25rem 1.75rem 1.75rem;
+}
+
+.pf-v5-c-login__main-footer-band {
+  background-color: var(--pepper-page);
+  border-top: 1px solid var(--pepper-border);
+  padding: 1rem 1.75rem;
+}
+
+/* ---- Formular ---- */
+
+.pf-v5-c-form__label-text,
+.pf-v5-c-form__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--pepper-text);
+}
+
+.pf-v5-c-form-control {
+  --pf-v5-c-form-control--BorderRadius: 0.625rem;
+  background-color: var(--pepper-surface);
+  border: 1px solid var(--pepper-border);
+  border-radius: 0.625rem;
+  color: var(--pepper-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 150ms cubic-bezier(0.32, 0.72, 0, 1),
+              box-shadow 150ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.pf-v5-c-form-control input,
+.pf-v5-c-form-control select {
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.pf-v5-c-form-control:focus-within {
+  border-color: var(--pepper-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pepper-primary) 22%, transparent);
+  outline: none;
+}
+
+/* PatternFly zeichnet den Fokus sonst als dicke Unterkante */
+.pf-v5-c-form-control::after,
+.pf-v5-c-form-control::before {
+  border: none !important;
+}
+
+/* Feld mit Zusatzknopf (Passwort ein-/ausblenden) soll als EIN Bedienelement
+   wirken. PatternFly legt Feld und Knopf als getrennte Kaesten nebeneinander;
+   Rahmen und Radius wandern deshalb auf die Gruppe. */
+.pf-v5-c-input-group {
+  background-color: var(--pepper-surface);
+  border: 1px solid var(--pepper-border);
+  border-radius: 0.625rem;
+  overflow: hidden;
+  transition: border-color 150ms cubic-bezier(0.32, 0.72, 0, 1),
+              box-shadow 150ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.pf-v5-c-input-group .pf-v5-c-form-control {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.pf-v5-c-input-group:focus-within {
+  border-color: var(--pepper-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pepper-primary) 22%, transparent);
+}
+
+/* Der innere Fokusring wuerde sonst doppelt gezeichnet */
+.pf-v5-c-input-group .pf-v5-c-form-control:focus-within {
+  box-shadow: none;
+}
+
+/* Pflichtfeld-Stern und Fehlertext in der Signalfarbe */
+.pf-v5-c-form__label-required,
+.pf-v5-c-helper-text__item.pf-m-error,
+.pf-v5-c-helper-text__item-text.pf-m-error {
+  color: var(--pepper-error);
+}
+
+.pf-v5-c-form-control.pf-m-error,
+.pf-v5-c-form-control[aria-invalid='true'] {
+  border-color: var(--pepper-error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pepper-error) 18%, transparent);
+}
+
+/* ---- Schaltflaechen ---- */
+
+.pf-v5-c-button {
+  border-radius: 980px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 150ms cubic-bezier(0.32, 0.72, 0, 1),
+              background-color 150ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.pf-v5-c-button:active {
+  /* Rueckmeldung beim Druecken, nicht erst beim Loslassen */
+  transform: scale(0.97);
+}
+
+.pf-v5-c-button.pf-m-primary {
+  background-color: var(--pepper-primary);
+  color: var(--pepper-on-primary);
+  padding-block: 0.625rem;
+}
+
+.pf-v5-c-button.pf-m-primary:hover,
+.pf-v5-c-button.pf-m-primary:focus {
+  background-color: var(--pepper-primary-hover);
+  color: var(--pepper-on-primary);
+}
+
+.pf-v5-c-button.pf-m-link {
+  color: var(--pepper-primary);
+  border-radius: 0.625rem;
+}
+
+/* Auge zum Einblenden des Passworts: unauffaellig neben dem Feld.
+   PatternFly zeichnet den Rahmen dieses Knopfes ueber ::after - der ergaebe
+   sonst eine sichtbare Naht mitten im Feld. */
+.pf-v5-c-button.pf-m-control {
+  background-color: transparent;
+  border: none;
+  color: var(--pepper-text-dim);
+}
+
+.pf-v5-c-button.pf-m-control::after {
+  display: none;
+}
+
+.pf-v5-c-button.pf-m-control:hover {
+  color: var(--pepper-text);
+}
+
+/* ---- Kontrollkaestchen und Verweise ---- */
+
+.pf-v5-c-check__label,
+.pf-v5-c-login__main-footer-band-item {
+  font-size: 0.9375rem;
+  color: var(--pepper-text-dim);
+}
+
+.pf-v5-c-check__input {
+  accent-color: var(--pepper-primary);
+}
+
+a {
+  color: var(--pepper-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Meldungen ---- */
+
+.pf-v5-c-alert {
+  border-radius: 0.625rem;
+  border: 1px solid var(--pepper-border);
+  background-color: var(--pepper-page);
+  color: var(--pepper-text);
+}
+
+.pf-v5-c-alert.pf-m-danger,
+.pf-v5-c-alert.pf-m-error {
+  border-color: color-mix(in srgb, var(--pepper-error) 40%, transparent);
+  background-color: color-mix(in srgb, var(--pepper-error) 10%, transparent);
+}
+
+.pf-v5-c-alert.pf-m-danger .pf-v5-c-alert__icon,
+.pf-v5-c-alert.pf-m-danger .pf-v5-c-alert__title {
+  color: var(--pepper-error);
+}
+
+/* ---- Sichtbarer Fokus, einheitlich mit dem Dashboard ---- */
+
+:where(a, button, input, select):focus-visible {
+  outline: 2px solid var(--pepper-primary);
+  outline-offset: 2px;
+}
+
+/* ---- Barrierefreiheit ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-v5-c-button,
+  .pf-v5-c-form-control {
+    transition: none;
+  }
+  .pf-v5-c-button:active {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .pf-v5-c-login__main,
+  .pf-v5-c-form-control {
+    border-width: 2px;
+  }
+}
+
+/* Auf schmalen Geraeten die Karte bis an den Rand fuehren */
+@media (max-width: 480px) {
+  .pf-v5-c-login {
+    padding: 1.5rem 1rem;
+  }
+  .pf-v5-c-login__main-header,
+  .pf-v5-c-login__main-body {
+    padding-inline: 1.25rem;
+  }
+}

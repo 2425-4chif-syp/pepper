@@ -125,5 +125,11 @@
         "default-roles-pepper"
       ]
     }
-  ]
+  ],
+  "loginTheme": "pepper",
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "de"
+  ],
+  "defaultLocale": "de"
 }

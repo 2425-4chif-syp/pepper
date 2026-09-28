@@ -1,6 +1,6 @@
-<div class="min-h-screen flex items-start justify-center p-4 py-8">
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-[90vw]">
-        <h1 class="text-3xl font-bold mb-6">Person - Detail</h1>
+<div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="surface-card p-6 sm:p-8">
+        <h1 class="t-display mb-8">Person</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Profilbild Bereich -->
@@ -9,31 +9,31 @@
                     <!-- Bearbeitungsmodus: Neues Bild hochladen -->
                     @if (selectedImage()) {
                         <div class="relative w-full">
-                            <div class="w-full h-80 bg-gray-50 rounded-lg border-4 border-blue-300 shadow-md flex items-center justify-center p-4">
+                            <div class="w-full h-80 bg-base-200 rounded-lg border border-base-300 shadow-card flex items-center justify-center p-4">
                             <img [src]="selectedImage()" 
                                      alt="Neue Vorschau" 
                                      class="max-w-full max-h-full object-contain rounded-lg">
                             </div>
                             <button (click)="removeNewImage()" 
-                                    class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 shadow-lg">
+                                    class="absolute top-2 right-2 bg-error text-error-content rounded-full p-2 hover:bg-error/90 shadow-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">Neues Bild</div>
+                            <div class="absolute bottom-2 left-2 bg-primary text-primary-content text-xs px-2 py-1 rounded">Neues Bild</div>
                         </div>
                     } @else {
                         <!-- Aktuelles Bild mit Upload-Option -->
                         <div class="relative w-full">
                             @if (currentProfileImage()) {
-                                <div class="w-full h-80 bg-gray-50 rounded-lg border-4 border-gray-200 shadow-md flex items-center justify-center p-4">
+                                <div class="w-full h-80 bg-base-200 rounded-lg border border-base-300 shadow-card flex items-center justify-center p-4">
                                     <img [appAuthSrc]="currentProfileImage()" 
                                          alt="Aktuelles Profilbild" 
                                          class="max-w-full max-h-full object-contain rounded-lg opacity-95">
                                 </div>
                             } @else {
-                                <div class="w-full h-64 bg-gray-100 rounded-lg border-4 border-gray-200 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                <div class="w-full h-64 bg-base-200 rounded-lg border border-base-300 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-base-content/45" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
@@ -56,12 +56,12 @@
                 } @else {
                     <!-- Ansichtsmodus: Nur Anzeige -->
                     @if (currentProfileImage()) {
-                        <div class="w-full h-80 bg-gray-50 rounded-lg flex items-center justify-center border-4 border-gray-200 shadow-md p-4">
+                        <div class="w-full h-80 bg-base-200 rounded-lg flex items-center justify-center border border-base-300 shadow-card p-4">
                             <img [appAuthSrc]="currentProfileImage()" alt="Profilbild" class="max-w-full max-h-full object-contain rounded-lg">
                         </div>
                     } @else {
-                        <div class="w-full h-64 bg-sky-500 rounded-lg flex items-center justify-center shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <div class="w-full h-64 bg-base-200 rounded-card flex items-center justify-center border border-base-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-base-content/30" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                             </svg>
                         </div>
@@ -72,14 +72,14 @@
             <div class="flex flex-col space-y-4">
                 <!-- ✅ Vorname - bearbeitbar -->
                 <div class="flex items-center">
-                    <label class="w-36 font-bold text-lg">Vorname:</label>
+                    <label class="t-callout w-36 font-medium text-base-content/60">Vorname:</label>
                     <div class="flex-1">
                         @if (isEditing()) {
                             <input type="text" 
                                    [(ngModel)]="editFirstName" 
-                                   class="w-full border border-gray-300 rounded p-2 bg-white text-center">
+                                   class="input input-bordered w-full bg-base-100 text-center">
                         } @else {
-                            <div class="border border-gray-300 rounded p-2 bg-gray-50 text-center">
+                            <div class="t-body rounded-control border border-base-300 bg-base-200 px-3 py-2 text-center">
                                 {{residentOfId()?.firstName}}
                             </div>
                         }
@@ -88,14 +88,14 @@
                 
                 <!-- ✅ Nachname - bearbeitbar -->
                 <div class="flex items-center">
-                    <label class="w-36 font-bold text-lg">Nachname:</label>
+                    <label class="t-callout w-36 font-medium text-base-content/60">Nachname:</label>
                     <div class="flex-1">
                         @if (isEditing()) {
                             <input type="text" 
                                    [(ngModel)]="editLastName" 
-                                   class="w-full border border-gray-300 rounded p-2 bg-white text-center">
+                                   class="input input-bordered w-full bg-base-100 text-center">
                         } @else {
-                            <div class="border border-gray-300 rounded p-2 bg-gray-50 text-center">
+                            <div class="t-body rounded-control border border-base-300 bg-base-200 px-3 py-2 text-center">
                                 {{residentOfId()?.lastName}}
                             </div>
                         }
@@ -104,17 +104,17 @@
                 
                 <!-- ✅ Zuständigkeit - bearbeitbar mit Select -->
                 <div class="flex items-center">
-                    <label class="w-36 font-bold text-lg">Zuständigkeit:</label>
+                    <label class="t-callout w-36 font-medium text-base-content/60">Zuständigkeit:</label>
                     <div class="flex-1">
                         @if (isEditing()) {
                             <select [(ngModel)]="editRole" 
                                     (change)="onRoleChange($event)"
-                                    class="w-full border border-gray-300 rounded p-2 bg-white text-center">
+                                    class="input input-bordered w-full bg-base-100 text-center">
                                 <option value="bewohner">Bewohner</option>
                                 <option value="worker">Worker</option>
                             </select>
                         } @else {
-                            <div class="border border-gray-300 rounded p-2 bg-gray-50 text-center">
+                            <div class="t-body rounded-control border border-base-300 bg-base-200 px-3 py-2 text-center">
                                 {{residentOfId()?.isWorker ? 'Worker' : 'Bewohner'}}
                             </div>
                         }
@@ -123,14 +123,14 @@
                 
                 <!-- ✅ Zimmer-Nr - bearbeitbar -->
                 <div class="flex items-center">
-                    <label class="w-36 font-bold text-lg">Zimmer-Nr.:</label>
+                    <label class="t-callout w-36 font-medium text-base-content/60">Zimmer-Nr.:</label>
                     <div class="flex-1">
                         @if (isEditing()) {
                             <input type="text" 
                                    [(ngModel)]="editRoomNo" 
-                                   class="w-full border border-gray-300 rounded p-2 bg-white text-center">
+                                   class="input input-bordered w-full bg-base-100 text-center">
                         } @else {
-                            <div class="border border-gray-300 rounded p-2 bg-gray-50 text-center">
+                            <div class="t-body rounded-control border border-base-300 bg-base-200 px-3 py-2 text-center">
                                 {{residentOfId()?.roomNo}}
                             </div>
                         }
@@ -139,14 +139,14 @@
 
                 <!-- ✅ Geburtstag - bearbeitbar -->
                 <div class="flex items-center">
-                    <label class="w-36 font-bold text-lg">Geburtstag:</label>
+                    <label class="t-callout w-36 font-medium text-base-content/60">Geburtstag:</label>
                     <div class="flex-1">
                         @if (isEditing()) {
                             <input type="date" 
                                    [(ngModel)]="editDob" 
-                                   class="w-full border border-gray-300 rounded p-2 bg-white text-center">
+                                   class="input input-bordered w-full bg-base-100 text-center">
                         } @else {
-                            <div class="border border-gray-300 rounded p-2 bg-gray-50 text-center">
+                            <div class="t-body rounded-control border border-base-300 bg-base-200 px-3 py-2 text-center">
                                 {{residentOfId()?.dob}}
                             </div>
                         }
@@ -158,22 +158,22 @@
                     @if (isEditing()) {
                         <!-- Bearbeiten-Modus: Speichern & Abbrechen -->
                         <button (click)="saveChanges()" 
-                               style="background-color: #22BABB;" class="px-4 py-2 text-white rounded hover:bg-green-700">
+                               class="btn btn-sm btn-primary pressable">
                             Speichern
                         </button>
                         <button (click)="cancelEditing()" 
-                               style="background-color: #F24405;" class="px-4 py-2 text-white rounded hover:bg-gray-700">
+                               class="btn btn-sm btn-ghost pressable">
                             Abbrechen
                         </button>
                     } @else {
                         <!-- Ansicht-Modus: Bearbeiten & Zurück -->
                         <button (click)="startEditing()" 
-                               style="background-color: #22BABB;" class="px-4 py-2 text-white rounded hover:bg-blue-700">
+                               class="btn btn-sm btn-primary pressable">
                             Bearbeiten
                         </button>
                         <button [routerLink]="['/residents']" 
                                 routerLinkActive="router-link-active" 
-                               style="background-color: #348888;"  class="px-4 py-2 text-white rounded hover:bg-gray-600">
+                               class="btn btn-sm btn-ghost pressable">
                             Zur Übersicht
                         </button>
                     }
@@ -182,46 +182,44 @@
         </div>
 
         <!-- ✅ Bilder-Galerie - schmaler mit 3 Spalten -->
-        <div class="mt-8 p-4 bg-gray-100 rounded-lg shadow-inner">
-            <h2 class="text-xl font-bold mb-4 text-gray-700">Bilder-Galerie</h2>
+        <div class="mt-10 border-t border-base-300/60 pt-8">
+            <h2 class="t-title2 mb-4">Bilder-Galerie</h2>
             <!-- ✅ ÄNDERUNG: 3 Spalten für schmalere Bilder -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @for (image of imagesOfPerson(); track $index) {
-                    <div class="transition-transform duration-300 hover:scale-105">
-                        <!-- Card with consistent aspect and click-to-open -->
-                        <div class="bg-white p-3 rounded-lg shadow-md border-2 border-gray-200 hover:border-[#348888] transition-colors duration-200 hover:shadow-lg cursor-pointer"
-                             (click)="openGalleryImage(image)">
-                            <div class="w-full bg-gray-50 rounded-md overflow-hidden flex items-center justify-center" style="height:12rem;">
-                                <img [appAuthSrc]="getImagorUrl(image?.id)" 
-                                     alt="Person Image" 
-                                     loading="lazy"
-                                     class="max-w-full max-h-full object-contain rounded-md">
-                            </div>
+                    <button type="button" class="surface-card pressable overflow-hidden"
+                            (click)="openGalleryImage(image)"
+                            [attr.aria-label]="(image?.description || 'Bild') + ' öffnen'">
+                        <div class="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-base-200">
+                            <img [appAuthSrc]="getImagorUrl(image?.id, 400)"
+                                 [alt]="image?.description || 'Bild der Person'"
+                                 decoding="async"
+                                 class="size-full object-cover">
                         </div>
-                    </div>
+                    </button>
                 }
                 @empty {
-                    <div class="col-span-full text-center py-8 text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="col-span-full text-center py-8 text-base-content/60">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-base-content/45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2-2H6a2 2 0 002 2z" />
                         </svg>
-                        <p>No pictures available</p>
+                        <p class="t-callout">Keine Bilder vorhanden</p>
                     </div>
                 }
-            </div>
-        </div>
-        <!-- Modal for enlarged gallery image -->
-        <div *ngIf="selectedGalleryImage()" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-            <div class="bg-white rounded-xl overflow-hidden shadow-2xl max-w-4xl w-full p-4 relative mx-4">
-                <button (click)="closeGalleryImage()" class="absolute top-2 right-4 text-3xl font-bold text-gray-600 hover:text-black p-2">✕</button>
-                <img [appAuthSrc]="getImagorUrl(selectedGalleryImage()?.id)" 
-                     [alt]="selectedGalleryImage()?.description || 'Bild'" 
-                     class="w-full max-h-[80vh] object-contain mb-4" />
-                <div class="text-center font-semibold text-lg mb-4">{{ selectedGalleryImage()?.description }}</div>
-                <div class="flex justify-center gap-4">
-                    <button (click)="closeGalleryImage();" class="px-6 py-2 bg-gray-300 text-black rounded-lg shadow">Schließen</button>
-                </div>
             </div>
         </div>
     </div>
 </div>
+
+@if (selectedGalleryImage(); as galleryImage) {
+  <app-sheet [heading]="galleryImage.description || 'Bild'" (closed)="closeGalleryImage()">
+    <div class="flex min-h-0 flex-1 items-center justify-center bg-base-200 p-2">
+      <img [appAuthSrc]="getImagorUrl(galleryImage.id, 1600)"
+           [alt]="galleryImage.description || 'Bild'"
+           class="max-h-[60vh] w-auto max-w-full object-contain" />
+    </div>
+    <div sheetActions class="flex justify-end">
+      <button type="button" (click)="closeGalleryImage()" class="btn btn-ghost pressable">Schliessen</button>
+    </div>
+  </app-sheet>
+}
