@@ -28,6 +28,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ImageRessourceTest {
 
     private static final Logger log = LoggerFactory.getLogger(ImageRessourceTest.class);
+
+    /** Kleinstmoegliches gueltiges PNG (1x1, transparent). */
+    private static final byte[] PNG_1X1 = Base64.getDecoder().decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk"
+            + "+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==");
+    private static final String PNG_1X1_BASE64 = Base64.getEncoder().encodeToString(PNG_1X1);
     static Person person;
     static Image image;
     static long imageId;
@@ -68,7 +74,7 @@ public class ImageRessourceTest {
     @Order(130)
     void createImage_shouldPersistAndReturn201(){
         // Arrange
-        var base64Image = Base64.getEncoder().encodeToString("Hallo".getBytes());
+        var base64Image = PNG_1X1_BASE64;
         ImageContentDto imageDto = new ImageContentDto(null, person.getId(), base64Image, null, "Test image");
 
         var created = given()
@@ -87,6 +93,22 @@ public class ImageRessourceTest {
                 .body(imageDto)
                 .when().post("/image")
                 .then().statusCode(201);
+    }
+
+    @Test
+    @Order(135)
+    void createImage_shouldRejectNonImagePayload() {
+        // Arrange: gueltiges Base64, aber keine Bilddatei.
+        var notAnImage = Base64.getEncoder().encodeToString("Hallo".getBytes());
+        ImageContentDto imageDto =
+                new ImageContentDto(null, person.getId(), notAnImage, null, "Kein Bild");
+
+        // Act + Assert
+        given()
+                .contentType(APPLICATION_JSON)
+                .body(imageDto)
+                .when().post("/image")
+                .then().statusCode(400);
     }
 
     @Test
@@ -118,7 +140,7 @@ public class ImageRessourceTest {
     @Order(145)
     void getImage_shouldReturnSameBase64() {
         // Arrange
-        var expectedBase64 = Base64.getEncoder().encodeToString("Hallo".getBytes());
+        var expectedBase64 = PNG_1X1_BASE64;
 
         // Act
         var image = given()

@@ -54,7 +54,9 @@
         @Test
         @Order(120)
         void createTagAlongStoryGameOnly() {
-            var base64Image = Base64.getEncoder().encodeToString("Hallo".getBytes());
+            // Der Upload akzeptiert nur Dateien mit Bild-Signatur - ein 1x1-PNG.
+            var base64Image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk"
+                    + "+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
 
             var newGame = Map.of(
                     "name", "Testgeschichte",

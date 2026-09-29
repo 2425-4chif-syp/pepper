@@ -1,5 +1,6 @@
 package com.pep.mealplan.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import com.pep.mealplan.entity.FoodAllergen;
 import com.pep.mealplan.service.FoodAllergenService;
 import jakarta.inject.Inject;
@@ -12,6 +13,9 @@ import java.util.List;
 @Path("/api/food-allergens")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+// Klassenweiter Vorgabewert: ein kuenftiger Endpunkt ohne eigene
+// @RolesAllowed-Angabe ist damit zu und nicht offen.
+@RolesAllowed({"admin", "caretaker", "robot"})
 public class FoodAllergenResource {
 
     @Inject
@@ -22,24 +26,28 @@ public class FoodAllergenResource {
     // -------------------------------------------------
 
     @GET
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<FoodAllergen> getAll() {
         return service.getAll();
     }
 
     @GET
     @Path("/food/{foodId}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<FoodAllergen> getByFoodId(@PathParam("foodId") Long foodId) {
         return service.getByFoodId(foodId);
     }
 
     @GET
     @Path("/allergen/{shortname}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<FoodAllergen> getByAllergenShortname(@PathParam("shortname") String shortname) {
         return service.getByAllergenShortname(shortname);
     }
 
     @GET
     @Path("/{foodId}/{allergenShortname}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getById(
             @PathParam("foodId") Long foodId,
             @PathParam("allergenShortname") String allergenShortname) {
@@ -56,6 +64,7 @@ public class FoodAllergenResource {
 
     @POST
     @Path("/{foodId}/{allergenShortname}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response create(
             @PathParam("foodId") Long foodId,
             @PathParam("allergenShortname") String allergenShortname) {
@@ -67,6 +76,7 @@ public class FoodAllergenResource {
 
     @DELETE
     @Path("/{foodId}/{allergenShortname}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response delete(
             @PathParam("foodId") Long foodId,
             @PathParam("allergenShortname") String allergenShortname) {

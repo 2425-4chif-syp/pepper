@@ -7,10 +7,18 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-BASE_URL = "https://vm107.htl-leonding.ac.at"
+# Dieser Test fahrt gegen ein echtes Deployment. Zugangsdaten kommen aus der
+# Umgebung, damit keine Produktionskennung im Repository liegt:
+#   E2E_BASE_URL=... E2E_USERNAME=... E2E_PASSWORD=... pytest e2e-test/
+BASE_URL = os.environ.get("E2E_BASE_URL", "http://localhost:4200")
+USERNAME = os.environ.get("E2E_USERNAME")
+PASSWORD = os.environ.get("E2E_PASSWORD")
 
-USERNAME = "admin"
-PASSWORD = "admin123"
+if not USERNAME or not PASSWORD:
+    pytest.skip(
+        "E2E_USERNAME und E2E_PASSWORD muessen gesetzt sein",
+        allow_module_level=True,
+    )
 
 
 @pytest.fixture

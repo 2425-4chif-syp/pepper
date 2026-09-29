@@ -99,3 +99,8 @@ db-postgres
 
 AGENTS.md
 CLAUDE.md
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/

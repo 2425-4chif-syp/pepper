@@ -13,6 +13,14 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // Backend-Login als Keycloak-Service-Account (siehe RobotAuthInterceptor).
+        // Secret NICHT committen: in ~/.gradle/gradle.properties setzen, z. B.
+        //   PEPPER_ROBOT_CLIENT_SECRET=...
+        //   PEPPER_KEYCLOAK_URL=https://vm107.htl-leonding.ac.at/auth/   (optional)
+        buildConfigField "String", "KEYCLOAK_URL", "\"${project.findProperty('PEPPER_KEYCLOAK_URL') ?: 'https://vm107.htl-leonding.ac.at/auth/'}\""
+        buildConfigField "String", "ROBOT_CLIENT_ID", "\"${project.findProperty('PEPPER_ROBOT_CLIENT_ID') ?: 'pepper-robot'}\""
+        buildConfigField "String", "ROBOT_CLIENT_SECRET", "\"${project.findProperty('PEPPER_ROBOT_CLIENT_SECRET') ?: ''}\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true

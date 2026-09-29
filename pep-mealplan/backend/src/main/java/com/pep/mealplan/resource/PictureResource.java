@@ -1,5 +1,6 @@
 package com.pep.mealplan.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import com.pep.mealplan.entity.Picture;
 import com.pep.mealplan.resource.dto.ImageDto;
 import com.pep.mealplan.resource.dto.ImageJson;
@@ -16,6 +17,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Path("/api/images")
+@RolesAllowed({"admin", "caretaker", "robot"})
 public class PictureResource {
 
     @Inject
@@ -27,6 +29,7 @@ public class PictureResource {
     // GET all images as DTOs with Base64
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<ImageDto> getAll() {
         return pictureService.getAll().stream()
                 .map(this::convertToDto)
@@ -37,6 +40,7 @@ public class PictureResource {
     @GET
     @Path("/pictures")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<ImageJson> getAllWithHref() {
         String baseUri = uriInfo.getBaseUri().toString();
         return pictureService.getAll().stream()
@@ -52,6 +56,7 @@ public class PictureResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getById(@PathParam("id") Long id) {
         Picture picture = pictureService.getById(id);
         if (picture == null) {
@@ -64,6 +69,7 @@ public class PictureResource {
     @GET
     @Path("/picture/{id}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getPictureById(@PathParam("id") Long id) {
         byte[] imageData = pictureService.getImageData(id);
         if (imageData == null) {
@@ -81,6 +87,7 @@ public class PictureResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response createImage(ImageDto imageDto) {
         if (imageDto.base64Image() == null || imageDto.base64Image().isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -109,6 +116,7 @@ public class PictureResource {
     // DELETE image
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = pictureService.delete(id);
         if (!deleted) {

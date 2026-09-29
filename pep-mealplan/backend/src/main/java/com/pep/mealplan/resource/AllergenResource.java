@@ -1,5 +1,6 @@
 package com.pep.mealplan.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import com.pep.mealplan.entity.Allergen;
 import com.pep.mealplan.service.AllergenService;
 import jakarta.inject.Inject;
@@ -12,6 +13,9 @@ import java.util.List;
 @Path("/api/allergens")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+// Klassenweiter Vorgabewert: ein kuenftiger Endpunkt ohne eigene
+// @RolesAllowed-Angabe ist damit zu und nicht offen.
+@RolesAllowed({"admin", "caretaker", "robot"})
 public class AllergenResource {
 
     @Inject
@@ -22,12 +26,14 @@ public class AllergenResource {
     // -------------------------------------------------
 
     @GET
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<Allergen> getAll() {
         return service.findAll();
     }
 
     @GET
     @Path("/{shortname}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getOne(@PathParam("shortname") String shortname) {
         Allergen allergen = service.findByShortname(shortname);
         if (allergen == null) {
@@ -41,6 +47,7 @@ public class AllergenResource {
     // -------------------------------------------------
 
     @POST
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response create(Allergen allergen) {
         Allergen created = service.create(allergen);
         return Response.status(Response.Status.CREATED)
@@ -50,6 +57,7 @@ public class AllergenResource {
 
     @PUT
     @Path("/{shortname}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response update(@PathParam("shortname") String shortname, Allergen allergen) {
         Allergen updated = service.update(shortname, allergen);
         if (updated == null) {
@@ -60,6 +68,7 @@ public class AllergenResource {
 
     @DELETE
     @Path("/{shortname}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response delete(@PathParam("shortname") String shortname) {
         boolean deleted = service.delete(shortname);
         if (!deleted) {

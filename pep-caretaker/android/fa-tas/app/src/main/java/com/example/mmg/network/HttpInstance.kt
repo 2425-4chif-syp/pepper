@@ -12,33 +12,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 class HttpInstance {
     companion object {
         private const val BACKEND_URL = "https://vm107.htl-leonding.ac.at/"
 
-        private val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
-            override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-        })
-
-        private val sslContext = SSLContext.getInstance("TLS").apply {
-            init(null, trustAllCerts, SecureRandom())
-        }
-
+        // Hier stand ein X509TrustManager, der jedes Zertifikat annahm, plus
+        // hostnameVerifier { _, _ -> true }. Damit war das HTTPS wirkungslos und
+        // das Client-Secret aus BuildConfig samt Access-Token aufbrechbar.
+        // vm107 hat ein regulaeres Let's-Encrypt-Zertifikat.
         private val baseClient = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .protocols(listOf(Protocol.HTTP_1_1))
-            .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
-            .hostnameVerifier { _, _ -> true }
             .build()
 
         // Token-Anfragen laufen über denselben Client (gleiche TLS-Einstellungen), aber ohne Interceptor

@@ -1,5 +1,6 @@
 package com.pep.mealplan.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import com.pep.mealplan.entity.MealPlan;
 import com.pep.mealplan.service.MealPlanService;
 import jakarta.inject.Inject;
@@ -12,6 +13,9 @@ import java.util.List;
 @Path("/api/menu")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+// Klassenweiter Vorgabewert: ein kuenftiger Endpunkt ohne eigene
+// @RolesAllowed-Angabe ist damit zu und nicht offen.
+@RolesAllowed({"admin", "caretaker", "robot"})
 public class MealPlanResource {
 
     @Inject
@@ -23,12 +27,14 @@ public class MealPlanResource {
 
     @GET
     @Path("/week/{weekNumber}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<MealPlan> getByWeek(@PathParam("weekNumber") int weekNumber) {
         return service.getByWeek(weekNumber);
     }
 
     @GET
     @Path("/day/{weekNumber}/{weekDay}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public MealPlan getByWeekAndDay(
             @PathParam("weekNumber") int weekNumber,
             @PathParam("weekDay") int weekDay
@@ -41,6 +47,7 @@ public class MealPlanResource {
     // -------------------------------------------------
 
     @POST
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response upsertDay(MealPlan plan) {
         MealPlan saved = service.upsertDay(plan);
         return Response.ok(saved).build();
@@ -48,6 +55,7 @@ public class MealPlanResource {
 
     @POST
     @Path("/week")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response upsertWeek(List<MealPlan> plans) {
         service.upsertWeek(plans);
         return Response.ok().build();
@@ -55,6 +63,7 @@ public class MealPlanResource {
 
     @DELETE
     @Path("/wipe")
+    @RolesAllowed("admin")
     public Response wipeAll() {
         service.deleteAll();
         return Response.noContent().build();

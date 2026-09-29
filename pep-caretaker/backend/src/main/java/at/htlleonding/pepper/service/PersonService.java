@@ -78,18 +78,16 @@ public class PersonService {
         Person person = personRepository.find("firstName = ?1 AND lastName = ?2",
                 loginPerson.getFirstName(), loginPerson.getLastName()).firstResult();
 
-        if (person == null) {
-            throw new NotAuthorizedException("Benutzer nicht gefunden");
-        }
-        if (!Boolean.TRUE.equals(person.getIsWorker())) {
-            throw new NotAuthorizedException("Senioren benötigen kein Login");
-        }
-        if (loginPerson.getPassword() == null || person.getPassword() == null) {
-            throw new NotAuthorizedException("Falsches Passwort");
-        }
-
-        if (!passwordMatches(loginPerson.getPassword(), person)) {
-            throw new NotAuthorizedException("Falsches Passwort");
+        // Einheitliche Meldung fuer jeden Fehlschlag. Vorher unterschied die
+        // Antwort zwischen "Benutzer nicht gefunden" und "Falsches Passwort" -
+        // damit liess sich ueber diesen unauthentifizierten Endpunkt abfragen,
+        // welche Namen im Haus gepflegt werden.
+        if (person == null
+                || !Boolean.TRUE.equals(person.getIsWorker())
+                || loginPerson.getPassword() == null
+                || person.getPassword() == null
+                || !passwordMatches(loginPerson.getPassword(), person)) {
+            throw new NotAuthorizedException("Anmeldung fehlgeschlagen");
         }
     }
 

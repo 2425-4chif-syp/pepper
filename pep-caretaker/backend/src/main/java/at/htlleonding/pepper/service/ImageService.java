@@ -107,6 +107,9 @@ public class ImageService {
         return toContentDto(image);
     }
 
+    private static final java.util.Set<String> ALLOWED_IMAGE_TYPES =
+            java.util.Set.of("image/png", "image/jpeg", "image/gif", "image/webp");
+
     /**
      * Decodes the (optionally data-URI-prefixed) Base64 payload, uploads it to MinIO
      * and persists the metadata row.
@@ -120,6 +123,13 @@ public class ImageService {
             throw new BadRequestException("base64Image is not valid Base64", e);
         }
         String contentType = MinioService.detectMime(bytes);
+        // detectMime faellt auf application/octet-stream zurueck, wenn keine der
+        // Bild-Signaturen passt. Ohne diese Pruefung landet jede beliebige Datei
+        // im Bucket - storeImage ist der einzige Upload-Pfad (Personenbilder und
+        // Mitmachgeschichten), die Pruefung gehoert also genau hierher.
+        if (!ALLOWED_IMAGE_TYPES.contains(contentType)) {
+            throw new BadRequestException("Nur PNG, JPEG, GIF oder WebP werden akzeptiert");
+        }
         String prefix = person != null ? keyPrefix + "/" + person.getId() : keyPrefix;
         String objectKey = minioService.put(prefix, bytes, contentType);
         Image image = new Image(person, objectKey, contentType, url, description);

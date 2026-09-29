@@ -1,0 +1,3482 @@
+{
+  "deploy/cutover.sql": {
+    "mtime": 1790683177.1241984,
+    "seen": 1790684990.410195,
+    "ast_hash": "351521b6489883ab86c2790a26fe6386",
+    "semantic_hash": "351521b6489883ab86c2790a26fe6386"
+  },
+  "docker/keycloak-themes/pepper/login/resources/js/theme-sync.js": {
+    "mtime": 1790683177.1245832,
+    "seen": 1790684990.4102037,
+    "ast_hash": "2a02ddccc357862c5e1f42db584280ef",
+    "semantic_hash": "2a02ddccc357862c5e1f42db584280ef"
+  },
+  "docker/keycloak/pepper-realm.json": {
+    "mtime": 1790683177.1245832,
+    "seen": 1790684990.410208,
+    "ast_hash": "358e18e2b03e7ef2163b701b62948cca",
+    "semantic_hash": "358e18e2b03e7ef2163b701b62948cca"
+  },
+  "docs/Image-Scaling/FabricJS-Image-Scaling/script.js": {
+    "mtime": 1789743800.2868955,
+    "seen": 1790684990.4102113,
+    "ast_hash": "4bfd7dd6aa12c80418a7caad892ceb3b",
+    "semantic_hash": "4bfd7dd6aa12c80418a7caad892ceb3b"
+  },
+  "docs/Image-Scaling/Jimp-doc/index.js": {
+    "mtime": 1789743800.287049,
+    "seen": 1790684990.4102147,
+    "ast_hash": "cbebf1e7d623b5af8482084cc6beb8da",
+    "semantic_hash": "cbebf1e7d623b5af8482084cc6beb8da"
+  },
+  "docs/scripts/docker-convert-util.sh": {
+    "mtime": 1789743800.3090336,
+    "seen": 1790684990.4102175,
+    "ast_hash": "7393b0145c9973aa352a828e774ac2fd",
+    "semantic_hash": "7393b0145c9973aa352a828e774ac2fd"
+  },
+  "docs/scripts/docker-convert.sh": {
+    "mtime": 1789743800.3092315,
+    "seen": 1790684990.4102209,
+    "ast_hash": "4760b488713ee573f394f45d19efde41",
+    "semantic_hash": "4760b488713ee573f394f45d19efde41"
+  },
+  "docs/slides/gulpfile.js": {
+    "mtime": 1789743800.3155742,
+    "seen": 1790684990.4102237,
+    "ast_hash": "ad6d316e97ccdeb95a4b6d654fed0be8",
+    "semantic_hash": "ad6d316e97ccdeb95a4b6d654fed0be8"
+  },
+  "docs/slides/js/components/playback.js": {
+    "mtime": 1789743800.3159108,
+    "seen": 1790684990.4102263,
+    "ast_hash": "02ab2db2e034265756aface666685464",
+    "semantic_hash": "02ab2db2e034265756aface666685464"
+  },
+  "docs/slides/js/config.js": {
+    "mtime": 1789743800.3159108,
+    "seen": 1790684990.4102292,
+    "ast_hash": "9b4e3e184da353e21baf10de7979a56e",
+    "semantic_hash": "9b4e3e184da353e21baf10de7979a56e"
+  },
+  "docs/slides/js/controllers/autoanimate.js": {
+    "mtime": 1789743800.3159108,
+    "seen": 1790684990.410232,
+    "ast_hash": "2060c51cd856534e6d0dba96ce3bb459",
+    "semantic_hash": "2060c51cd856534e6d0dba96ce3bb459"
+  },
+  "docs/slides/js/controllers/backgrounds.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102354,
+    "ast_hash": "dea3b36d3436a7998fffcad8384270b4",
+    "semantic_hash": "dea3b36d3436a7998fffcad8384270b4"
+  },
+  "docs/slides/js/controllers/controls.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102383,
+    "ast_hash": "f0af480265e536d2d28510becc205dcb",
+    "semantic_hash": "f0af480265e536d2d28510becc205dcb"
+  },
+  "docs/slides/js/controllers/focus.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102416,
+    "ast_hash": "eaaf1543d9d8269ce4a7db424544bdd6",
+    "semantic_hash": "eaaf1543d9d8269ce4a7db424544bdd6"
+  },
+  "docs/slides/js/controllers/fragments.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102445,
+    "ast_hash": "87e7acd6d02277fd8e726c650494dcbb",
+    "semantic_hash": "87e7acd6d02277fd8e726c650494dcbb"
+  },
+  "docs/slides/js/controllers/jumptoslide.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102473,
+    "ast_hash": "dc54e6c5ebd228386184b4c8563a71a3",
+    "semantic_hash": "dc54e6c5ebd228386184b4c8563a71a3"
+  },
+  "docs/slides/js/controllers/keyboard.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102502,
+    "ast_hash": "1499ced8aaa2e9cfc7e855ddabef23d8",
+    "semantic_hash": "1499ced8aaa2e9cfc7e855ddabef23d8"
+  },
+  "docs/slides/js/controllers/location.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.410253,
+    "ast_hash": "f207fbfd1f875c784d77fec4d7807d51",
+    "semantic_hash": "f207fbfd1f875c784d77fec4d7807d51"
+  },
+  "docs/slides/js/controllers/notes.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102561,
+    "ast_hash": "8098faee2d1499b96708777ab83adbab",
+    "semantic_hash": "8098faee2d1499b96708777ab83adbab"
+  },
+  "docs/slides/js/controllers/overview.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102592,
+    "ast_hash": "1b3d2873897247ef64fb7ff5907bdeff",
+    "semantic_hash": "1b3d2873897247ef64fb7ff5907bdeff"
+  },
+  "docs/slides/js/controllers/plugins.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102623,
+    "ast_hash": "f488b7842ed7b91d698f51c6c01c2291",
+    "semantic_hash": "f488b7842ed7b91d698f51c6c01c2291"
+  },
+  "docs/slides/js/controllers/pointer.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.410265,
+    "ast_hash": "ad9d64b2da2009e3ced668333379e5f1",
+    "semantic_hash": "ad9d64b2da2009e3ced668333379e5f1"
+  },
+  "docs/slides/js/controllers/printview.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102683,
+    "ast_hash": "fcb453319b56f1b1bc8980e2d1877fdb",
+    "semantic_hash": "fcb453319b56f1b1bc8980e2d1877fdb"
+  },
+  "docs/slides/js/controllers/progress.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102712,
+    "ast_hash": "e1b50cc8d8bd18adcc60eb56c82d9acd",
+    "semantic_hash": "e1b50cc8d8bd18adcc60eb56c82d9acd"
+  },
+  "docs/slides/js/controllers/scrollview.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102745,
+    "ast_hash": "ee9258cd3487122c5c757d64ef6032ab",
+    "semantic_hash": "ee9258cd3487122c5c757d64ef6032ab"
+  },
+  "docs/slides/js/controllers/slidecontent.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102774,
+    "ast_hash": "48498233aaa026087253d2b729cb7017",
+    "semantic_hash": "48498233aaa026087253d2b729cb7017"
+  },
+  "docs/slides/js/controllers/slidenumber.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102802,
+    "ast_hash": "056eaf43968d4f7a85131cc933224661",
+    "semantic_hash": "056eaf43968d4f7a85131cc933224661"
+  },
+  "docs/slides/js/controllers/touch.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102833,
+    "ast_hash": "b1f48fa17e0969754780f62791cb6cad",
+    "semantic_hash": "b1f48fa17e0969754780f62791cb6cad"
+  },
+  "docs/slides/js/index.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102862,
+    "ast_hash": "de61e6ec17b2817f400be6769f9a8ffb",
+    "semantic_hash": "de61e6ec17b2817f400be6769f9a8ffb"
+  },
+  "docs/slides/js/reveal.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102888,
+    "ast_hash": "95c86ec04b7fb0fa82b60c50d85d1318",
+    "semantic_hash": "95c86ec04b7fb0fa82b60c50d85d1318"
+  },
+  "docs/slides/js/utils/color.js": {
+    "mtime": 1789743800.3161514,
+    "seen": 1790684990.4102917,
+    "ast_hash": "f98894189afac52d97144bf2bf26d31a",
+    "semantic_hash": "f98894189afac52d97144bf2bf26d31a"
+  },
+  "docs/slides/js/utils/constants.js": {
+    "mtime": 1789743800.3173115,
+    "seen": 1790684990.4102945,
+    "ast_hash": "2369804a8d848a11e75e5a47bf21683f",
+    "semantic_hash": "2369804a8d848a11e75e5a47bf21683f"
+  },
+  "docs/slides/js/utils/device.js": {
+    "mtime": 1789743800.3173115,
+    "seen": 1790684990.4102976,
+    "ast_hash": "1ad4b51fb1a9548e5c823b66f130b38a",
+    "semantic_hash": "1ad4b51fb1a9548e5c823b66f130b38a"
+  },
+  "docs/slides/js/utils/loader.js": {
+    "mtime": 1789743800.3173115,
+    "seen": 1790684990.4103007,
+    "ast_hash": "60912f198d3f4361debb9419e0d12341",
+    "semantic_hash": "60912f198d3f4361debb9419e0d12341"
+  },
+  "docs/slides/js/utils/util.js": {
+    "mtime": 1789743800.3173115,
+    "seen": 1790684990.4103036,
+    "ast_hash": "7b7c71bc817a059796677b0aeb5cd5c6",
+    "semantic_hash": "7b7c71bc817a059796677b0aeb5cd5c6"
+  },
+  "docs/slides/package.json": {
+    "mtime": 1789743800.317857,
+    "seen": 1790684990.4103065,
+    "ast_hash": "881ed47c7cc13bdfe990768d93c922a2",
+    "semantic_hash": "881ed47c7cc13bdfe990768d93c922a2"
+  },
+  "docs/slides/plugin/highlight/highlight.esm.js": {
+    "mtime": 1789743800.3208568,
+    "seen": 1790684990.4103093,
+    "ast_hash": "97381b454b39a19d154299ba53607530",
+    "semantic_hash": "97381b454b39a19d154299ba53607530"
+  },
+  "docs/slides/plugin/highlight/highlight.js": {
+    "mtime": 1789743800.3208568,
+    "seen": 1790684990.4103127,
+    "ast_hash": "3ccf7e1bab24a8955303cfda142b6365",
+    "semantic_hash": "3ccf7e1bab24a8955303cfda142b6365"
+  },
+  "docs/slides/plugin/highlight/plugin.js": {
+    "mtime": 1789743800.3208568,
+    "seen": 1790684990.4103153,
+    "ast_hash": "df2b6cec81d1c3d9730ef2b9421f62a1",
+    "semantic_hash": "df2b6cec81d1c3d9730ef2b9421f62a1"
+  },
+  "docs/slides/plugin/markdown/markdown.esm.js": {
+    "mtime": 1789743800.3218567,
+    "seen": 1790684990.4103181,
+    "ast_hash": "51cf543919182a054e69a3d632356296",
+    "semantic_hash": "51cf543919182a054e69a3d632356296"
+  },
+  "docs/slides/plugin/markdown/markdown.js": {
+    "mtime": 1789743800.3229728,
+    "seen": 1790684990.4103215,
+    "ast_hash": "e19760d2cc93d38d5df00081a1893828",
+    "semantic_hash": "e19760d2cc93d38d5df00081a1893828"
+  },
+  "docs/slides/plugin/markdown/plugin.js": {
+    "mtime": 1789743800.3229728,
+    "seen": 1790684990.4103243,
+    "ast_hash": "a1da0411f474b5bc82d1cc79faf4d0c1",
+    "semantic_hash": "a1da0411f474b5bc82d1cc79faf4d0c1"
+  },
+  "docs/slides/plugin/math/katex.js": {
+    "mtime": 1789743800.3229728,
+    "seen": 1790684990.410327,
+    "ast_hash": "39cf8ba7069456ba46adc75d94113758",
+    "semantic_hash": "39cf8ba7069456ba46adc75d94113758"
+  },
+  "docs/slides/plugin/math/math.esm.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103303,
+    "ast_hash": "18955f41f49cbe723eb55d2af6fdbab3",
+    "semantic_hash": "18955f41f49cbe723eb55d2af6fdbab3"
+  },
+  "docs/slides/plugin/math/math.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103336,
+    "ast_hash": "e87d39c4dacca4fe62f05cd2d28f1d24",
+    "semantic_hash": "e87d39c4dacca4fe62f05cd2d28f1d24"
+  },
+  "docs/slides/plugin/math/mathjax2.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103365,
+    "ast_hash": "e3899c6edce910d7f0355c9f6b5fcc9d",
+    "semantic_hash": "e3899c6edce910d7f0355c9f6b5fcc9d"
+  },
+  "docs/slides/plugin/math/mathjax3.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103394,
+    "ast_hash": "4fb3a316751c289ba99e9d990292d0de",
+    "semantic_hash": "4fb3a316751c289ba99e9d990292d0de"
+  },
+  "docs/slides/plugin/math/plugin.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103422,
+    "ast_hash": "ec9cb99b85a8026d24b26526f6effe0d",
+    "semantic_hash": "ec9cb99b85a8026d24b26526f6effe0d"
+  },
+  "docs/slides/plugin/notes/notes.esm.js": {
+    "mtime": 1789743800.3231564,
+    "seen": 1790684990.4103446,
+    "ast_hash": "e1d960e6895a06986c9509c30ba784b2",
+    "semantic_hash": "e1d960e6895a06986c9509c30ba784b2"
+  },
+  "docs/slides/plugin/notes/notes.js": {
+    "mtime": 1789743800.323576,
+    "seen": 1790684990.4103475,
+    "ast_hash": "db8fab48fe15b175ca69e99f8af2fdfc",
+    "semantic_hash": "db8fab48fe15b175ca69e99f8af2fdfc"
+  },
+  "docs/slides/plugin/notes/plugin.js": {
+    "mtime": 1789743800.323576,
+    "seen": 1790684990.4103503,
+    "ast_hash": "9e52c9625a2f659373cc6e4c5ccf5b80",
+    "semantic_hash": "9e52c9625a2f659373cc6e4c5ccf5b80"
+  },
+  "docs/slides/plugin/search/plugin.js": {
+    "mtime": 1789743800.323576,
+    "seen": 1790684990.4103532,
+    "ast_hash": "43aa43cb10964400e4f32c624574009d",
+    "semantic_hash": "43aa43cb10964400e4f32c624574009d"
+  },
+  "docs/slides/plugin/search/search.esm.js": {
+    "mtime": 1789743800.3238618,
+    "seen": 1790684990.4103565,
+    "ast_hash": "826b3db88620837e402e3a6203ff9c04",
+    "semantic_hash": "826b3db88620837e402e3a6203ff9c04"
+  },
+  "docs/slides/plugin/search/search.js": {
+    "mtime": 1789743800.3238618,
+    "seen": 1790684990.4103594,
+    "ast_hash": "40f70903b97604cb6957e49a95ab73d4",
+    "semantic_hash": "40f70903b97604cb6957e49a95ab73d4"
+  },
+  "docs/slides/plugin/zoom/plugin.js": {
+    "mtime": 1789743800.3238618,
+    "seen": 1790684990.4103625,
+    "ast_hash": "75d50a8cac0d19f0824a1c5876d36673",
+    "semantic_hash": "75d50a8cac0d19f0824a1c5876d36673"
+  },
+  "docs/slides/plugin/zoom/zoom.esm.js": {
+    "mtime": 1789743800.3240097,
+    "seen": 1790684990.410365,
+    "ast_hash": "c0a980f05da4f0bdd2ef6c8227fce9d3",
+    "semantic_hash": "c0a980f05da4f0bdd2ef6c8227fce9d3"
+  },
+  "docs/slides/plugin/zoom/zoom.js": {
+    "mtime": 1789743800.3240097,
+    "seen": 1790684990.410368,
+    "ast_hash": "9c28a4d1f1502771665328f6abb091c0",
+    "semantic_hash": "9c28a4d1f1502771665328f6abb091c0"
+  },
+  "pep-caretaker/android/fa-memory/app/build.gradle": {
+    "mtime": 1789754177.8925896,
+    "seen": 1790684990.4103708,
+    "ast_hash": "d4ed6124f810e7fa93a4254d7fc9addb",
+    "semantic_hash": "d4ed6124f810e7fa93a4254d7fc9addb"
+  },
+  "pep-caretaker/android/fa-memory/app/src/androidTest/java/com/example/memorygame/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.327521,
+    "seen": 1790684990.4103737,
+    "ast_hash": "086b6cfea00053acc5fee72b98c95419",
+    "semantic_hash": "086b6cfea00053acc5fee72b98c95419"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/MainActivity.kt": {
+    "mtime": 1789743800.3277118,
+    "seen": 1790684990.4103768,
+    "ast_hash": "f39462e008a760959b337ad6455a32bc",
+    "semantic_hash": "f39462e008a760959b337ad6455a32bc"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/MemoryGameLogic.kt": {
+    "mtime": 1789743800.3278155,
+    "seen": 1790684990.4103794,
+    "ast_hash": "93c6b32e166608a4d53b09541dc45e3b",
+    "semantic_hash": "93c6b32e166608a4d53b09541dc45e3b"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/MemoryGameScreen.kt": {
+    "mtime": 1789743800.3278155,
+    "seen": 1790684990.4103823,
+    "ast_hash": "fdea53fcfd1777cd8b406a381165612d",
+    "semantic_hash": "fdea53fcfd1777cd8b406a381165612d"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/common/Extras.kt": {
+    "mtime": 1789743800.3278155,
+    "seen": 1790684990.4103851,
+    "ast_hash": "6015f82878a43c70f9c749c0030cd8d6",
+    "semantic_hash": "6015f82878a43c70f9c749c0030cd8d6"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/lokal/AppDatabase.kt": {
+    "mtime": 1789743800.3280098,
+    "seen": 1790684990.410388,
+    "ast_hash": "ebda8026265d4222acb20e7aeae4b5d7",
+    "semantic_hash": "ebda8026265d4222acb20e7aeae4b5d7"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/lokal/LokalPlayer.kt": {
+    "mtime": 1789743800.3280635,
+    "seen": 1790684990.4103913,
+    "ast_hash": "f156155c5eac20d2e9df17d96fd8a56f",
+    "semantic_hash": "f156155c5eac20d2e9df17d96fd8a56f"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/lokal/PlayerScoreDao.kt": {
+    "mtime": 1789743800.3280635,
+    "seen": 1790684990.4103942,
+    "ast_hash": "a23839597473c064768cf95bf386b2c2",
+    "semantic_hash": "a23839597473c064768cf95bf386b2c2"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/model/HighScoreItem.kt": {
+    "mtime": 1789743800.3280635,
+    "seen": 1790684990.4103973,
+    "ast_hash": "d8b7a4b0b999fec83805d85eefe58a25",
+    "semantic_hash": "d8b7a4b0b999fec83805d85eefe58a25"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/model/PersonIntent.kt": {
+    "mtime": 1789743800.3281813,
+    "seen": 1790684990.4104002,
+    "ast_hash": "e8d0ed041b11f295819f4e47681c4958",
+    "semantic_hash": "e8d0ed041b11f295819f4e47681c4958"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/model/Player.kt": {
+    "mtime": 1789743800.3281813,
+    "seen": 1790684990.4104033,
+    "ast_hash": "14f21664f518e41d42e8d71e63f4d4e5",
+    "semantic_hash": "14f21664f518e41d42e8d71e63f4d4e5"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/NetworkModule.kt": {
+    "mtime": 1789754196.988029,
+    "seen": 1790684990.410406,
+    "ast_hash": "7c71fac0a547f84a64d9d11dec1d8d3d",
+    "semantic_hash": "7c71fac0a547f84a64d9d11dec1d8d3d"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/PersonApi.kt": {
+    "mtime": 1789743800.3282974,
+    "seen": 1790684990.4104092,
+    "ast_hash": "39824a71233f03104869349723be6e26",
+    "semantic_hash": "39824a71233f03104869349723be6e26"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/PersonImageDto.kt": {
+    "mtime": 1789743800.3282974,
+    "seen": 1790684990.410412,
+    "ast_hash": "f7690a439869dd758ea685c206e84914",
+    "semantic_hash": "f7690a439869dd758ea685c206e84914"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/RobotAuthInterceptor.kt": {
+    "mtime": 1789754167.3348773,
+    "seen": 1790684990.410415,
+    "ast_hash": "34e046d585ce249f8b4df0872417313d",
+    "semantic_hash": "34e046d585ce249f8b4df0872417313d"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/ScoreApi.kt": {
+    "mtime": 1789743800.3282974,
+    "seen": 1790684990.4104176,
+    "ast_hash": "07fc1f5cb4f8dda1d1d7527f3b420a32",
+    "semantic_hash": "07fc1f5cb4f8dda1d1d7527f3b420a32"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/remote/ScoreRequest.kt": {
+    "mtime": 1789743800.3282974,
+    "seen": 1790684990.4104204,
+    "ast_hash": "5236bcc2fc44f3dc3442e22a5d6fb973",
+    "semantic_hash": "5236bcc2fc44f3dc3442e22a5d6fb973"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/repository/IntentPersonProvider.kt": {
+    "mtime": 1789743800.3282974,
+    "seen": 1790684990.4104233,
+    "ast_hash": "34d2e0796d2ecbbd5d6b8949f4d80eb0",
+    "semantic_hash": "34d2e0796d2ecbbd5d6b8949f4d80eb0"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/repository/MockPersonProvider.kt": {
+    "mtime": 1789743800.3284657,
+    "seen": 1790684990.4104261,
+    "ast_hash": "54599320e27e69126f8268a9b9c25701",
+    "semantic_hash": "54599320e27e69126f8268a9b9c25701"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/repository/PersonProvider.kt": {
+    "mtime": 1789743800.3284657,
+    "seen": 1790684990.410429,
+    "ast_hash": "b05c3b139856909d16fc12f6bba0beb5",
+    "semantic_hash": "b05c3b139856909d16fc12f6bba0beb5"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/data/repository/ScoreRepository.kt": {
+    "mtime": 1789743800.3284657,
+    "seen": 1790684990.410432,
+    "ast_hash": "bda936a32a1f00cd7825e0359996e907",
+    "semantic_hash": "bda936a32a1f00cd7825e0359996e907"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/GameUtils.kt": {
+    "mtime": 1789743800.3284657,
+    "seen": 1790684990.4104347,
+    "ast_hash": "620793acadd5cb945baf6e345706636f",
+    "semantic_hash": "620793acadd5cb945baf6e345706636f"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/ImageSelectionHelper.kt": {
+    "mtime": 1789743800.328611,
+    "seen": 1790684990.410438,
+    "ast_hash": "950a3d7889ee766ef02b45cb1627d0c2",
+    "semantic_hash": "950a3d7889ee766ef02b45cb1627d0c2"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/ScoreManager.kt": {
+    "mtime": 1789743800.328611,
+    "seen": 1790684990.410441,
+    "ast_hash": "9afd0a6085fcefe1ffb2274f633166d0",
+    "semantic_hash": "9afd0a6085fcefe1ffb2274f633166d0"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/image/DrawableImagePool.kt": {
+    "mtime": 1789743800.328611,
+    "seen": 1790684990.410444,
+    "ast_hash": "6cc8bb7f73a634ced1ec39a01f6d0358",
+    "semantic_hash": "6cc8bb7f73a634ced1ec39a01f6d0358"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/image/GameImageProvider.kt": {
+    "mtime": 1789743800.3287446,
+    "seen": 1790684990.410447,
+    "ast_hash": "e294bc65cafa49f9992b48a2c025e9f6",
+    "semantic_hash": "e294bc65cafa49f9992b48a2c025e9f6"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/image/ImageData.kt": {
+    "mtime": 1789743800.3287446,
+    "seen": 1790684990.4104497,
+    "ast_hash": "7deaf66a215316a688b901fc1e2b6d6b",
+    "semantic_hash": "7deaf66a215316a688b901fc1e2b6d6b"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/logic/image/ImageDecoder.kt": {
+    "mtime": 1789743800.3287446,
+    "seen": 1790684990.4104524,
+    "ast_hash": "4d155b2010e130b5b505492c8f41610a",
+    "semantic_hash": "4d155b2010e130b5b505492c8f41610a"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/dialogs/WinDialog.kt": {
+    "mtime": 1789743800.3289196,
+    "seen": 1790684990.4104557,
+    "ast_hash": "f69f0fd65b3cb8b6f406419faf1bbbd7",
+    "semantic_hash": "f69f0fd65b3cb8b6f406419faf1bbbd7"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/menu/MainMenuScreen.kt": {
+    "mtime": 1789743800.3289196,
+    "seen": 1790684990.4104588,
+    "ast_hash": "77ec6f852f77c8f750e0e59418a25bb4",
+    "semantic_hash": "77ec6f852f77c8f750e0e59418a25bb4"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/screens/GridSelectionScreen.kt": {
+    "mtime": 1789743800.3289196,
+    "seen": 1790684990.410462,
+    "ast_hash": "9dc7eb47b35e4e0840a09f7e1f071307",
+    "semantic_hash": "9dc7eb47b35e4e0840a09f7e1f071307"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/screens/HighScoresScreen.kt": {
+    "mtime": 1789743800.3291256,
+    "seen": 1790684990.4104643,
+    "ast_hash": "0d3bb5b7778787a1d6cc4fd139f8721b",
+    "semantic_hash": "0d3bb5b7778787a1d6cc4fd139f8721b"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/screens/InstructionsScreen.kt": {
+    "mtime": 1789743800.3291256,
+    "seen": 1790684990.4104671,
+    "ast_hash": "4d5d4d3f87fe33a48951e6f2ba0edc47",
+    "semantic_hash": "4d5d4d3f87fe33a48951e6f2ba0edc47"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/theme/Color.kt": {
+    "mtime": 1789743800.3291256,
+    "seen": 1790684990.4104698,
+    "ast_hash": "906e4665d57d9ca0e58ebc83e13e673e",
+    "semantic_hash": "906e4665d57d9ca0e58ebc83e13e673e"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/theme/Shape.kt": {
+    "mtime": 1789743800.3292787,
+    "seen": 1790684990.4104726,
+    "ast_hash": "0f1c34917e8f5f9a1d50682b076ff179",
+    "semantic_hash": "0f1c34917e8f5f9a1d50682b076ff179"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3292787,
+    "seen": 1790684990.4104757,
+    "ast_hash": "b7144dd5676d8bc38cc845ffdc9501a2",
+    "semantic_hash": "b7144dd5676d8bc38cc845ffdc9501a2"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/java/com/example/memorygame/ui/theme/Type.kt": {
+    "mtime": 1789743800.3292787,
+    "seen": 1790684990.4104786,
+    "ast_hash": "f11eb2f08e33c8e51fc24254baaa7ced",
+    "semantic_hash": "f11eb2f08e33c8e51fc24254baaa7ced"
+  },
+  "pep-caretaker/android/fa-memory/app/src/test/java/com/example/memorygame/ExampleUnitTest.kt": {
+    "mtime": 1789743800.339187,
+    "seen": 1790684990.4104815,
+    "ast_hash": "974a5a85588f2b36a717e238a27c903f",
+    "semantic_hash": "974a5a85588f2b36a717e238a27c903f"
+  },
+  "pep-caretaker/android/fa-memory/build.gradle": {
+    "mtime": 1789743800.339187,
+    "seen": 1790684990.4104843,
+    "ast_hash": "e3966d3343cbe8bbaaebc6623606b6db",
+    "semantic_hash": "e3966d3343cbe8bbaaebc6623606b6db"
+  },
+  "pep-caretaker/android/fa-memory/gradlew": {
+    "mtime": 1789743800.3396037,
+    "seen": 1790684990.410487,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-memory/settings.gradle": {
+    "mtime": 1789743800.3396037,
+    "seen": 1790684990.41049,
+    "ast_hash": "d95d79ff1a49d70d4b4636355ea64122",
+    "semantic_hash": "d95d79ff1a49d70d4b4636355ea64122"
+  },
+  "pep-caretaker/android/fa-menu/app/build.gradle": {
+    "mtime": 1789754177.8924756,
+    "seen": 1790684990.4104931,
+    "ast_hash": "01d830ddaa99bf4fbe275e21932bd8e2",
+    "semantic_hash": "01d830ddaa99bf4fbe275e21932bd8e2"
+  },
+  "pep-caretaker/android/fa-menu/app/src/androidTest/java/com/example/menu/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3400772,
+    "seen": 1790684990.4104962,
+    "ast_hash": "45e2970e2e994e913c03f879909b7bc4",
+    "semantic_hash": "45e2970e2e994e913c03f879909b7bc4"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/MainActivity.kt": {
+    "mtime": 1789743800.3403482,
+    "seen": 1790684990.4104989,
+    "ast_hash": "53b13d3f68a825f792a06e222c6d1d5f",
+    "semantic_hash": "53b13d3f68a825f792a06e222c6d1d5f"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/RoboterActions.kt": {
+    "mtime": 1789743800.340422,
+    "seen": 1790684990.4105017,
+    "ast_hash": "dd741533107c241330f5d7b890761ea3",
+    "semantic_hash": "dd741533107c241330f5d7b890761ea3"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/common/Extras.kt": {
+    "mtime": 1789743800.340422,
+    "seen": 1790684990.4105043,
+    "ast_hash": "86edca12c42c27242a39fd5d4fd87272",
+    "semantic_hash": "86edca12c42c27242a39fd5d4fd87272"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/common/NavExt.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105077,
+    "ast_hash": "bba1ce027330b587226c79ad42dc8b82",
+    "semantic_hash": "bba1ce027330b587226c79ad42dc8b82"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/common/Packages.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105103,
+    "ast_hash": "098f3b3781452e8a594dcd5a7cbdf6cc",
+    "semantic_hash": "098f3b3781452e8a594dcd5a7cbdf6cc"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/dto/Person.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105132,
+    "ast_hash": "342263606898d5f2c95e6053ac23bab6",
+    "semantic_hash": "342263606898d5f2c95e6053ac23bab6"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/navigation/AppNavigation.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.410516,
+    "ast_hash": "cabbd2069851f3248ccee22167d6a528",
+    "semantic_hash": "cabbd2069851f3248ccee22167d6a528"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/network/HttpInstance.kt": {
+    "mtime": 1789754196.9876812,
+    "seen": 1790684990.410519,
+    "ast_hash": "b3298958965bc178565129f5ab3b9da9",
+    "semantic_hash": "b3298958965bc178565129f5ab3b9da9"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/network/RobotAuthInterceptor.kt": {
+    "mtime": 1789754167.334716,
+    "seen": 1790684990.4105215,
+    "ast_hash": "da474578dddcff91f38bf58cab134dae",
+    "semantic_hash": "da474578dddcff91f38bf58cab134dae"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/presentation/LoginScreen.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105244,
+    "ast_hash": "e2cc705f9488007d8d0e4be34cb6bb47",
+    "semantic_hash": "e2cc705f9488007d8d0e4be34cb6bb47"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/receivers/BootReceiver.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105272,
+    "ast_hash": "e2805af25c8971ffd1dd7f0566b7bbc2",
+    "semantic_hash": "e2805af25c8971ffd1dd7f0566b7bbc2"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/EssensplanScreen.kt": {
+    "mtime": 1789743800.340521,
+    "seen": 1790684990.4105303,
+    "ast_hash": "99654bcac9f2a6d97999e0f58269417f",
+    "semantic_hash": "99654bcac9f2a6d97999e0f58269417f"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/FangDenDiebScreen.kt": {
+    "mtime": 1789743800.3410904,
+    "seen": 1790684990.4105332,
+    "ast_hash": "4fabe112db4fb43b1d4dd558147564fd",
+    "semantic_hash": "4fabe112db4fb43b1d4dd558147564fd"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/MainMenuScreen.kt": {
+    "mtime": 1789743800.3410904,
+    "seen": 1790684990.410536,
+    "ast_hash": "61d112dcf463157e0fd4b1fe2d627189",
+    "semantic_hash": "61d112dcf463157e0fd4b1fe2d627189"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/MemoryScreen.kt": {
+    "mtime": 1789743800.3410904,
+    "seen": 1790684990.410539,
+    "ast_hash": "19640edc3b64e199447a61db4867888e",
+    "semantic_hash": "19640edc3b64e199447a61db4867888e"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/MitmachgeschichteScreen.kt": {
+    "mtime": 1789743800.3410904,
+    "seen": 1790684990.4105418,
+    "ast_hash": "bbe9c2ed5eb5051b7a93cfee4ece9980",
+    "semantic_hash": "bbe9c2ed5eb5051b7a93cfee4ece9980"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/screens/TicTacToeScreen.kt": {
+    "mtime": 1789743800.3410904,
+    "seen": 1790684990.4105446,
+    "ast_hash": "f9eb99e6aae0abf56dcf77f17d2d0da7",
+    "semantic_hash": "f9eb99e6aae0abf56dcf77f17d2d0da7"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/ui/theme/Color.kt": {
+    "mtime": 1789743800.341275,
+    "seen": 1790684990.4105475,
+    "ast_hash": "7f33ebf1b05a4a5009e539d3ed85af8a",
+    "semantic_hash": "7f33ebf1b05a4a5009e539d3ed85af8a"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/ui/theme/Shape.kt": {
+    "mtime": 1789743800.341324,
+    "seen": 1790684990.4105504,
+    "ast_hash": "ce27dcc276b8ed1fb2039e1c71240d39",
+    "semantic_hash": "ce27dcc276b8ed1fb2039e1c71240d39"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/ui/theme/Theme.kt": {
+    "mtime": 1789743800.341324,
+    "seen": 1790684990.410553,
+    "ast_hash": "1feb2a769c7f22196cec2dae7900f4b1",
+    "semantic_hash": "1feb2a769c7f22196cec2dae7900f4b1"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/ui/theme/Type.kt": {
+    "mtime": 1789743800.341324,
+    "seen": 1790684990.4105558,
+    "ast_hash": "1c62127dcafdf50182121d8254ae88a8",
+    "semantic_hash": "1c62127dcafdf50182121d8254ae88a8"
+  },
+  "pep-caretaker/android/fa-menu/app/src/main/java/com/example/menu/viewmodel/LoginScreenViewModel.kt": {
+    "mtime": 1789743800.341324,
+    "seen": 1790684990.4105587,
+    "ast_hash": "56aee0a46cf1361328687af1827f5eb9",
+    "semantic_hash": "56aee0a46cf1361328687af1827f5eb9"
+  },
+  "pep-caretaker/android/fa-menu/app/src/test/java/com/example/menu/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3491497,
+    "seen": 1790684990.4105616,
+    "ast_hash": "30c69222865578af11a4ad4f13c97224",
+    "semantic_hash": "30c69222865578af11a4ad4f13c97224"
+  },
+  "pep-caretaker/android/fa-menu/build.gradle": {
+    "mtime": 1789743800.3491497,
+    "seen": 1790684990.4105647,
+    "ast_hash": "dab9a82a4dc342364b570bb4b47670ec",
+    "semantic_hash": "dab9a82a4dc342364b570bb4b47670ec"
+  },
+  "pep-caretaker/android/fa-menu/gradlew": {
+    "mtime": 1789743800.349542,
+    "seen": 1790684990.4105675,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-menu/settings.gradle": {
+    "mtime": 1789743800.349542,
+    "seen": 1790684990.41057,
+    "ast_hash": "decadda27edef5cad35c2851704c9ef0",
+    "semantic_hash": "decadda27edef5cad35c2851704c9ef0"
+  },
+  "pep-caretaker/android/fa-movement/app/build.gradle": {
+    "mtime": 1789743800.3497434,
+    "seen": 1790684990.4105728,
+    "ast_hash": "7bbe1bb7b0f0a72486e203d94991b8ae",
+    "semantic_hash": "7bbe1bb7b0f0a72486e203d94991b8ae"
+  },
+  "pep-caretaker/android/fa-movement/app/src/androidTest/java/pepper/bewegung/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.349921,
+    "seen": 1790684990.4105756,
+    "ast_hash": "93b4d67b66997f78718ab34cc06d2823",
+    "semantic_hash": "93b4d67b66997f78718ab34cc06d2823"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/MainActivity.kt": {
+    "mtime": 1789743800.3501701,
+    "seen": 1790684990.4105785,
+    "ast_hash": "16bfc1f198d5f59532c2a1a0918e440c",
+    "semantic_hash": "16bfc1f198d5f59532c2a1a0918e440c"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/RoboterActions.kt": {
+    "mtime": 1789743800.3502624,
+    "seen": 1790684990.4105814,
+    "ast_hash": "cb4c3b20cb8e8f58a537015c30882e84",
+    "semantic_hash": "cb4c3b20cb8e8f58a537015c30882e84"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/ui/theme/Color.kt": {
+    "mtime": 1789743800.350331,
+    "seen": 1790684990.4105842,
+    "ast_hash": "6f27953a3fd10a77415e0d6a447442dd",
+    "semantic_hash": "6f27953a3fd10a77415e0d6a447442dd"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/ui/theme/Shape.kt": {
+    "mtime": 1789743800.3503797,
+    "seen": 1790684990.4105868,
+    "ast_hash": "7ba02f9ef769113a64f96c3959e59862",
+    "semantic_hash": "7ba02f9ef769113a64f96c3959e59862"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3503797,
+    "seen": 1790684990.41059,
+    "ast_hash": "adfe25901c5024f178a0f5802b174bd7",
+    "semantic_hash": "adfe25901c5024f178a0f5802b174bd7"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/ui/theme/Type.kt": {
+    "mtime": 1789743800.3503797,
+    "seen": 1790684990.4105928,
+    "ast_hash": "35a6c4a7697be358101a57a0ebd2b5e7",
+    "semantic_hash": "35a6c4a7697be358101a57a0ebd2b5e7"
+  },
+  "pep-caretaker/android/fa-movement/app/src/main/java/pepper/bewegung/viewmodel/MyViewModel.kt": {
+    "mtime": 1789743800.3503797,
+    "seen": 1790684990.4105957,
+    "ast_hash": "876cda345b6214ab3968708928ca3e63",
+    "semantic_hash": "876cda345b6214ab3968708928ca3e63"
+  },
+  "pep-caretaker/android/fa-movement/app/src/test/java/pepper/bewegung/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3544302,
+    "seen": 1790684990.4105985,
+    "ast_hash": "f74d8c431f066d35e19a269077310a66",
+    "semantic_hash": "f74d8c431f066d35e19a269077310a66"
+  },
+  "pep-caretaker/android/fa-movement/build.gradle": {
+    "mtime": 1789743800.3544302,
+    "seen": 1790684990.4106014,
+    "ast_hash": "af47cc380db82ab6b080c31f38c7ea4a",
+    "semantic_hash": "af47cc380db82ab6b080c31f38c7ea4a"
+  },
+  "pep-caretaker/android/fa-movement/gradlew": {
+    "mtime": 1789743800.3548229,
+    "seen": 1790684990.4106042,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-movement/settings.gradle": {
+    "mtime": 1789743800.3548229,
+    "seen": 1790684990.410607,
+    "ast_hash": "de06656644d2b72bb300d65b47e2d230",
+    "semantic_hash": "de06656644d2b72bb300d65b47e2d230"
+  },
+  "pep-caretaker/android/fa-small-talk/app/build.gradle": {
+    "mtime": 1789754177.8926973,
+    "seen": 1790684990.41061,
+    "ast_hash": "295ea6102e3bd8a21aa505048b5a2b70",
+    "semantic_hash": "295ea6102e3bd8a21aa505048b5a2b70"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/androidTest/java/syp/peppercaretaker/smalltalk/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3552377,
+    "seen": 1790684990.4106128,
+    "ast_hash": "e1f4e45f05fcdc40da45dfd6eca21621",
+    "semantic_hash": "e1f4e45f05fcdc40da45dfd6eca21621"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/MainActivity.kt": {
+    "mtime": 1789743800.355521,
+    "seen": 1790684990.4106154,
+    "ast_hash": "6d90eb1094f1d1ffb5763fa88b2a4d5f",
+    "semantic_hash": "6d90eb1094f1d1ffb5763fa88b2a4d5f"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/PepperFuncs.kt": {
+    "mtime": 1789743800.3556054,
+    "seen": 1790684990.4106185,
+    "ast_hash": "7365d82203b445cf45d0e5f20c8df0fc",
+    "semantic_hash": "7365d82203b445cf45d0e5f20c8df0fc"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/model/Api.kt": {
+    "mtime": 1789754196.9877942,
+    "seen": 1790684990.4106214,
+    "ast_hash": "2ec89823d2507c9879027001c220be36",
+    "semantic_hash": "2ec89823d2507c9879027001c220be36"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/model/RobotAuthInterceptor.kt": {
+    "mtime": 1789754167.3356624,
+    "seen": 1790684990.4106243,
+    "ast_hash": "b9f75ff894c559bc2a574ccb604902df",
+    "semantic_hash": "b9f75ff894c559bc2a574ccb604902df"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/screen/SmallTalkScreen.kt": {
+    "mtime": 1789743800.3556054,
+    "seen": 1790684990.4106271,
+    "ast_hash": "e0d50ecd56a860fcc5ce1aba95c48812",
+    "semantic_hash": "e0d50ecd56a860fcc5ce1aba95c48812"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/ui/theme/Color.kt": {
+    "mtime": 1789743800.3558323,
+    "seen": 1790684990.4106293,
+    "ast_hash": "454765eb4750c1ed1a251ac8934f31eb",
+    "semantic_hash": "454765eb4750c1ed1a251ac8934f31eb"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/ui/theme/Shape.kt": {
+    "mtime": 1789743800.3558807,
+    "seen": 1790684990.410632,
+    "ast_hash": "27c2a22a5f8860d018f6bdd932b1b7eb",
+    "semantic_hash": "27c2a22a5f8860d018f6bdd932b1b7eb"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3558807,
+    "seen": 1790684990.4106348,
+    "ast_hash": "9e500a748804c7585cb5159b0fad6572",
+    "semantic_hash": "9e500a748804c7585cb5159b0fad6572"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/ui/theme/Type.kt": {
+    "mtime": 1789743800.3558807,
+    "seen": 1790684990.4106371,
+    "ast_hash": "3e2a845d00a78714fda20f08c335d5d1",
+    "semantic_hash": "3e2a845d00a78714fda20f08c335d5d1"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/main/java/syp/peppercaretaker/smalltalk/viewmodel/SmallTalkViewModel.kt": {
+    "mtime": 1789743800.3558807,
+    "seen": 1790684990.4106395,
+    "ast_hash": "a77664190c44a39529adca2219e70662",
+    "semantic_hash": "a77664190c44a39529adca2219e70662"
+  },
+  "pep-caretaker/android/fa-small-talk/app/src/test/java/syp/peppercaretaker/smalltalk/ExampleUnitTest.kt": {
+    "mtime": 1789743800.356993,
+    "seen": 1790684990.4106424,
+    "ast_hash": "02df6c7396233f4433af1a48de26b78e",
+    "semantic_hash": "02df6c7396233f4433af1a48de26b78e"
+  },
+  "pep-caretaker/android/fa-small-talk/build.gradle": {
+    "mtime": 1789743800.356993,
+    "seen": 1790684990.4106452,
+    "ast_hash": "8b32952568702bc1a7459469d20d365e",
+    "semantic_hash": "8b32952568702bc1a7459469d20d365e"
+  },
+  "pep-caretaker/android/fa-small-talk/gradlew": {
+    "mtime": 1789743800.3573925,
+    "seen": 1790684990.4106476,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-small-talk/settings.gradle": {
+    "mtime": 1789743800.3573925,
+    "seen": 1790684990.4106498,
+    "ast_hash": "955c9a3e9e9ee7b8cd3e25c1a923ecb8",
+    "semantic_hash": "955c9a3e9e9ee7b8cd3e25c1a923ecb8"
+  },
+  "pep-caretaker/android/fa-smart-login/app/build.gradle": {
+    "mtime": 1789743800.3576248,
+    "seen": 1790684990.4106526,
+    "ast_hash": "c3c0e9992008d867a53ae4e8d21886c2",
+    "semantic_hash": "c3c0e9992008d867a53ae4e8d21886c2"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/androidTest/java/com/example/smartloginapp/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3578258,
+    "seen": 1790684990.4106553,
+    "ast_hash": "f38e0003660af8c809195b8c39ca0208",
+    "semantic_hash": "f38e0003660af8c809195b8c39ca0208"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/MainActivity.kt": {
+    "mtime": 1789743800.358003,
+    "seen": 1790684990.4106576,
+    "ast_hash": "09da7508271351a57176f8638d58ef9c",
+    "semantic_hash": "09da7508271351a57176f8638d58ef9c"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/di/AppModule.kt": {
+    "mtime": 1789743800.3581522,
+    "seen": 1790684990.4106603,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/model/User.kt": {
+    "mtime": 1789743800.3581522,
+    "seen": 1790684990.410663,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/network/ApiResponse.kt": {
+    "mtime": 1789743800.3581522,
+    "seen": 1790684990.4106653,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/network/NetworkService.kt": {
+    "mtime": 1789743800.3582838,
+    "seen": 1790684990.4106677,
+    "ast_hash": "4340d79f2451bf6a10d09d6f66dc5ef7",
+    "semantic_hash": "4340d79f2451bf6a10d09d6f66dc5ef7"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/network/RetrofitInstance.kt": {
+    "mtime": 1789743800.3582838,
+    "seen": 1790684990.4106705,
+    "ast_hash": "579a1c1f5636ba2892d18ec155f37d65",
+    "semantic_hash": "579a1c1f5636ba2892d18ec155f37d65"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/presentation/LoginScreen.kt": {
+    "mtime": 1789743800.3582838,
+    "seen": 1790684990.410673,
+    "ast_hash": "8ce4ef42fa1812e473db6899625fb1e0",
+    "semantic_hash": "8ce4ef42fa1812e473db6899625fb1e0"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/presentation/MainMenuScreen.kt": {
+    "mtime": 1789743800.3584826,
+    "seen": 1790684990.4106753,
+    "ast_hash": "314a1778b44f5248c271c41775220ca6",
+    "semantic_hash": "314a1778b44f5248c271c41775220ca6"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/ui/theme/Color.kt": {
+    "mtime": 1789743800.3585465,
+    "seen": 1790684990.4106774,
+    "ast_hash": "cbbf3d8bbcff08cc7d71a4039dc7cd09",
+    "semantic_hash": "cbbf3d8bbcff08cc7d71a4039dc7cd09"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/ui/theme/Shape.kt": {
+    "mtime": 1789743800.3585951,
+    "seen": 1790684990.4106805,
+    "ast_hash": "b8296a0777f25a7ffabbe1ddfa55ea56",
+    "semantic_hash": "b8296a0777f25a7ffabbe1ddfa55ea56"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3585951,
+    "seen": 1790684990.410683,
+    "ast_hash": "b503f5afbe8d13005e67076e65fb1ed0",
+    "semantic_hash": "b503f5afbe8d13005e67076e65fb1ed0"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/ui/theme/Type.kt": {
+    "mtime": 1789743800.3585951,
+    "seen": 1790684990.4106853,
+    "ast_hash": "4c9f450ef297166a75777571980f2f4a",
+    "semantic_hash": "4c9f450ef297166a75777571980f2f4a"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/main/java/com/example/smartloginapp/utils/Validator.kt": {
+    "mtime": 1789743800.3585951,
+    "seen": 1790684990.4106874,
+    "ast_hash": "256b8d7db2e08b77db3b253bb0dadf14",
+    "semantic_hash": "256b8d7db2e08b77db3b253bb0dadf14"
+  },
+  "pep-caretaker/android/fa-smart-login/app/src/test/java/com/example/smartloginapp/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3595862,
+    "seen": 1790684990.4106913,
+    "ast_hash": "f5622f1e86a4c8abebcc6f4c17a5d207",
+    "semantic_hash": "f5622f1e86a4c8abebcc6f4c17a5d207"
+  },
+  "pep-caretaker/android/fa-smart-login/build.gradle": {
+    "mtime": 1789743800.3595862,
+    "seen": 1790684990.410694,
+    "ast_hash": "dab9a82a4dc342364b570bb4b47670ec",
+    "semantic_hash": "dab9a82a4dc342364b570bb4b47670ec"
+  },
+  "pep-caretaker/android/fa-smart-login/gradlew": {
+    "mtime": 1789743800.3599873,
+    "seen": 1790684990.4106963,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-smart-login/settings.gradle": {
+    "mtime": 1789743800.3599873,
+    "seen": 1790684990.4106987,
+    "ast_hash": "5e709f2be186bfb17a616a610435372c",
+    "semantic_hash": "5e709f2be186bfb17a616a610435372c"
+  },
+  "pep-caretaker/android/fa-tas/app/build.gradle": {
+    "mtime": 1789754177.892336,
+    "seen": 1790684990.4107015,
+    "ast_hash": "5f99b02167faa143113358a386b701c0",
+    "semantic_hash": "5f99b02167faa143113358a386b701c0"
+  },
+  "pep-caretaker/android/fa-tas/app/src/androidTest/java/com/example/mmg/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3603947,
+    "seen": 1790684990.410704,
+    "ast_hash": "5f92d4f61d477dbf76cf3af1eb3cd3a1",
+    "semantic_hash": "5f92d4f61d477dbf76cf3af1eb3cd3a1"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/MainActivity.kt": {
+    "mtime": 1789743800.3606746,
+    "seen": 1790684990.4107063,
+    "ast_hash": "fa657c3f7f329adcb9796266d6f21bce",
+    "semantic_hash": "fa657c3f7f329adcb9796266d6f21bce"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/RoboterActions.kt": {
+    "mtime": 1789743800.360733,
+    "seen": 1790684990.4107084,
+    "ast_hash": "0579b56ecf636f6f57258b88819b119c",
+    "semantic_hash": "0579b56ecf636f6f57258b88819b119c"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/dto/EmoteDto.kt": {
+    "mtime": 1789743800.360733,
+    "seen": 1790684990.4107113,
+    "ast_hash": "6065071f05de37f390c6a185607e1460",
+    "semantic_hash": "6065071f05de37f390c6a185607e1460"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/dto/MmgDto.kt": {
+    "mtime": 1789743800.3608513,
+    "seen": 1790684990.410714,
+    "ast_hash": "7b7464955eafaa2af24661719d3d724d",
+    "semantic_hash": "7b7464955eafaa2af24661719d3d724d"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/dto/StepDto.kt": {
+    "mtime": 1789743800.3608513,
+    "seen": 1790684990.410716,
+    "ast_hash": "9edd4fc15eb54575b918b505c26d84d5",
+    "semantic_hash": "9edd4fc15eb54575b918b505c26d84d5"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/navigation/AppNavigation.kt": {
+    "mtime": 1789743800.3608513,
+    "seen": 1790684990.4107184,
+    "ast_hash": "74e83a1c13c5583699a5b7df09a448d9",
+    "semantic_hash": "74e83a1c13c5583699a5b7df09a448d9"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/network/HttpInstance.kt": {
+    "mtime": 1789754196.9872878,
+    "seen": 1790684990.4107213,
+    "ast_hash": "4c471324de8d1f6d175858beabc65e5c",
+    "semantic_hash": "4c471324de8d1f6d175858beabc65e5c"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/network/RobotAuthInterceptor.kt": {
+    "mtime": 1789754167.3346176,
+    "seen": 1790684990.4107237,
+    "ast_hash": "408e6b7288725f7490d66a6e4603dbd0",
+    "semantic_hash": "408e6b7288725f7490d66a6e4603dbd0"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/network/service/MmgApiService.kt": {
+    "mtime": 1789754196.9874206,
+    "seen": 1790684990.410726,
+    "ast_hash": "d4724f43c7df9a76f13d980235a861d9",
+    "semantic_hash": "d4724f43c7df9a76f13d980235a861d9"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/presenation/MmgScreen.kt": {
+    "mtime": 1789743800.3610501,
+    "seen": 1790684990.4107285,
+    "ast_hash": "7d27342d7346138b0ae68c76e079ac93",
+    "semantic_hash": "7d27342d7346138b0ae68c76e079ac93"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/presenation/StepScreen.kt": {
+    "mtime": 1789743800.3611827,
+    "seen": 1790684990.410731,
+    "ast_hash": "5c9b256df6b3daa957da5b0189951698",
+    "semantic_hash": "5c9b256df6b3daa957da5b0189951698"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/presentation/StepScreen.kt": {
+    "mtime": 1789743800.3611827,
+    "seen": 1790684990.410734,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/ui/theme/Color.kt": {
+    "mtime": 1789743800.3613122,
+    "seen": 1790684990.410736,
+    "ast_hash": "4dc7ee7054e2d727cb92d755c97a8ba9",
+    "semantic_hash": "4dc7ee7054e2d727cb92d755c97a8ba9"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3613627,
+    "seen": 1790684990.4107385,
+    "ast_hash": "a4c9ace51b25c052bd33cf0a6183d526",
+    "semantic_hash": "a4c9ace51b25c052bd33cf0a6183d526"
+  },
+  "pep-caretaker/android/fa-tas/app/src/main/java/com/example/mmg/viewmodel/MmgViewModel.kt": {
+    "mtime": 1789743800.3613627,
+    "seen": 1790684990.4107413,
+    "ast_hash": "752926dd2d26043ca31ef3ca367e0b1d",
+    "semantic_hash": "752926dd2d26043ca31ef3ca367e0b1d"
+  },
+  "pep-caretaker/android/fa-tas/app/src/test/java/com/example/mmg/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3641996,
+    "seen": 1790684990.4107435,
+    "ast_hash": "9a30a0400237dfe1204cf4ea326540f3",
+    "semantic_hash": "9a30a0400237dfe1204cf4ea326540f3"
+  },
+  "pep-caretaker/android/fa-tas/build.gradle": {
+    "mtime": 1789743800.3641996,
+    "seen": 1790684990.4107459,
+    "ast_hash": "444a355fc2d3d737747637cded4c9096",
+    "semantic_hash": "444a355fc2d3d737747637cded4c9096"
+  },
+  "pep-caretaker/android/fa-tas/gradlew": {
+    "mtime": 1789743800.3646011,
+    "seen": 1790684990.4107487,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-tas/settings.gradle": {
+    "mtime": 1789743800.3646011,
+    "seen": 1790684990.4107513,
+    "ast_hash": "518e77334c0181f16f0bb0e86cb338cb",
+    "semantic_hash": "518e77334c0181f16f0bb0e86cb338cb"
+  },
+  "pep-caretaker/android/fa-thief/app/build.gradle": {
+    "mtime": 1789743800.3648477,
+    "seen": 1790684990.4107535,
+    "ast_hash": "99fddca9c4668e87e73d50da8d2e564a",
+    "semantic_hash": "99fddca9c4668e87e73d50da8d2e564a"
+  },
+  "pep-caretaker/android/fa-thief/app/src/androidTest/java/com/example/pepperdiebspiel/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3650396,
+    "seen": 1790684990.4107559,
+    "ast_hash": "3af83fa24bd2a08da762e4234c21a662",
+    "semantic_hash": "3af83fa24bd2a08da762e4234c21a662"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/GameGrid.kt": {
+    "mtime": 1789743800.3652139,
+    "seen": 1790684990.4107583,
+    "ast_hash": "da6b798c919babe76131f887763e94b0",
+    "semantic_hash": "da6b798c919babe76131f887763e94b0"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/MainActivity.kt": {
+    "mtime": 1789743800.3653526,
+    "seen": 1790684990.410761,
+    "ast_hash": "d1e0c4713c2274597d332b23e71585d3",
+    "semantic_hash": "d1e0c4713c2274597d332b23e71585d3"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/game/GameViewModel.kt": {
+    "mtime": 1789743800.3653526,
+    "seen": 1790684990.4107635,
+    "ast_hash": "8fc8ce18f53fff2877eb4eb9ebdb478e",
+    "semantic_hash": "8fc8ce18f53fff2877eb4eb9ebdb478e"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/navigation/Navigation.kt": {
+    "mtime": 1789743800.3653526,
+    "seen": 1790684990.410766,
+    "ast_hash": "5920b002e83a0c7da7a52f9676916a5f",
+    "semantic_hash": "5920b002e83a0c7da7a52f9676916a5f"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/screens/StartScreen.kt": {
+    "mtime": 1789743800.3653526,
+    "seen": 1790684990.4107683,
+    "ast_hash": "205c81699580aa8bac1009713b0c9cfd",
+    "semantic_hash": "205c81699580aa8bac1009713b0c9cfd"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/ui/theme/Color.kt": {
+    "mtime": 1789743800.3656647,
+    "seen": 1790684990.4107707,
+    "ast_hash": "c49b6023b454be34d5c8a2e97bc48387",
+    "semantic_hash": "c49b6023b454be34d5c8a2e97bc48387"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/ui/theme/Shape.kt": {
+    "mtime": 1789743800.365712,
+    "seen": 1790684990.4107733,
+    "ast_hash": "2eecec89a00b20e7565b4e6757bc35b1",
+    "semantic_hash": "2eecec89a00b20e7565b4e6757bc35b1"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/ui/theme/Theme.kt": {
+    "mtime": 1789743800.365712,
+    "seen": 1790684990.4107761,
+    "ast_hash": "ed4334836fb4eaaf8cff203d99b49c5d",
+    "semantic_hash": "ed4334836fb4eaaf8cff203d99b49c5d"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/java/com/example/pepperdiebspiel/ui/theme/Type.kt": {
+    "mtime": 1789743800.365712,
+    "seen": 1790684990.4107783,
+    "ast_hash": "ab7dc89f6fbbdfa2cda0641340efe508",
+    "semantic_hash": "ab7dc89f6fbbdfa2cda0641340efe508"
+  },
+  "pep-caretaker/android/fa-thief/app/src/test/java/com/example/pepperdiebspiel/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3724797,
+    "seen": 1790684990.4107807,
+    "ast_hash": "4dcc79116a26ed0aa87eb14be54df855",
+    "semantic_hash": "4dcc79116a26ed0aa87eb14be54df855"
+  },
+  "pep-caretaker/android/fa-thief/build.gradle": {
+    "mtime": 1789743800.3724797,
+    "seen": 1790684990.4107835,
+    "ast_hash": "402cd64546a144372a65087c05be61db",
+    "semantic_hash": "402cd64546a144372a65087c05be61db"
+  },
+  "pep-caretaker/android/fa-thief/gradlew": {
+    "mtime": 1789743800.3728771,
+    "seen": 1790684990.4107864,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-thief/settings.gradle": {
+    "mtime": 1789743800.3728771,
+    "seen": 1790684990.4107888,
+    "ast_hash": "f44e02e706799d88eafe1b52d9214aaf",
+    "semantic_hash": "f44e02e706799d88eafe1b52d9214aaf"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/build.gradle": {
+    "mtime": 1789743800.3731112,
+    "seen": 1790684990.4107912,
+    "ast_hash": "c2210a83fa15b47de6893208efbd0aed",
+    "semantic_hash": "c2210a83fa15b47de6893208efbd0aed"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/androidTest/java/com/example/tictactoe/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.3732877,
+    "seen": 1790684990.4107938,
+    "ast_hash": "1b851d8011b2ca1a31bf9e4c1141ec8e",
+    "semantic_hash": "1b851d8011b2ca1a31bf9e4c1141ec8e"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/main/java/com/example/tictactoe/MainActivity.kt": {
+    "mtime": 1789743800.3734646,
+    "seen": 1790684990.4107966,
+    "ast_hash": "4c957789d6bbfd1151b9bd916381b2c9",
+    "semantic_hash": "4c957789d6bbfd1151b9bd916381b2c9"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/main/java/com/example/tictactoe/ui/theme/Color.kt": {
+    "mtime": 1789743800.3735633,
+    "seen": 1790684990.4107988,
+    "ast_hash": "cc7d4c252db5a8134204e3a82f8791fd",
+    "semantic_hash": "cc7d4c252db5a8134204e3a82f8791fd"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/main/java/com/example/tictactoe/ui/theme/Shape.kt": {
+    "mtime": 1789743800.3736367,
+    "seen": 1790684990.4108014,
+    "ast_hash": "7dea2770bbae84dee7efd006a047e748",
+    "semantic_hash": "7dea2770bbae84dee7efd006a047e748"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/main/java/com/example/tictactoe/ui/theme/Theme.kt": {
+    "mtime": 1789743800.3736367,
+    "seen": 1790684990.4108043,
+    "ast_hash": "cef4883786520e82c0c19bde722088ae",
+    "semantic_hash": "cef4883786520e82c0c19bde722088ae"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/main/java/com/example/tictactoe/ui/theme/Type.kt": {
+    "mtime": 1789743800.3736367,
+    "seen": 1790684990.4108064,
+    "ast_hash": "23245a1b01ba0d5ba554a71959a3a53b",
+    "semantic_hash": "23245a1b01ba0d5ba554a71959a3a53b"
+  },
+  "pep-caretaker/android/fa-tictactoe/app/src/test/java/com/example/tictactoe/ExampleUnitTest.kt": {
+    "mtime": 1789743800.3745072,
+    "seen": 1790684990.4108088,
+    "ast_hash": "c0df2844a657a0d9ed28a88ef2d1cfe1",
+    "semantic_hash": "c0df2844a657a0d9ed28a88ef2d1cfe1"
+  },
+  "pep-caretaker/android/fa-tictactoe/build.gradle": {
+    "mtime": 1789743800.3745072,
+    "seen": 1790684990.4108114,
+    "ast_hash": "af47cc380db82ab6b080c31f38c7ea4a",
+    "semantic_hash": "af47cc380db82ab6b080c31f38c7ea4a"
+  },
+  "pep-caretaker/android/fa-tictactoe/gradlew": {
+    "mtime": 1789743800.3748968,
+    "seen": 1790684990.410814,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-caretaker/android/fa-tictactoe/settings.gradle": {
+    "mtime": 1789743800.3748968,
+    "seen": 1790684990.4108164,
+    "ast_hash": "7c536483d21ae82e65b2ac7b13e4b75c",
+    "semantic_hash": "7c536483d21ae82e65b2ac7b13e4b75c"
+  },
+  "pep-caretaker/backend/http-requests/http-client.env.json": {
+    "mtime": 1789743800.3242693,
+    "seen": 1790684990.4108188,
+    "ast_hash": "ec52580683a2b932d29dc59d0e6a085f",
+    "semantic_hash": "ec52580683a2b932d29dc59d0e6a085f"
+  },
+  "pep-caretaker/backend/pom.xml": {
+    "mtime": 1789743800.3245614,
+    "seen": 1790684990.4108217,
+    "ast_hash": "125dbee9977753df6678995d0e714a8b",
+    "semantic_hash": "125dbee9977753df6678995d0e714a8b"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/ErrorResponse.java": {
+    "mtime": 1789743800.3251286,
+    "seen": 1790684990.4108243,
+    "ast_hash": "265801c563196a078b92ebad697b99d6",
+    "semantic_hash": "265801c563196a078b92ebad697b99d6"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/GameDto.java": {
+    "mtime": 1789819247.6248531,
+    "seen": 1790684990.4108264,
+    "ast_hash": "d6913f7ce75393620491695cd4ad5c34",
+    "semantic_hash": "d6913f7ce75393620491695cd4ad5c34"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/GameScoreDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.410829,
+    "ast_hash": "cf9968c805876f01996d03ece9142ca5",
+    "semantic_hash": "cf9968c805876f01996d03ece9142ca5"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/IdDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.4108315,
+    "ast_hash": "7091fbd7ce38eb730904253f730e1038",
+    "semantic_hash": "7091fbd7ce38eb730904253f730e1038"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/ImageContentDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.410834,
+    "ast_hash": "e5d79f4afe16c27d4528d193e95c62e8",
+    "semantic_hash": "e5d79f4afe16c27d4528d193e95c62e8"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/ImageDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.4108365,
+    "ast_hash": "2f5aba7f5f92441acb0a91e725ffc965",
+    "semantic_hash": "2f5aba7f5f92441acb0a91e725ffc965"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/ImageLinkDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.410839,
+    "ast_hash": "7de1bb0b59d2bbb74cba2883cdda6861",
+    "semantic_hash": "7de1bb0b59d2bbb74cba2883cdda6861"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/PersonDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.4108412,
+    "ast_hash": "9be2b1194e31037a41e61854a5d1833a",
+    "semantic_hash": "9be2b1194e31037a41e61854a5d1833a"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/StepDto.java": {
+    "mtime": 1789818166.1975434,
+    "seen": 1790684990.4108436,
+    "ast_hash": "e653757aea6e610cd7178cdecb04ad17",
+    "semantic_hash": "e653757aea6e610cd7178cdecb04ad17"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/StepResponseDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.4108527,
+    "ast_hash": "70d6301059844700fc78fe7e39692e1a",
+    "semantic_hash": "70d6301059844700fc78fe7e39692e1a"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/dto/TagAlongStoryDto.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.410855,
+    "ast_hash": "03fb1ae0aad215121b1bfba47a7d01f7",
+    "semantic_hash": "03fb1ae0aad215121b1bfba47a7d01f7"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/ChatGPTRequest.java": {
+    "mtime": 1789743800.3252125,
+    "seen": 1790684990.4108574,
+    "ast_hash": "2c16310c060ebf18dbc742b3b9bdf4ee",
+    "semantic_hash": "2c16310c060ebf18dbc742b3b9bdf4ee"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/ChatGPTResponse.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.41086,
+    "ast_hash": "58f4f37fd930bf012514ffeedb9e207e",
+    "semantic_hash": "58f4f37fd930bf012514ffeedb9e207e"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/Game.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108624,
+    "ast_hash": "76f2128f7d4c8decb4bae79ba990e594",
+    "semantic_hash": "76f2128f7d4c8decb4bae79ba990e594"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/GameScore.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.410865,
+    "ast_hash": "de992eee55e4fe24a84d3639614f82fb",
+    "semantic_hash": "de992eee55e4fe24a84d3639614f82fb"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/GameScoreId.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108675,
+    "ast_hash": "6765ee57dc3d6206fff8f01ab7b658c8",
+    "semantic_hash": "6765ee57dc3d6206fff8f01ab7b658c8"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/GameType.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.41087,
+    "ast_hash": "d8e37bafcbf8099222c02bd27366e240",
+    "semantic_hash": "d8e37bafcbf8099222c02bd27366e240"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/Image.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108722,
+    "ast_hash": "ea18fe0a02656fea219350fd9d6cb454",
+    "semantic_hash": "ea18fe0a02656fea219350fd9d6cb454"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/Move.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.410875,
+    "ast_hash": "b5f9f3f4f971e43869d9a106785dde32",
+    "semantic_hash": "b5f9f3f4f971e43869d9a106785dde32"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/Person.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108775,
+    "ast_hash": "280d716b1ce22b3b8b1918b1c335990c",
+    "semantic_hash": "280d716b1ce22b3b8b1918b1c335990c"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/model/Step.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108799,
+    "ast_hash": "5632c05155c70228dfe8618818be4715",
+    "semantic_hash": "5632c05155c70228dfe8618818be4715"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/GameRepository.java": {
+    "mtime": 1789743800.325523,
+    "seen": 1790684990.4108822,
+    "ast_hash": "bc21e65586b7019cdf9c269349085e95",
+    "semantic_hash": "bc21e65586b7019cdf9c269349085e95"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/GameScoreRepository.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.4108932,
+    "ast_hash": "f8e8c3cc047c8814ef2e27c5d8d7ad70",
+    "semantic_hash": "f8e8c3cc047c8814ef2e27c5d8d7ad70"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/GameTypeRepository.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.4108973,
+    "ast_hash": "8f15c2ff086f33dfa94ba530ae167e2a",
+    "semantic_hash": "8f15c2ff086f33dfa94ba530ae167e2a"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/ImageRepository.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.4108999,
+    "ast_hash": "2a18b60e4e7cc22615e607c8bbc7dccb",
+    "semantic_hash": "2a18b60e4e7cc22615e607c8bbc7dccb"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/MoveRepository.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.4109023,
+    "ast_hash": "2be11eeaf812131f6783ca3e038865aa",
+    "semantic_hash": "2be11eeaf812131f6783ca3e038865aa"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/PersonRepository.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.410906,
+    "ast_hash": "d42867641ad17c00808a67d073ced199",
+    "semantic_hash": "d42867641ad17c00808a67d073ced199"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/repository/StepRepository.java": {
+    "mtime": 1789819262.5399241,
+    "seen": 1790684990.4109087,
+    "ast_hash": "d82fd0d26b77edee0f7550c42824000b",
+    "semantic_hash": "d82fd0d26b77edee0f7550c42824000b"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/ApiExceptionMapper.java": {
+    "mtime": 1789743800.3258514,
+    "seen": 1790684990.4109116,
+    "ast_hash": "e028de7efeaa907ce5247de5b468f620",
+    "semantic_hash": "e028de7efeaa907ce5247de5b468f620"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/GameScoreResource.java": {
+    "mtime": 1789753968.2284064,
+    "seen": 1790684990.4109137,
+    "ast_hash": "fd13d185d697c3af999c109d3f086c28",
+    "semantic_hash": "fd13d185d697c3af999c109d3f086c28"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/GreetingResource.java": {
+    "mtime": 1789753968.2282877,
+    "seen": 1790684990.410916,
+    "ast_hash": "563b8f26748de3c447099764ff467676",
+    "semantic_hash": "563b8f26748de3c447099764ff467676"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/ImageResource.java": {
+    "mtime": 1789753968.227944,
+    "seen": 1790684990.4109187,
+    "ast_hash": "622dab1886a3558e1626a1dbc0012ae0",
+    "semantic_hash": "622dab1886a3558e1626a1dbc0012ae0"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/MoveResource.java": {
+    "mtime": 1789743800.3260615,
+    "seen": 1790684990.4109209,
+    "ast_hash": "2cdb9be41b3411360f042e1737eebd4f",
+    "semantic_hash": "2cdb9be41b3411360f042e1737eebd4f"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/PersonResource.java": {
+    "mtime": 1789753968.2281327,
+    "seen": 1790684990.410924,
+    "ast_hash": "44c335a4abff350cba6296d1df671c07",
+    "semantic_hash": "44c335a4abff350cba6296d1df671c07"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/resource/TagAlongStoryResource.java": {
+    "mtime": 1789818239.969881,
+    "seen": 1790684990.4109263,
+    "ast_hash": "5fc7d8f95309c8be12e085bae006d384",
+    "semantic_hash": "5fc7d8f95309c8be12e085bae006d384"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/security/KeycloakRoleAugmentor.java": {
+    "mtime": 1789743800.3260615,
+    "seen": 1790684990.4109287,
+    "ast_hash": "adf7769de576f5636daf87f112c1571d",
+    "semantic_hash": "adf7769de576f5636daf87f112c1571d"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/GameScoreService.java": {
+    "mtime": 1789743800.3260615,
+    "seen": 1790684990.4109309,
+    "ast_hash": "3ba05aa92b277de61b50466ff2f1cc32",
+    "semantic_hash": "3ba05aa92b277de61b50466ff2f1cc32"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/ImageBlobMigrationService.java": {
+    "mtime": 1789753957.0659058,
+    "seen": 1790684990.4109342,
+    "ast_hash": "2b4b11e4fd12d5f22f0ad7550a2dca51",
+    "semantic_hash": "2b4b11e4fd12d5f22f0ad7550a2dca51"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/ImageService.java": {
+    "mtime": 1789819247.621486,
+    "seen": 1790684990.410937,
+    "ast_hash": "ca20d4b9b4273932b8fc9f186783c330",
+    "semantic_hash": "ca20d4b9b4273932b8fc9f186783c330"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/MinioService.java": {
+    "mtime": 1789743800.3263695,
+    "seen": 1790684990.410941,
+    "ast_hash": "8fbf4bdc327ed736ee9fde59c5e9385b",
+    "semantic_hash": "8fbf4bdc327ed736ee9fde59c5e9385b"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/MoveService.java": {
+    "mtime": 1789743800.3263695,
+    "seen": 1790684990.4109437,
+    "ast_hash": "8efd9199a8d726ba9c388624fb0b4df5",
+    "semantic_hash": "8efd9199a8d726ba9c388624fb0b4df5"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/PersonService.java": {
+    "mtime": 1789743800.3263695,
+    "seen": 1790684990.4109476,
+    "ast_hash": "04b570cf8cc2e05b4319dc01815197ab",
+    "semantic_hash": "04b570cf8cc2e05b4319dc01815197ab"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/SmallTalkService.java": {
+    "mtime": 1789743800.3263695,
+    "seen": 1790684990.4109507,
+    "ast_hash": "aa6ec002cc46a3071287521079e19407",
+    "semantic_hash": "aa6ec002cc46a3071287521079e19407"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/service/TagAlongStoryService.java": {
+    "mtime": 1789819656.69396,
+    "seen": 1790684990.410953,
+    "ast_hash": "ae570caa99063d7fe4a1249c6a07d2e1",
+    "semantic_hash": "ae570caa99063d7fe4a1249c6a07d2e1"
+  },
+  "pep-caretaker/backend/src/main/java/at/htlleonding/pepper/util/Base64Util.java": {
+    "mtime": 1789743800.3263695,
+    "seen": 1790684990.4109552,
+    "ast_hash": "fb5e68ff2a1018ffa8e52a0d4046e72c",
+    "semantic_hash": "fb5e68ff2a1018ffa8e52a0d4046e72c"
+  },
+  "pep-caretaker/backend/src/main/resources/import.sql": {
+    "mtime": 1789743800.3267615,
+    "seen": 1790684990.4109583,
+    "ast_hash": "a725c21ede31ac8dfef439a19ce02105",
+    "semantic_hash": "a725c21ede31ac8dfef439a19ce02105"
+  },
+  "pep-caretaker/backend/src/test/java/at/htlleonding/pepper/model/GameScoreRessourceTest.java": {
+    "mtime": 1789743800.3269374,
+    "seen": 1790684990.4109607,
+    "ast_hash": "9c3e236d11a43176703ac56322b9828a",
+    "semantic_hash": "9c3e236d11a43176703ac56322b9828a"
+  },
+  "pep-caretaker/backend/src/test/java/at/htlleonding/pepper/model/ImageRessourceTest.java": {
+    "mtime": 1789743800.3270197,
+    "seen": 1790684990.410963,
+    "ast_hash": "1892e1b090d0035b3185008c0c545ce6",
+    "semantic_hash": "1892e1b090d0035b3185008c0c545ce6"
+  },
+  "pep-caretaker/backend/src/test/java/at/htlleonding/pepper/model/PersonResourceTest.java": {
+    "mtime": 1789743800.3270197,
+    "seen": 1790684990.4109657,
+    "ast_hash": "4136c6a9bb52ff814a93a8cb3a40dbbe",
+    "semantic_hash": "4136c6a9bb52ff814a93a8cb3a40dbbe"
+  },
+  "pep-caretaker/backend/src/test/java/at/htlleonding/pepper/model/RobotAccessTest.java": {
+    "mtime": 1789754060.45873,
+    "seen": 1790684990.410968,
+    "ast_hash": "30cdd6f148131b50dea5f11c1725963c",
+    "semantic_hash": "30cdd6f148131b50dea5f11c1725963c"
+  },
+  "pep-caretaker/backend/src/test/java/at/htlleonding/pepper/model/TagAlongStoryImageTest.java": {
+    "mtime": 1789819478.198405,
+    "seen": 1790684990.4109704,
+    "ast_hash": "5bc70e1cf17aa7b474dbef10b6265bf2",
+    "semantic_hash": "5bc70e1cf17aa7b474dbef10b6265bf2"
+  },
+  "pep-caretaker/frontend/angular.json": {
+    "mtime": 1789751343.927769,
+    "seen": 1790684990.4109735,
+    "ast_hash": "34d110b3d774c941e90984f3aa2eb72f",
+    "semantic_hash": "34d110b3d774c941e90984f3aa2eb72f"
+  },
+  "pep-caretaker/frontend/build.sh": {
+    "mtime": 1789743800.3750875,
+    "seen": 1790684990.4109757,
+    "ast_hash": "be014118390d46224fbf8909753aa8f0",
+    "semantic_hash": "be014118390d46224fbf8909753aa8f0"
+  },
+  "pep-caretaker/frontend/e2e-test/test_create_person.py": {
+    "mtime": 1789743800.3753989,
+    "seen": 1790684990.410978,
+    "ast_hash": "4456083d6515b360c3c35d1d1020731d",
+    "semantic_hash": "4456083d6515b360c3c35d1d1020731d"
+  },
+  "pep-caretaker/frontend/package.json": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4109807,
+    "ast_hash": "dc826dd21ea50414706aef11aab54b6c",
+    "semantic_hash": "dc826dd21ea50414706aef11aab54b6c"
+  },
+  "pep-caretaker/frontend/src/app/add-resident/add-resident.component.spec.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4109828,
+    "ast_hash": "e8aebd7eb63f1aa5b16585a52d628738",
+    "semantic_hash": "e8aebd7eb63f1aa5b16585a52d628738"
+  },
+  "pep-caretaker/frontend/src/app/add-resident/add-resident.component.ts": {
+    "mtime": 1789743800.37728,
+    "seen": 1790684990.410986,
+    "ast_hash": "81518597de90c5d18df14439c7a508a0",
+    "semantic_hash": "81518597de90c5d18df14439c7a508a0"
+  },
+  "pep-caretaker/frontend/src/app/addstep/addstep.component.spec.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4109883,
+    "ast_hash": "5b8a982649d77847ec29b50d594151d9",
+    "semantic_hash": "5b8a982649d77847ec29b50d594151d9"
+  },
+  "pep-caretaker/frontend/src/app/addstep/addstep.component.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4109905,
+    "ast_hash": "5eabb521a68c10796d3cc0bcfd63035b",
+    "semantic_hash": "5eabb521a68c10796d3cc0bcfd63035b"
+  },
+  "pep-caretaker/frontend/src/app/app.component.spec.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4109933,
+    "ast_hash": "ba416fe62134bfe06e1ebec424496d94",
+    "semantic_hash": "ba416fe62134bfe06e1ebec424496d94"
+  },
+  "pep-caretaker/frontend/src/app/app.component.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.410996,
+    "ast_hash": "af631977ef4e5a54ac95101ac134a81c",
+    "semantic_hash": "af631977ef4e5a54ac95101ac134a81c"
+  },
+  "pep-caretaker/frontend/src/app/app.config.ts": {
+    "mtime": 1789748618.161765,
+    "seen": 1790684990.4109983,
+    "ast_hash": "bed2c55c9d6feccc2b4a9c6c204b431b",
+    "semantic_hash": "bed2c55c9d6feccc2b4a9c6c204b431b"
+  },
+  "pep-caretaker/frontend/src/app/app.routes.spec.ts": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4110012,
+    "ast_hash": "a2bec93214fba30cb9bb878110b67517",
+    "semantic_hash": "a2bec93214fba30cb9bb878110b67517"
+  },
+  "pep-caretaker/frontend/src/app/app.routes.ts": {
+    "mtime": 1790683177.1274533,
+    "seen": 1790684990.4110034,
+    "ast_hash": "5de6ef20e19eb61574997ecad6c9030f",
+    "semantic_hash": "5de6ef20e19eb61574997ecad6c9030f"
+  },
+  "pep-caretaker/frontend/src/app/auth-src.directive.spec.ts": {
+    "mtime": 1790683177.1274533,
+    "seen": 1790684990.4110062,
+    "ast_hash": "5fb48e08de35fcdb51515560fb82f671",
+    "semantic_hash": "5fb48e08de35fcdb51515560fb82f671"
+  },
+  "pep-caretaker/frontend/src/app/auth-src.directive.ts": {
+    "mtime": 1790683177.1274533,
+    "seen": 1790684990.4110086,
+    "ast_hash": "582f99ba249dbe562073f19c58c5eb9e",
+    "semantic_hash": "582f99ba249dbe562073f19c58c5eb9e"
+  },
+  "pep-caretaker/frontend/src/app/auth.guard.ts": {
+    "mtime": 1789751550.6298504,
+    "seen": 1790684990.4110107,
+    "ast_hash": "a1766c2fbbc306682e55f223ff3d59a7",
+    "semantic_hash": "a1766c2fbbc306682e55f223ff3d59a7"
+  },
+  "pep-caretaker/frontend/src/app/auth.interceptor.ts": {
+    "mtime": 1790683177.1274533,
+    "seen": 1790684990.4110134,
+    "ast_hash": "c51e08731a13404a5896dd752c816e7c",
+    "semantic_hash": "c51e08731a13404a5896dd752c816e7c"
+  },
+  "pep-caretaker/frontend/src/app/createstory/createstory.component.spec.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4110162,
+    "ast_hash": "8b1276c5d800c4d9cdf444fd8e22f035",
+    "semantic_hash": "8b1276c5d800c4d9cdf444fd8e22f035"
+  },
+  "pep-caretaker/frontend/src/app/createstory/createstory.component.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4110186,
+    "ast_hash": "fbeff3a439ac5617af6b563a3caca34b",
+    "semantic_hash": "fbeff3a439ac5617af6b563a3caca34b"
+  },
+  "pep-caretaker/frontend/src/app/editstory/editstory.component.spec.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.411021,
+    "ast_hash": "928a9775ac8f6c6892e6d5998a4b76e1",
+    "semantic_hash": "928a9775ac8f6c6892e6d5998a4b76e1"
+  },
+  "pep-caretaker/frontend/src/app/editstory/editstory.component.ts": {
+    "mtime": 1789751843.402353,
+    "seen": 1790684990.4110234,
+    "ast_hash": "42cd5ef022213b5acfe753a8cf8f6396",
+    "semantic_hash": "42cd5ef022213b5acfe753a8cf8f6396"
+  },
+  "pep-caretaker/frontend/src/app/home-page/home-page.component.spec.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4110262,
+    "ast_hash": "fe332c272177e683b3b0d1606fc78a77",
+    "semantic_hash": "fe332c272177e683b3b0d1606fc78a77"
+  },
+  "pep-caretaker/frontend/src/app/home-page/home-page.component.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4110286,
+    "ast_hash": "1ee9f0924934f1db68f13ff9c11e3ed0",
+    "semantic_hash": "1ee9f0924934f1db68f13ff9c11e3ed0"
+  },
+  "pep-caretaker/frontend/src/app/image-url.ts": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.411031,
+    "ast_hash": "633ace89b78cfded50923d10d96a0f68",
+    "semantic_hash": "633ace89b78cfded50923d10d96a0f68"
+  },
+  "pep-caretaker/frontend/src/app/imageupload/imageupload.component.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110334,
+    "ast_hash": "7084ba71722d6e3cb78101207c35a65c",
+    "semantic_hash": "7084ba71722d6e3cb78101207c35a65c"
+  },
+  "pep-caretaker/frontend/src/app/imageupload/imageupload.component.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110355,
+    "ast_hash": "09f4b967624e2dc0952ac43497ae5d35",
+    "semantic_hash": "09f4b967624e2dc0952ac43497ae5d35"
+  },
+  "pep-caretaker/frontend/src/app/inactivity.service.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110386,
+    "ast_hash": "701c0e7577aca81d3bfdfb02dc8b75c5",
+    "semantic_hash": "701c0e7577aca81d3bfdfb02dc8b75c5"
+  },
+  "pep-caretaker/frontend/src/app/inactivity.service.ts": {
+    "mtime": 1789749534.3060136,
+    "seen": 1790684990.411041,
+    "ast_hash": "f322cbe703b6934ff2846bb5079a3242",
+    "semantic_hash": "f322cbe703b6934ff2846bb5079a3242"
+  },
+  "pep-caretaker/frontend/src/app/keycloak-init.service.ts": {
+    "mtime": 1789748618.1613352,
+    "seen": 1790684990.4110434,
+    "ast_hash": "514bf297f95dbdc542d98ccd5eda44e0",
+    "semantic_hash": "514bf297f95dbdc542d98ccd5eda44e0"
+  },
+  "pep-caretaker/frontend/src/app/models/game-type.model.ts": {
+    "mtime": 1789743800.378562,
+    "seen": 1790684990.4110456,
+    "ast_hash": "404ac8d39e3cca0e941ae40ee93347f8",
+    "semantic_hash": "404ac8d39e3cca0e941ae40ee93347f8"
+  },
+  "pep-caretaker/frontend/src/app/models/image-json.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110482,
+    "ast_hash": "5990f6e79b1d08d57a1ea9f4252f795c",
+    "semantic_hash": "5990f6e79b1d08d57a1ea9f4252f795c"
+  },
+  "pep-caretaker/frontend/src/app/models/image-preview.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110506,
+    "ast_hash": "81765541e9e6a596c2a7f22bc18696c4",
+    "semantic_hash": "81765541e9e6a596c2a7f22bc18696c4"
+  },
+  "pep-caretaker/frontend/src/app/models/image-response.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.411053,
+    "ast_hash": "c42a67d7019b7b59858514aeee366fd0",
+    "semantic_hash": "c42a67d7019b7b59858514aeee366fd0"
+  },
+  "pep-caretaker/frontend/src/app/models/image.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110558,
+    "ast_hash": "10a850ac0ce1860f42ab96b54de9205e",
+    "semantic_hash": "10a850ac0ce1860f42ab96b54de9205e"
+  },
+  "pep-caretaker/frontend/src/app/models/imageDto.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110582,
+    "ast_hash": "d9f9fe23edd3755c67bf4811624ae91a",
+    "semantic_hash": "d9f9fe23edd3755c67bf4811624ae91a"
+  },
+  "pep-caretaker/frontend/src/app/models/move.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110608,
+    "ast_hash": "86c19977cddabce9e0720f452d923866",
+    "semantic_hash": "86c19977cddabce9e0720f452d923866"
+  },
+  "pep-caretaker/frontend/src/app/models/person-dto.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.411063,
+    "ast_hash": "3d67baab78a3d58c90098f5959f76929",
+    "semantic_hash": "3d67baab78a3d58c90098f5959f76929"
+  },
+  "pep-caretaker/frontend/src/app/models/person.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110658,
+    "ast_hash": "b154233b64e5a3771da9db2e13291c44",
+    "semantic_hash": "b154233b64e5a3771da9db2e13291c44"
+  },
+  "pep-caretaker/frontend/src/app/models/tag-along-story.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110682,
+    "ast_hash": "09384798951fa6c9adae551764e9f28f",
+    "semantic_hash": "09384798951fa6c9adae551764e9f28f"
+  },
+  "pep-caretaker/frontend/src/app/models/tagalongstories.model.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110703,
+    "ast_hash": "2987709548ace7d2fee0d9ff46b30eba",
+    "semantic_hash": "2987709548ace7d2fee0d9ff46b30eba"
+  },
+  "pep-caretaker/frontend/src/app/models/tas.model.ts": {
+    "mtime": 1789743800.378869,
+    "seen": 1790684990.4110732,
+    "ast_hash": "a5c5549a2007f8a4062774771c58a4d1",
+    "semantic_hash": "a5c5549a2007f8a4062774771c58a4d1"
+  },
+  "pep-caretaker/frontend/src/app/my-pictures/my-pictures.component.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110758,
+    "ast_hash": "4c77b61510d52624dccf9c9d1a21832a",
+    "semantic_hash": "4c77b61510d52624dccf9c9d1a21832a"
+  },
+  "pep-caretaker/frontend/src/app/password-validator.service.ts": {
+    "mtime": 1789743800.38012,
+    "seen": 1790684990.4110782,
+    "ast_hash": "4bb1cef4fca92bd72829f64a5e35193b",
+    "semantic_hash": "4bb1cef4fca92bd72829f64a5e35193b"
+  },
+  "pep-caretaker/frontend/src/app/person-entry/person-entry.component.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110806,
+    "ast_hash": "8187f5f9bc837b547547528359c91f1b",
+    "semantic_hash": "8187f5f9bc837b547547528359c91f1b"
+  },
+  "pep-caretaker/frontend/src/app/person-entry/person-entry.component.ts": {
+    "mtime": 1789743800.3802974,
+    "seen": 1790684990.411083,
+    "ast_hash": "ef11f5795eaf5a01c4d7523499d2d97f",
+    "semantic_hash": "ef11f5795eaf5a01c4d7523499d2d97f"
+  },
+  "pep-caretaker/frontend/src/app/picture-overview/picture-overview.component.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110854,
+    "ast_hash": "e852c42ca03f3bd451a5034763c8196e",
+    "semantic_hash": "e852c42ca03f3bd451a5034763c8196e"
+  },
+  "pep-caretaker/frontend/src/app/picture-overview/picture-overview.component.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110885,
+    "ast_hash": "0d7c5bf8a52c0415a1eb6ee08dec2580",
+    "semantic_hash": "0d7c5bf8a52c0415a1eb6ee08dec2580"
+  },
+  "pep-caretaker/frontend/src/app/preview-screen/preview-screen.component.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110906,
+    "ast_hash": "2b59d0fdf5f6a98ef3168497e4682747",
+    "semantic_hash": "2b59d0fdf5f6a98ef3168497e4682747"
+  },
+  "pep-caretaker/frontend/src/app/preview-screen/preview-screen.component.ts": {
+    "mtime": 1789819428.7054722,
+    "seen": 1790684990.4110935,
+    "ast_hash": "886d596a0de9d2219569ae0bfc5842ce",
+    "semantic_hash": "886d596a0de9d2219569ae0bfc5842ce"
+  },
+  "pep-caretaker/frontend/src/app/resident-details/resident-details.component.spec.ts": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4110959,
+    "ast_hash": "0e9b003d6c74424bcaee397ed0cfa55d",
+    "semantic_hash": "0e9b003d6c74424bcaee397ed0cfa55d"
+  },
+  "pep-caretaker/frontend/src/app/resident-details/resident-details.component.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4110985,
+    "ast_hash": "dad0622b10d6a22636042fc7a3a582a6",
+    "semantic_hash": "dad0622b10d6a22636042fc7a3a582a6"
+  },
+  "pep-caretaker/frontend/src/app/residents/residents.component.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111006,
+    "ast_hash": "fe10ac021471dd89e5dfabe803345a7f",
+    "semantic_hash": "fe10ac021471dd89e5dfabe803345a7f"
+  },
+  "pep-caretaker/frontend/src/app/residents/residents.component.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.411103,
+    "ast_hash": "2bad1a40bc7af51247be9f3402c8c8f2",
+    "semantic_hash": "2bad1a40bc7af51247be9f3402c8c8f2"
+  },
+  "pep-caretaker/frontend/src/app/role.service.ts": {
+    "mtime": 1789743800.380938,
+    "seen": 1790684990.4111059,
+    "ast_hash": "145a29a26a50862e46ce3d794dbb8b57",
+    "semantic_hash": "145a29a26a50862e46ce3d794dbb8b57"
+  },
+  "pep-caretaker/frontend/src/app/service/fetch-urls.service.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.411108,
+    "ast_hash": "98aad7664ba1962df3a7cfecbb480864",
+    "semantic_hash": "98aad7664ba1962df3a7cfecbb480864"
+  },
+  "pep-caretaker/frontend/src/app/service/fetch-urls.service.ts": {
+    "mtime": 1789743800.381171,
+    "seen": 1790684990.4111106,
+    "ast_hash": "4249a451a0c85a5699ece9a6ec57e53d",
+    "semantic_hash": "4249a451a0c85a5699ece9a6ec57e53d"
+  },
+  "pep-caretaker/frontend/src/app/service/image-blob-cache.service.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111135,
+    "ast_hash": "0313a490fca5df3b461822f0eee82a4a",
+    "semantic_hash": "0313a490fca5df3b461822f0eee82a4a"
+  },
+  "pep-caretaker/frontend/src/app/service/image-blob-cache.service.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111161,
+    "ast_hash": "0b4e43d451a5899d3124c18a74206b9c",
+    "semantic_hash": "0b4e43d451a5899d3124c18a74206b9c"
+  },
+  "pep-caretaker/frontend/src/app/service/image-service.service.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111183,
+    "ast_hash": "87a2f8bdf22c6726d634f5f1d7cf423f",
+    "semantic_hash": "87a2f8bdf22c6726d634f5f1d7cf423f"
+  },
+  "pep-caretaker/frontend/src/app/service/image-service.service.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111207,
+    "ast_hash": "8ef48a50ec1dedaeb2bf0823d97c675b",
+    "semantic_hash": "8ef48a50ec1dedaeb2bf0823d97c675b"
+  },
+  "pep-caretaker/frontend/src/app/service/preview.service.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.411123,
+    "ast_hash": "cee6ddcb663c98c0b3e7b87f306eede2",
+    "semantic_hash": "cee6ddcb663c98c0b3e7b87f306eede2"
+  },
+  "pep-caretaker/frontend/src/app/service/preview.service.ts": {
+    "mtime": 1789743800.381171,
+    "seen": 1790684990.4111257,
+    "ast_hash": "3cf47a25b5da648bea2f96442d5815bf",
+    "semantic_hash": "3cf47a25b5da648bea2f96442d5815bf"
+  },
+  "pep-caretaker/frontend/src/app/service/resident-service.service.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111283,
+    "ast_hash": "630c17414184c365e2ea49bdc1be9f63",
+    "semantic_hash": "630c17414184c365e2ea49bdc1be9f63"
+  },
+  "pep-caretaker/frontend/src/app/service/resident-service.service.ts": {
+    "mtime": 1789743800.381171,
+    "seen": 1790684990.4111307,
+    "ast_hash": "42ec578da36acb571ba2298ab3b2c03c",
+    "semantic_hash": "42ec578da36acb571ba2298ab3b2c03c"
+  },
+  "pep-caretaker/frontend/src/app/service/theme.service.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111335,
+    "ast_hash": "100a736f33cd28fa43b70401d1620f13",
+    "semantic_hash": "100a736f33cd28fa43b70401d1620f13"
+  },
+  "pep-caretaker/frontend/src/app/tagalongstory/tagalongstory.component.spec.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111357,
+    "ast_hash": "7014119dd507d3459f6a44ef5b0c03ea",
+    "semantic_hash": "7014119dd507d3459f6a44ef5b0c03ea"
+  },
+  "pep-caretaker/frontend/src/app/tagalongstory/tagalongstory.component.ts": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4111388,
+    "ast_hash": "6b470152d87a8480dfc772ec9c7e5163",
+    "semantic_hash": "6b470152d87a8480dfc772ec9c7e5163"
+  },
+  "pep-caretaker/frontend/src/app/ui/sheet/sheet.component.ts": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.411143,
+    "ast_hash": "577bfe12d70b4f5df05373e3f1ae3c75",
+    "semantic_hash": "577bfe12d70b4f5df05373e3f1ae3c75"
+  },
+  "pep-caretaker/frontend/src/environments/environment.development.ts": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.4111454,
+    "ast_hash": "ef1793feb00490e7e31f0c9a63021408",
+    "semantic_hash": "ef1793feb00490e7e31f0c9a63021408"
+  },
+  "pep-caretaker/frontend/src/environments/environment.remote.ts": {
+    "mtime": 1789748585.5931282,
+    "seen": 1790684990.411148,
+    "ast_hash": "49b3603ec4a458e4ebd0e566f0e7db27",
+    "semantic_hash": "49b3603ec4a458e4ebd0e566f0e7db27"
+  },
+  "pep-caretaker/frontend/src/environments/environment.ts": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.411151,
+    "ast_hash": "65ea9b7dec9a5867200782a79a2e2a6f",
+    "semantic_hash": "65ea9b7dec9a5867200782a79a2e2a6f"
+  },
+  "pep-caretaker/frontend/src/main.ts": {
+    "mtime": 1789743800.4408467,
+    "seen": 1790684990.411153,
+    "ast_hash": "084867ae359d6aae0172241bac103d22",
+    "semantic_hash": "084867ae359d6aae0172241bac103d22"
+  },
+  "pep-caretaker/frontend/src/proxy.conf.json": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.4111555,
+    "ast_hash": "14609d4c1b09da8446191401031ea0da",
+    "semantic_hash": "14609d4c1b09da8446191401031ea0da"
+  },
+  "pep-caretaker/frontend/src/proxy.conf.remote.json": {
+    "mtime": 1789748585.598757,
+    "seen": 1790684990.4111583,
+    "ast_hash": "54642cb92077f9c9fd1fd1e29639f57b",
+    "semantic_hash": "54642cb92077f9c9fd1fd1e29639f57b"
+  },
+  "pep-caretaker/frontend/src/testing/test-providers.ts": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.4111605,
+    "ast_hash": "ec61672e3e058eb9f077fa0a43494383",
+    "semantic_hash": "ec61672e3e058eb9f077fa0a43494383"
+  },
+  "pep-caretaker/frontend/tailwind.config.js": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.411163,
+    "ast_hash": "d2eb17e98ac9447a4ed543f56bfadc9b",
+    "semantic_hash": "d2eb17e98ac9447a4ed543f56bfadc9b"
+  },
+  "pep-caretaker/frontend/tsconfig.app.json": {
+    "mtime": 1789743800.442025,
+    "seen": 1790684990.4111655,
+    "ast_hash": "e35200b6f2c3ed9a09866e706cfad362",
+    "semantic_hash": "e35200b6f2c3ed9a09866e706cfad362"
+  },
+  "pep-caretaker/frontend/tsconfig.json": {
+    "mtime": 1789743800.442025,
+    "seen": 1790684990.4111683,
+    "ast_hash": "033ea039f851ccd7369f27ae08c4d3b2",
+    "semantic_hash": "033ea039f851ccd7369f27ae08c4d3b2"
+  },
+  "pep-caretaker/frontend/tsconfig.spec.json": {
+    "mtime": 1789743800.442025,
+    "seen": 1790684990.4111707,
+    "ast_hash": "3bbab7796b2ab5af73dcc4b5f9064535",
+    "semantic_hash": "3bbab7796b2ab5af73dcc4b5f9064535"
+  },
+  "pep-mealplan/android/app/build.gradle": {
+    "mtime": 1789743800.445275,
+    "seen": 1790684990.411173,
+    "ast_hash": "4adec19cee88a3308a33bb77228894e3",
+    "semantic_hash": "4adec19cee88a3308a33bb77228894e3"
+  },
+  "pep-mealplan/android/app/src/androidTest/java/com/pepper/mealplan/ExampleInstrumentedTest.kt": {
+    "mtime": 1789743800.44545,
+    "seen": 1790684990.4111755,
+    "ast_hash": "4e8520784c9d41d990a7f04e660c9aeb",
+    "semantic_hash": "4e8520784c9d41d990a7f04e660c9aeb"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/MainActivity.kt": {
+    "mtime": 1789743800.445735,
+    "seen": 1790684990.4111786,
+    "ast_hash": "19ef5d8d0443cc6edebdcad7739c7915",
+    "semantic_hash": "19ef5d8d0443cc6edebdcad7739c7915"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/RoboterActions.kt": {
+    "mtime": 1789743800.445826,
+    "seen": 1790684990.4111807,
+    "ast_hash": "2f9c44563a1996ad790ec42cb1b1feae",
+    "semantic_hash": "2f9c44563a1996ad790ec42cb1b1feae"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/allergens/AllergensRepository.kt": {
+    "mtime": 1789743800.4458923,
+    "seen": 1790684990.411183,
+    "ast_hash": "c3d416a4a2dcae00915720c70e6a03a4",
+    "semantic_hash": "c3d416a4a2dcae00915720c70e6a03a4"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/foods/FoodsRepository.kt": {
+    "mtime": 1789743800.4458923,
+    "seen": 1790684990.4111857,
+    "ast_hash": "496ee0cff00ce2b76ae91a6725bc0e8d",
+    "semantic_hash": "496ee0cff00ce2b76ae91a6725bc0e8d"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/menu/MenuRepository.kt": {
+    "mtime": 1789743800.4458923,
+    "seen": 1790684990.4111884,
+    "ast_hash": "1deda722a1e282765f7664187d0f3f56",
+    "semantic_hash": "1deda722a1e282765f7664187d0f3f56"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/order/DummyMealOrderRepository.kt": {
+    "mtime": 1789743800.4458923,
+    "seen": 1790684990.4111907,
+    "ast_hash": "bb2f2ed3c12950f8ad516988960fe444",
+    "semantic_hash": "bb2f2ed3c12950f8ad516988960fe444"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/order/MealOrderRepository.kt": {
+    "mtime": 1789743800.4461188,
+    "seen": 1790684990.4111931,
+    "ast_hash": "67ddbba3553218239fd552e985cc52eb",
+    "semantic_hash": "67ddbba3553218239fd552e985cc52eb"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/order/RealMealOrderRepository.kt": {
+    "mtime": 1789743800.4461188,
+    "seen": 1790684990.4111953,
+    "ast_hash": "e6817855509c7509b1732460e9decc43",
+    "semantic_hash": "e6817855509c7509b1732460e9decc43"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/orders/OrdersRepository.kt": {
+    "mtime": 1789743800.4461188,
+    "seen": 1790684990.411198,
+    "ast_hash": "a0c1715b4f863dc2cd6a49f4a8dac37b",
+    "semantic_hash": "a0c1715b4f863dc2cd6a49f4a8dac37b"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/data/residents/ResidentsRepository.kt": {
+    "mtime": 1789743800.4461188,
+    "seen": 1790684990.4112008,
+    "ast_hash": "c129c171e6389c995f1108119f3c1d54",
+    "semantic_hash": "c129c171e6389c995f1108119f3c1d54"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/create/CreateMealPlan.kt": {
+    "mtime": 1789743800.4463277,
+    "seen": 1790684990.4112031,
+    "ast_hash": "b9922ac2fabd3d37e616241a02937d5e",
+    "semantic_hash": "b9922ac2fabd3d37e616241a02937d5e"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/create/CreateMealPlanViewModel.kt": {
+    "mtime": 1789743800.446393,
+    "seen": 1790684990.4112055,
+    "ast_hash": "568e0e77586b05152c82689b9acb2a69",
+    "semantic_hash": "568e0e77586b05152c82689b9acb2a69"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/create/DaySelectionView.kt": {
+    "mtime": 1789743800.446393,
+    "seen": 1790684990.411208,
+    "ast_hash": "7056b4cc4913ba0ca60f3b1372182410",
+    "semantic_hash": "7056b4cc4913ba0ca60f3b1372182410"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/create/MealSelectionView.kt": {
+    "mtime": 1789743800.446393,
+    "seen": 1790684990.4112105,
+    "ast_hash": "1b67752899d416803efd1cd36f3b90bb",
+    "semantic_hash": "1b67752899d416803efd1cd36f3b90bb"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/face/FaceRecognitionScreen.kt": {
+    "mtime": 1789743800.446393,
+    "seen": 1790684990.4112134,
+    "ast_hash": "bac1aa6c7b4b67e990134150a070e337",
+    "semantic_hash": "bac1aa6c7b4b67e990134150a070e337"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/face/FaceRecognitionViewModel.kt": {
+    "mtime": 1789743800.446614,
+    "seen": 1790684990.4112155,
+    "ast_hash": "0f3e4a5c2c4819c228dd513ecadde037",
+    "semantic_hash": "0f3e4a5c2c4819c228dd513ecadde037"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/order/OrderReminderScreen.kt": {
+    "mtime": 1789743800.446614,
+    "seen": 1790684990.411218,
+    "ast_hash": "e906bd47b90a99702b71b2582e0a218a",
+    "semantic_hash": "e906bd47b90a99702b71b2582e0a218a"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/overview/MealPlanOverview.kt": {
+    "mtime": 1789743800.446614,
+    "seen": 1790684990.4112208,
+    "ast_hash": "2faf08a1053ad83a988cd1701bfe0cf8",
+    "semantic_hash": "2faf08a1053ad83a988cd1701bfe0cf8"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/features/overview/MealPlanOverviewViewModel.kt": {
+    "mtime": 1789743800.446889,
+    "seen": 1790684990.411223,
+    "ast_hash": "d571b9f246d0f854e7a83b0686fb87f6",
+    "semantic_hash": "d571b9f246d0f854e7a83b0686fb87f6"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/navigation/AppNavigation.kt": {
+    "mtime": 1789743800.446889,
+    "seen": 1790684990.4112253,
+    "ast_hash": "f25f539a2e1e83ebb74d15669d44f145",
+    "semantic_hash": "f25f539a2e1e83ebb74d15669d44f145"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/RetrofitClient.kt": {
+    "mtime": 1789743800.446889,
+    "seen": 1790684990.4112284,
+    "ast_hash": "c22efa9736511cabb77a27a90605ad4f",
+    "semantic_hash": "c22efa9736511cabb77a27a90605ad4f"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/api/AllergensApiService.kt": {
+    "mtime": 1789743800.4471629,
+    "seen": 1790684990.4112308,
+    "ast_hash": "62c0e61ef907d54f85c1b47e787b45a2",
+    "semantic_hash": "62c0e61ef907d54f85c1b47e787b45a2"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/api/FoodsApiService.kt": {
+    "mtime": 1789743800.4472136,
+    "seen": 1790684990.411233,
+    "ast_hash": "50cd30be8f06367fa60f42c08d7ffe8e",
+    "semantic_hash": "50cd30be8f06367fa60f42c08d7ffe8e"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/api/MenuApiService.kt": {
+    "mtime": 1789743800.4472136,
+    "seen": 1790684990.4112356,
+    "ast_hash": "220ec5d058ef84fce867ed70c7f0f12b",
+    "semantic_hash": "220ec5d058ef84fce867ed70c7f0f12b"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/api/OrdersApiService.kt": {
+    "mtime": 1789743800.4472136,
+    "seen": 1790684990.411238,
+    "ast_hash": "3821351c840f183754582bbf5f3de763",
+    "semantic_hash": "3821351c840f183754582bbf5f3de763"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/api/ResidentsApiService.kt": {
+    "mtime": 1789743800.4472136,
+    "seen": 1790684990.411241,
+    "ast_hash": "6e356ff0d52a5846492c031aa1e9a169",
+    "semantic_hash": "6e356ff0d52a5846492c031aa1e9a169"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/AllergenDto.kt": {
+    "mtime": 1789743800.4472136,
+    "seen": 1790684990.4112432,
+    "ast_hash": "187fbd169a32a2b32fd168467bc33d15",
+    "semantic_hash": "187fbd169a32a2b32fd168467bc33d15"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/ApiMealPlanDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112458,
+    "ast_hash": "7d8a001a12bfdff8c5acc13820bf3c5b",
+    "semantic_hash": "7d8a001a12bfdff8c5acc13820bf3c5b"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/ApiMealPlanUpdateDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112482,
+    "ast_hash": "06d2cf0540b603b2be12619611654608",
+    "semantic_hash": "06d2cf0540b603b2be12619611654608"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/DataInserts.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112508,
+    "ast_hash": "95669b9a0e0790a4f6206a1264f170a1",
+    "semantic_hash": "95669b9a0e0790a4f6206a1264f170a1"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/FoodAllergenDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112532,
+    "ast_hash": "123e5b4ba140ec33b878b6fab28e4a68",
+    "semantic_hash": "123e5b4ba140ec33b878b6fab28e4a68"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/FoodCreateDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112556,
+    "ast_hash": "ea98b1ddfac500aa63fb5276b1d25826",
+    "semantic_hash": "ea98b1ddfac500aa63fb5276b1d25826"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/FoodDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112577,
+    "ast_hash": "efac2c8eb0e7326664f1599c5157bf35",
+    "semantic_hash": "efac2c8eb0e7326664f1599c5157bf35"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/MenuDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112601,
+    "ast_hash": "4abaedf2a73772f09a30deadb7348f75",
+    "semantic_hash": "4abaedf2a73772f09a30deadb7348f75"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/OrderDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112632,
+    "ast_hash": "f2342a5587ed7981cc69fcaa1336c8f0",
+    "semantic_hash": "f2342a5587ed7981cc69fcaa1336c8f0"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/OrderUpsertDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112656,
+    "ast_hash": "a9277cdb96a6df88c65c4b594cd82d75",
+    "semantic_hash": "a9277cdb96a6df88c65c4b594cd82d75"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/PersonDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112682,
+    "ast_hash": "1d6f12f1123d05391897871aafecfbc8",
+    "semantic_hash": "1d6f12f1123d05391897871aafecfbc8"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/PictureFileDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112706,
+    "ast_hash": "0be01f9d937b387dd15e12ec1d5c539e",
+    "semantic_hash": "0be01f9d937b387dd15e12ec1d5c539e"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/ResidentDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112732,
+    "ast_hash": "001d07eb200b229081dac3e59e5a8df5",
+    "semantic_hash": "001d07eb200b229081dac3e59e5a8df5"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/network/dto/SpecialMealDto.kt": {
+    "mtime": 1789743800.4473808,
+    "seen": 1790684990.4112756,
+    "ast_hash": "3e9388b01bba9c79811fe8775f2bb50f",
+    "semantic_hash": "3e9388b01bba9c79811fe8775f2bb50f"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/ui/theme/Color.kt": {
+    "mtime": 1789743800.4477863,
+    "seen": 1790684990.4112778,
+    "ast_hash": "46ee507dea71586dde8d6a6649a03418",
+    "semantic_hash": "46ee507dea71586dde8d6a6649a03418"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/ui/theme/Shape.kt": {
+    "mtime": 1789743800.4478402,
+    "seen": 1790684990.4112809,
+    "ast_hash": "deed2967b88b4345133e6e3772faca49",
+    "semantic_hash": "deed2967b88b4345133e6e3772faca49"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/ui/theme/Theme.kt": {
+    "mtime": 1789743800.4478402,
+    "seen": 1790684990.4112833,
+    "ast_hash": "ac6a94ec3e917cb8cb6a9eeafddd22e0",
+    "semantic_hash": "ac6a94ec3e917cb8cb6a9eeafddd22e0"
+  },
+  "pep-mealplan/android/app/src/main/java/com/pepper/mealplan/ui/theme/Type.kt": {
+    "mtime": 1789743800.4478402,
+    "seen": 1790684990.4112859,
+    "ast_hash": "0e71bad3a08982d1768cf9f499819079",
+    "semantic_hash": "0e71bad3a08982d1768cf9f499819079"
+  },
+  "pep-mealplan/android/app/src/test/java/com/pepper/mealplan/ExampleUnitTest.kt": {
+    "mtime": 1789743800.457494,
+    "seen": 1790684990.411288,
+    "ast_hash": "2fc82bb1e2e4567eecf2862b73398075",
+    "semantic_hash": "2fc82bb1e2e4567eecf2862b73398075"
+  },
+  "pep-mealplan/android/build.gradle": {
+    "mtime": 1789743800.457494,
+    "seen": 1790684990.4112906,
+    "ast_hash": "8b32952568702bc1a7459469d20d365e",
+    "semantic_hash": "8b32952568702bc1a7459469d20d365e"
+  },
+  "pep-mealplan/android/gradlew": {
+    "mtime": 1789743800.4579024,
+    "seen": 1790684990.4112935,
+    "ast_hash": "02c16663c6f0aa37f98d94d698c22b8c",
+    "semantic_hash": "02c16663c6f0aa37f98d94d698c22b8c"
+  },
+  "pep-mealplan/android/settings.gradle": {
+    "mtime": 1789743800.4579024,
+    "seen": 1790684990.4112957,
+    "ast_hash": "2bd9914c3af8e521557e22a8f9679f2f",
+    "semantic_hash": "2bd9914c3af8e521557e22a8f9679f2f"
+  },
+  "pep-mealplan/backend/mvnw": {
+    "mtime": 1789743800.4429543,
+    "seen": 1790684990.411298,
+    "ast_hash": "ab50dd89da7da2346b28003352eeeeeb",
+    "semantic_hash": "ab50dd89da7da2346b28003352eeeeeb"
+  },
+  "pep-mealplan/backend/pom.xml": {
+    "mtime": 1789743800.4429543,
+    "seen": 1790684990.4113004,
+    "ast_hash": "044822746eaba7d0de7c233414c99cd7",
+    "semantic_hash": "044822746eaba7d0de7c233414c99cd7"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/CorsFilter.java": {
+    "mtime": 1789743800.443534,
+    "seen": 1790684990.4113028,
+    "ast_hash": "155ff76663300f662751f78c6e0eac66",
+    "semantic_hash": "155ff76663300f662751f78c6e0eac66"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/CorsPreflightFilter.java": {
+    "mtime": 1789743800.4435945,
+    "seen": 1790684990.4113052,
+    "ast_hash": "949c5fe0eed3b9c1180cc616e9a28f24",
+    "semantic_hash": "949c5fe0eed3b9c1180cc616e9a28f24"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/Allergen.java": {
+    "mtime": 1789743800.4435945,
+    "seen": 1790684990.4113078,
+    "ast_hash": "e8a49eced55422e584af1afc35e417e1",
+    "semantic_hash": "e8a49eced55422e584af1afc35e417e1"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/Food.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113102,
+    "ast_hash": "9ffbbd7d274568339b358b7cc97f8705",
+    "semantic_hash": "9ffbbd7d274568339b358b7cc97f8705"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/FoodAllergen.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113128,
+    "ast_hash": "a6a93b4eff3654dd0c92899141e1f672",
+    "semantic_hash": "a6a93b4eff3654dd0c92899141e1f672"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/FoodAllergenId.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113154,
+    "ast_hash": "34c71db8576e1372bf136bb104a386d6",
+    "semantic_hash": "34c71db8576e1372bf136bb104a386d6"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/MealPlan.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113178,
+    "ast_hash": "fc6d5052aab5dd81035ba3816d5b6bd2",
+    "semantic_hash": "fc6d5052aab5dd81035ba3816d5b6bd2"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/Order.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.41132,
+    "ast_hash": "799097827acb260b4d15728ffbe8e347",
+    "semantic_hash": "799097827acb260b4d15728ffbe8e347"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/Person.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113228,
+    "ast_hash": "d0ddca6f0df6a6baa4726d5f409154c4",
+    "semantic_hash": "d0ddca6f0df6a6baa4726d5f409154c4"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/entity/Picture.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113255,
+    "ast_hash": "59680a0861febee2db4535b98afffe1b",
+    "semantic_hash": "59680a0861febee2db4535b98afffe1b"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/AllergenRepository.java": {
+    "mtime": 1789743800.4436889,
+    "seen": 1790684990.4113278,
+    "ast_hash": "434de242da8b70f7a9619064fe50ba57",
+    "semantic_hash": "434de242da8b70f7a9619064fe50ba57"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/FoodAllergenRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113305,
+    "ast_hash": "f4e2c194843a2c1abee8f06334a4ce08",
+    "semantic_hash": "f4e2c194843a2c1abee8f06334a4ce08"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/FoodRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113328,
+    "ast_hash": "729baea7d677b3dc64961a31759f1c6e",
+    "semantic_hash": "729baea7d677b3dc64961a31759f1c6e"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/MealPlanRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113355,
+    "ast_hash": "e36c8e249cfe6e3bf35e22e293090b05",
+    "semantic_hash": "e36c8e249cfe6e3bf35e22e293090b05"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/OrderRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113376,
+    "ast_hash": "7562e99f33af03f2c0f018ff965438be",
+    "semantic_hash": "7562e99f33af03f2c0f018ff965438be"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/PersonRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113402,
+    "ast_hash": "4e9621b7a19d81d169c31275771a4ef4",
+    "semantic_hash": "4e9621b7a19d81d169c31275771a4ef4"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/repository/PictureRepository.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.4113426,
+    "ast_hash": "94341abcadfa7b29bd492519ceb0ca33",
+    "semantic_hash": "94341abcadfa7b29bd492519ceb0ca33"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/AllergenResource.java": {
+    "mtime": 1789743800.4439735,
+    "seen": 1790684990.411345,
+    "ast_hash": "c77bf7f8439cbae30b5201ab807585bd",
+    "semantic_hash": "c77bf7f8439cbae30b5201ab807585bd"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/FoodAllergenResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.4113474,
+    "ast_hash": "28badfb46eace2d29d843dc65766581b",
+    "semantic_hash": "28badfb46eace2d29d843dc65766581b"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/FoodResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.41135,
+    "ast_hash": "3ac00b9ed1cd8f628b93d21df30ba27e",
+    "semantic_hash": "3ac00b9ed1cd8f628b93d21df30ba27e"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/MealPlanResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.4113526,
+    "ast_hash": "e940bdc97c7325114a094c1dfaa28e55",
+    "semantic_hash": "e940bdc97c7325114a094c1dfaa28e55"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/OrderResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.4113548,
+    "ast_hash": "129d6172e0cf4abc3d0281f9b6fbf8be",
+    "semantic_hash": "129d6172e0cf4abc3d0281f9b6fbf8be"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/PersonResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.4113572,
+    "ast_hash": "c2e4b25449c75912454ee40360c7e766",
+    "semantic_hash": "c2e4b25449c75912454ee40360c7e766"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/PictureResource.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.41136,
+    "ast_hash": "8d81b361b1d5e368a76ddc70307301a2",
+    "semantic_hash": "8d81b361b1d5e368a76ddc70307301a2"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/dto/FoodCreateDTO.java": {
+    "mtime": 1789743800.444191,
+    "seen": 1790684990.4113626,
+    "ast_hash": "baaf73daf54f0d91004996f3f471bb36",
+    "semantic_hash": "baaf73daf54f0d91004996f3f471bb36"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/dto/ImageDto.java": {
+    "mtime": 1789743800.444455,
+    "seen": 1790684990.4113648,
+    "ast_hash": "030b86460e4cc99af1f035efddcb3ced",
+    "semantic_hash": "030b86460e4cc99af1f035efddcb3ced"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/dto/ImageJson.java": {
+    "mtime": 1789743800.444455,
+    "seen": 1790684990.4113674,
+    "ast_hash": "eb0689d4447241abaf3ab59f6a1c6b9e",
+    "semantic_hash": "eb0689d4447241abaf3ab59f6a1c6b9e"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/dto/KitchenSummary.java": {
+    "mtime": 1789743800.444455,
+    "seen": 1790684990.4113698,
+    "ast_hash": "0cfa93b46ef627fafab527f792d3515c",
+    "semantic_hash": "0cfa93b46ef627fafab527f792d3515c"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/resource/dto/OrderCreateDTO.java": {
+    "mtime": 1789743800.444455,
+    "seen": 1790684990.411372,
+    "ast_hash": "144fbe0ab159811a256c2cda6664a1a2",
+    "semantic_hash": "144fbe0ab159811a256c2cda6664a1a2"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/AllergenService.java": {
+    "mtime": 1789743800.444455,
+    "seen": 1790684990.4113746,
+    "ast_hash": "94eebd41439d3b25bcc464840ff268a6",
+    "semantic_hash": "94eebd41439d3b25bcc464840ff268a6"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/FoodAllergenService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.411377,
+    "ast_hash": "144a9cc01ebc819fb286ce45de0f6034",
+    "semantic_hash": "144a9cc01ebc819fb286ce45de0f6034"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/FoodService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.411379,
+    "ast_hash": "3074d8f4fc1c0af448d66ce403bf4cdc",
+    "semantic_hash": "3074d8f4fc1c0af448d66ce403bf4cdc"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/MealPlanService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.411382,
+    "ast_hash": "9fc5450eab8c16d9577e48dbbdcfce41",
+    "semantic_hash": "9fc5450eab8c16d9577e48dbbdcfce41"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/OrderService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.4113846,
+    "ast_hash": "65f1869a1c25f36f4f9d79b5ea00877e",
+    "semantic_hash": "65f1869a1c25f36f4f9d79b5ea00877e"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/PersonService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.411387,
+    "ast_hash": "f51650508c4e22d5752a714ba24638f0",
+    "semantic_hash": "f51650508c4e22d5752a714ba24638f0"
+  },
+  "pep-mealplan/backend/src/main/java/com/pep/mealplan/service/PictureService.java": {
+    "mtime": 1789743800.4446242,
+    "seen": 1790684990.4113896,
+    "ast_hash": "33212ff9d224427554da5a58e03e240b",
+    "semantic_hash": "33212ff9d224427554da5a58e03e240b"
+  },
+  "pep-mealplan/backend/src/main/resources/import-server.sql": {
+    "mtime": 1789743800.44489,
+    "seen": 1790684990.411392,
+    "ast_hash": "47394217ae276659bb884451b779c27c",
+    "semantic_hash": "47394217ae276659bb884451b779c27c"
+  },
+  "pep-mealplan/backend/src/main/resources/import.sql": {
+    "mtime": 1789743800.44489,
+    "seen": 1790684990.4113944,
+    "ast_hash": "400603cb861b4a0f28615e85d2c1c79d",
+    "semantic_hash": "400603cb861b4a0f28615e85d2c1c79d"
+  },
+  "pep-mealplan/backend/src/test/java/com/pep/mealplan/HelloResourceIT.java": {
+    "mtime": 1789743800.445062,
+    "seen": 1790684990.411397,
+    "ast_hash": "70a36851a99702602eed8e98a9ae03d4",
+    "semantic_hash": "70a36851a99702602eed8e98a9ae03d4"
+  },
+  "pep-mealplan/backend/src/test/java/com/pep/mealplan/HelloResourceTest.java": {
+    "mtime": 1789743800.4451444,
+    "seen": 1790684990.4113994,
+    "ast_hash": "af85674bea2f74607f6dde0cda44f9cc",
+    "semantic_hash": "af85674bea2f74607f6dde0cda44f9cc"
+  },
+  "pep-mealplan/frontend/.postcssrc.json": {
+    "mtime": 1789743800.4580894,
+    "seen": 1790684990.4114017,
+    "ast_hash": "92f77167686babe5a5947f5f2f63fac1",
+    "semantic_hash": "92f77167686babe5a5947f5f2f63fac1"
+  },
+  "pep-mealplan/frontend/angular.json": {
+    "mtime": 1789743800.4581647,
+    "seen": 1790684990.4114046,
+    "ast_hash": "8b76ebbd4444e48a7a4b88452924656f",
+    "semantic_hash": "8b76ebbd4444e48a7a4b88452924656f"
+  },
+  "pep-mealplan/frontend/package.json": {
+    "mtime": 1789743800.4581647,
+    "seen": 1790684990.411407,
+    "ast_hash": "884932dfdf7ac3f79846aab8f0ad5794",
+    "semantic_hash": "884932dfdf7ac3f79846aab8f0ad5794"
+  },
+  "pep-mealplan/frontend/src/app/app-routing.module.ts": {
+    "mtime": 1789743800.459133,
+    "seen": 1790684990.4114094,
+    "ast_hash": "492a32a94cf3a523f945238ad21c04e8",
+    "semantic_hash": "492a32a94cf3a523f945238ad21c04e8"
+  },
+  "pep-mealplan/frontend/src/app/app.component.ts": {
+    "mtime": 1789743800.4591885,
+    "seen": 1790684990.4114118,
+    "ast_hash": "e06ae687e3fe2bc0590dc5d3050bbd74",
+    "semantic_hash": "e06ae687e3fe2bc0590dc5d3050bbd74"
+  },
+  "pep-mealplan/frontend/src/app/app.config.ts": {
+    "mtime": 1789743800.4591885,
+    "seen": 1790684990.4114146,
+    "ast_hash": "2fddbdc9e21408b1a220d443ffde52f3",
+    "semantic_hash": "2fddbdc9e21408b1a220d443ffde52f3"
+  },
+  "pep-mealplan/frontend/src/app/constants.ts": {
+    "mtime": 1789743800.4591885,
+    "seen": 1790684990.4114168,
+    "ast_hash": "ca3cc807cc3da577099c1eca180d3bb6",
+    "semantic_hash": "ca3cc807cc3da577099c1eca180d3bb6"
+  },
+  "pep-mealplan/frontend/src/app/food-editor/food-editor.component.ts": {
+    "mtime": 1789743800.4594443,
+    "seen": 1790684990.4114194,
+    "ast_hash": "8dbb72ff4e1b75f42f61e2c754f63906",
+    "semantic_hash": "8dbb72ff4e1b75f42f61e2c754f63906"
+  },
+  "pep-mealplan/frontend/src/app/food-management/food-management.component.ts": {
+    "mtime": 1789743800.4595912,
+    "seen": 1790684990.4114223,
+    "ast_hash": "9cd1387f0d7291f8291463c8799a4f04",
+    "semantic_hash": "9cd1387f0d7291f8291463c8799a4f04"
+  },
+  "pep-mealplan/frontend/src/app/guards/auth.guard.ts": {
+    "mtime": 1789743800.4595912,
+    "seen": 1790684990.4114244,
+    "ast_hash": "438e5aad1b05bb45d9e00c8da5f7beda",
+    "semantic_hash": "438e5aad1b05bb45d9e00c8da5f7beda"
+  },
+  "pep-mealplan/frontend/src/app/manage-users/manage-users.component.ts": {
+    "mtime": 1789743800.4598417,
+    "seen": 1790684990.4114268,
+    "ast_hash": "464fdb18c9d562dc8b903957c868af13",
+    "semantic_hash": "464fdb18c9d562dc8b903957c868af13"
+  },
+  "pep-mealplan/frontend/src/app/models/allergen.model.ts": {
+    "mtime": 1789743800.4598417,
+    "seen": 1790684990.41143,
+    "ast_hash": "4cf4b22f6ea78fa2a410ef91ad0a56a1",
+    "semantic_hash": "4cf4b22f6ea78fa2a410ef91ad0a56a1"
+  },
+  "pep-mealplan/frontend/src/app/models/api-food-allergen.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114323,
+    "ast_hash": "49c2f1008bcab568dcb1a4a7db638894",
+    "semantic_hash": "49c2f1008bcab568dcb1a4a7db638894"
+  },
+  "pep-mealplan/frontend/src/app/models/api-food-ref.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114347,
+    "ast_hash": "744b95915542cfece559239f6dd39929",
+    "semantic_hash": "744b95915542cfece559239f6dd39929"
+  },
+  "pep-mealplan/frontend/src/app/models/api-food.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.411437,
+    "ast_hash": "98a0877325cbce4b6586bbe4b0e54e73",
+    "semantic_hash": "98a0877325cbce4b6586bbe4b0e54e73"
+  },
+  "pep-mealplan/frontend/src/app/models/api-meal-plan-update.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114394,
+    "ast_hash": "7e2684620c15320fda217dde2476cb21",
+    "semantic_hash": "7e2684620c15320fda217dde2476cb21"
+  },
+  "pep-mealplan/frontend/src/app/models/api-meal-plan.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114416,
+    "ast_hash": "4746290a57e4e5274ae7b35fd64252ee",
+    "semantic_hash": "4746290a57e4e5274ae7b35fd64252ee"
+  },
+  "pep-mealplan/frontend/src/app/models/day-plan.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114442,
+    "ast_hash": "c5b9a8f60a1792d5d41a41f5de3c5576",
+    "semantic_hash": "c5b9a8f60a1792d5d41a41f5de3c5576"
+  },
+  "pep-mealplan/frontend/src/app/models/food.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.411447,
+    "ast_hash": "c18fa6e25661eafe44a94520682c036b",
+    "semantic_hash": "c18fa6e25661eafe44a94520682c036b"
+  },
+  "pep-mealplan/frontend/src/app/models/person-option.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114494,
+    "ast_hash": "deaa164dd231afa16f8678d341ab24c9",
+    "semantic_hash": "deaa164dd231afa16f8678d341ab24c9"
+  },
+  "pep-mealplan/frontend/src/app/models/personal-order-row.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114516,
+    "ast_hash": "ab371305fafe008ae9685ea68c3d5cc3",
+    "semantic_hash": "ab371305fafe008ae9685ea68c3d5cc3"
+  },
+  "pep-mealplan/frontend/src/app/models/picture.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4114544,
+    "ast_hash": "2ebc534b092b41b99c1a53242f1a2cc1",
+    "semantic_hash": "2ebc534b092b41b99c1a53242f1a2cc1"
+  },
+  "pep-mealplan/frontend/src/app/models/resident.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.411457,
+    "ast_hash": "f9b117bb69a19afa717d79a19dffef92",
+    "semantic_hash": "f9b117bb69a19afa717d79a19dffef92"
+  },
+  "pep-mealplan/frontend/src/app/models/week-plan.model.ts": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.41146,
+    "ast_hash": "81e0d36acd506769962a0398c04cecc1",
+    "semantic_hash": "81e0d36acd506769962a0398c04cecc1"
+  },
+  "pep-mealplan/frontend/src/app/overview-orders/overview-orders.component.ts": {
+    "mtime": 1789743800.4604082,
+    "seen": 1790684990.4114625,
+    "ast_hash": "9600b28ab62c5d19c02577708f7886b4",
+    "semantic_hash": "9600b28ab62c5d19c02577708f7886b4"
+  },
+  "pep-mealplan/frontend/src/app/raster/raster.component.ts": {
+    "mtime": 1789743800.4605875,
+    "seen": 1790684990.4114652,
+    "ast_hash": "cc85ec280c2877174ed318e8b65ccac7",
+    "semantic_hash": "cc85ec280c2877174ed318e8b65ccac7"
+  },
+  "pep-mealplan/frontend/src/app/select-menu/select-menu.component.ts": {
+    "mtime": 1789743800.4607754,
+    "seen": 1790684990.4114676,
+    "ast_hash": "fb264fc4e6bb08c1cf5623f254601df1",
+    "semantic_hash": "fb264fc4e6bb08c1cf5623f254601df1"
+  },
+  "pep-mealplan/frontend/src/app/select-user/select-user.component.ts": {
+    "mtime": 1789743800.4609432,
+    "seen": 1790684990.41147,
+    "ast_hash": "4691b366d227a8998b45b3d025f12774",
+    "semantic_hash": "4691b366d227a8998b45b3d025f12774"
+  },
+  "pep-mealplan/frontend/src/app/select-weekday/select-weekday.component.ts": {
+    "mtime": 1789743800.4610815,
+    "seen": 1790684990.4114728,
+    "ast_hash": "6bc28b469df473e70eab1f91d09ced66",
+    "semantic_hash": "6bc28b469df473e70eab1f91d09ced66"
+  },
+  "pep-mealplan/frontend/src/app/services/image-api.service.ts": {
+    "mtime": 1789743800.4610815,
+    "seen": 1790684990.4114752,
+    "ast_hash": "6fad1535294d70b5103503f8329e1419",
+    "semantic_hash": "6fad1535294d70b5103503f8329e1419"
+  },
+  "pep-mealplan/frontend/src/app/services/keycloak-init.service.ts": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.4114776,
+    "ast_hash": "6ca858903962de57b156eab23f88819c",
+    "semantic_hash": "6ca858903962de57b156eab23f88819c"
+  },
+  "pep-mealplan/frontend/src/app/services/menu-api.service.ts": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.4114797,
+    "ast_hash": "d08f15b9c4d64a232dd4e8c9fc8cf292",
+    "semantic_hash": "d08f15b9c4d64a232dd4e8c9fc8cf292"
+  },
+  "pep-mealplan/frontend/src/app/services/orders-api.service.ts": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.4114826,
+    "ast_hash": "4ef1dc885f3c533d34f4d92af05db797",
+    "semantic_hash": "4ef1dc885f3c533d34f4d92af05db797"
+  },
+  "pep-mealplan/frontend/src/app/services/residents-api.service.ts": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.411485,
+    "ast_hash": "c37101ee005191a7ccabfb29f17c3866",
+    "semantic_hash": "c37101ee005191a7ccabfb29f17c3866"
+  },
+  "pep-mealplan/frontend/src/app/services/role.service.ts": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.4114876,
+    "ast_hash": "f32136ab3dd03b26f249f9ea5ba3fbd1",
+    "semantic_hash": "f32136ab3dd03b26f249f9ea5ba3fbd1"
+  },
+  "pep-mealplan/frontend/src/app/week-plan-management/week-plan-management.component.ts": {
+    "mtime": 1789743800.461435,
+    "seen": 1790684990.4114902,
+    "ast_hash": "01946368baebe136ce41bf063b8c214e",
+    "semantic_hash": "01946368baebe136ce41bf063b8c214e"
+  },
+  "pep-mealplan/frontend/src/main.ts": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.4114928,
+    "ast_hash": "1f7066bad1198040c939d887ed49e5c0",
+    "semantic_hash": "1f7066bad1198040c939d887ed49e5c0"
+  },
+  "pep-mealplan/frontend/tailwind.config.js": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.4114952,
+    "ast_hash": "c5cde9aff598b0803df342d8acb5606b",
+    "semantic_hash": "c5cde9aff598b0803df342d8acb5606b"
+  },
+  "pep-mealplan/frontend/tsconfig.app.json": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.4114974,
+    "ast_hash": "fee250d2fee37a9598c61876ccae0648",
+    "semantic_hash": "fee250d2fee37a9598c61876ccae0648"
+  },
+  "pep-mealplan/frontend/tsconfig.json": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.4115005,
+    "ast_hash": "8884dee5a595c1f3553cf527d78ed261",
+    "semantic_hash": "8884dee5a595c1f3553cf527d78ed261"
+  },
+  "pep-mealplan/frontend/tsconfig.spec.json": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.4115028,
+    "ast_hash": "b7d323263ce129bc8805819a8bbd0e2a",
+    "semantic_hash": "b7d323263ce129bc8805819a8bbd0e2a"
+  },
+  ".github/workflows/build-and-deploy-mealplan-backend2.yml": {
+    "mtime": 1789743800.19273,
+    "seen": 1790684990.4115052,
+    "ast_hash": "da9f1f5bc67cf171a18e6c4648ed62ec",
+    "semantic_hash": "da9f1f5bc67cf171a18e6c4648ed62ec"
+  },
+  ".github/workflows/build-deploy-backend.yaml": {
+    "mtime": 1790683177.1237953,
+    "seen": 1790684990.411508,
+    "ast_hash": "737c10ad90e13d9c973326bc168c37b3",
+    "semantic_hash": "737c10ad90e13d9c973326bc168c37b3"
+  },
+  ".github/workflows/build-deploy-frontend.yaml": {
+    "mtime": 1790683177.1237953,
+    "seen": 1790684990.4115102,
+    "ast_hash": "5182947167c9ac9b828a6cbd006038fc",
+    "semantic_hash": "5182947167c9ac9b828a6cbd006038fc"
+  },
+  ".github/workflows/docs.yaml": {
+    "mtime": 1789743800.1928852,
+    "seen": 1790684990.411513,
+    "ast_hash": "61c38b5085d602ba3e9ef8b3a9ab1320",
+    "semantic_hash": "61c38b5085d602ba3e9ef8b3a9ab1320"
+  },
+  "deploy/compose/docker-compose.yaml": {
+    "mtime": 1790683177.1241984,
+    "seen": 1790684990.4115157,
+    "ast_hash": "76b39597da9b349eabbb7a8a44cdb8c6",
+    "semantic_hash": "76b39597da9b349eabbb7a8a44cdb8c6"
+  },
+  "docker/docker-compose.yaml": {
+    "mtime": 1790683177.1241984,
+    "seen": 1790684990.4115179,
+    "ast_hash": "6605c75a7fb752c5b4901cdf79bbf4f4",
+    "semantic_hash": "6605c75a7fb752c5b4901cdf79bbf4f4"
+  },
+  "docs/Image-Scaling/Cropper-js/index.html": {
+    "mtime": 1789743800.286736,
+    "seen": 1790684990.4115207,
+    "ast_hash": "480df19d11a27a574f7197e0a2421a0a",
+    "semantic_hash": "480df19d11a27a574f7197e0a2421a0a"
+  },
+  "docs/Image-Scaling/FabricJS-Image-Scaling/README.md": {
+    "mtime": 1789743800.286736,
+    "seen": 1790684990.411523,
+    "ast_hash": "34848539a9a1a61335f64f72ca550374",
+    "semantic_hash": "34848539a9a1a61335f64f72ca550374"
+  },
+  "docs/Image-Scaling/FabricJS-Image-Scaling/index.html": {
+    "mtime": 1789743800.2868955,
+    "seen": 1790684990.4115255,
+    "ast_hash": "d65c421b83e38c4b1ccbb1ed00d90eae",
+    "semantic_hash": "d65c421b83e38c4b1ccbb1ed00d90eae"
+  },
+  "docs/Image-Scaling/Jimp-doc/README.md": {
+    "mtime": 1789743800.2868955,
+    "seen": 1790684990.4115283,
+    "ast_hash": "7be7362ac768972d3e5a63530c061dcc",
+    "semantic_hash": "7be7362ac768972d3e5a63530c061dcc"
+  },
+  "docs/slides/.github/CONTRIBUTING.md": {
+    "mtime": 1789743800.3092906,
+    "seen": 1790684990.4115307,
+    "ast_hash": "499b492945f6266a20558570493396f1",
+    "semantic_hash": "499b492945f6266a20558570493396f1"
+  },
+  "docs/slides/.github/FUNDING.yml": {
+    "mtime": 1789743800.3093426,
+    "seen": 1790684990.4115336,
+    "ast_hash": "be30c20011d2734f83d14c0e25e2be42",
+    "semantic_hash": "be30c20011d2734f83d14c0e25e2be42"
+  },
+  "docs/slides/.github/workflows/js.yml": {
+    "mtime": 1789743800.3093426,
+    "seen": 1790684990.411536,
+    "ast_hash": "d50fb138713bfcf9e9fb52bb1f49055f",
+    "semantic_hash": "d50fb138713bfcf9e9fb52bb1f49055f"
+  },
+  "docs/slides/README.md": {
+    "mtime": 1789743800.3093426,
+    "seen": 1790684990.4115384,
+    "ast_hash": "457066c3513086121dec920c64601306",
+    "semantic_hash": "457066c3513086121dec920c64601306"
+  },
+  "docs/slides/css/theme/README.md": {
+    "mtime": 1789743800.3148496,
+    "seen": 1790684990.4115412,
+    "ast_hash": "ba518c5b8f0fdd476aa7243ce00b017a",
+    "semantic_hash": "ba518c5b8f0fdd476aa7243ce00b017a"
+  },
+  "docs/slides/demo.html": {
+    "mtime": 1789743800.3155742,
+    "seen": 1790684990.4115436,
+    "ast_hash": "2f286eb57c0028fca24083ee488bfc63",
+    "semantic_hash": "2f286eb57c0028fca24083ee488bfc63"
+  },
+  "docs/slides/index.html": {
+    "mtime": 1789743800.3155742,
+    "seen": 1790684990.4115465,
+    "ast_hash": "bd736c25ce02783f6a6f634d54801686",
+    "semantic_hash": "bd736c25ce02783f6a6f634d54801686"
+  },
+  "docs/slides/plugin/notes/speaker-view.html": {
+    "mtime": 1789743800.323576,
+    "seen": 1790684990.4115486,
+    "ast_hash": "3e84d135161198849174057abe95b91c",
+    "semantic_hash": "3e84d135161198849174057abe95b91c"
+  },
+  "pep-caretaker/android/fa-memory/README.md": {
+    "mtime": 1789743800.3272386,
+    "seen": 1790684990.411551,
+    "ast_hash": "2c475849f35debc63dbdb91df6c1667d",
+    "semantic_hash": "2c475849f35debc63dbdb91df6c1667d"
+  },
+  "pep-caretaker/frontend/src/app/add-resident/add-resident.component.html": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4115539,
+    "ast_hash": "9173bbe2ad3fb84833dbd7c298d0cead",
+    "semantic_hash": "9173bbe2ad3fb84833dbd7c298d0cead"
+  },
+  "pep-caretaker/frontend/src/app/addstep/addstep.component.html": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.411556,
+    "ast_hash": "cf38160f6a5aefa54be5b9cdfda70c7a",
+    "semantic_hash": "cf38160f6a5aefa54be5b9cdfda70c7a"
+  },
+  "pep-caretaker/frontend/src/app/app.component.html": {
+    "mtime": 1790683177.1264532,
+    "seen": 1790684990.4115586,
+    "ast_hash": "d79575fe46973e104236c371f349edc4",
+    "semantic_hash": "d79575fe46973e104236c371f349edc4"
+  },
+  "pep-caretaker/frontend/src/app/createstory/createstory.component.html": {
+    "mtime": 1790683177.1274533,
+    "seen": 1790684990.411561,
+    "ast_hash": "5bd6c69b5aa2b4c920b8262631040aa3",
+    "semantic_hash": "5bd6c69b5aa2b4c920b8262631040aa3"
+  },
+  "pep-caretaker/frontend/src/app/editstory/editstory.component.html": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4115636,
+    "ast_hash": "8555516fd9872bd4f25c74f232ec5308",
+    "semantic_hash": "8555516fd9872bd4f25c74f232ec5308"
+  },
+  "pep-caretaker/frontend/src/app/home-page/home-page.component.html": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4115663,
+    "ast_hash": "6b6d0ebf418e218f88d1c826d4188b9f",
+    "semantic_hash": "6b6d0ebf418e218f88d1c826d4188b9f"
+  },
+  "pep-caretaker/frontend/src/app/imageupload/imageupload.component.html": {
+    "mtime": 1790683177.1284533,
+    "seen": 1790684990.4115686,
+    "ast_hash": "a2e7d5bacfc27eedda20525174aff879",
+    "semantic_hash": "a2e7d5bacfc27eedda20525174aff879"
+  },
+  "pep-caretaker/frontend/src/app/my-pictures/my-pictures.component.html": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4115717,
+    "ast_hash": "68bf1fdd6589712d96515be0400e1252",
+    "semantic_hash": "68bf1fdd6589712d96515be0400e1252"
+  },
+  "pep-caretaker/frontend/src/app/person-entry/person-entry.component.html": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4115741,
+    "ast_hash": "d49d92347e047885d1fbe9486b9b0474",
+    "semantic_hash": "d49d92347e047885d1fbe9486b9b0474"
+  },
+  "pep-caretaker/frontend/src/app/picture-overview/picture-overview.component.html": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4115763,
+    "ast_hash": "b3066120614945fc39ded5c5c94ee4a4",
+    "semantic_hash": "b3066120614945fc39ded5c5c94ee4a4"
+  },
+  "pep-caretaker/frontend/src/app/preview-screen/preview-screen.component.html": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4115791,
+    "ast_hash": "ec133182e0cc30151b9b2d353907a697",
+    "semantic_hash": "ec133182e0cc30151b9b2d353907a697"
+  },
+  "pep-caretaker/frontend/src/app/resident-details/resident-details.component.html": {
+    "mtime": 1790683177.1294534,
+    "seen": 1790684990.4115815,
+    "ast_hash": "521261e27a693d0c9350f98c0c3ad9d4",
+    "semantic_hash": "521261e27a693d0c9350f98c0c3ad9d4"
+  },
+  "pep-caretaker/frontend/src/app/residents/residents.component.html": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4115841,
+    "ast_hash": "23efc2117c3ef3e976f26fb57dce12b9",
+    "semantic_hash": "23efc2117c3ef3e976f26fb57dce12b9"
+  },
+  "pep-caretaker/frontend/src/app/tagalongstory/tagalongstory.component.html": {
+    "mtime": 1790683177.1304533,
+    "seen": 1790684990.4115868,
+    "ast_hash": "6cdc5f08ea2d21f5fe8310d65cb8d273",
+    "semantic_hash": "6cdc5f08ea2d21f5fe8310d65cb8d273"
+  },
+  "pep-caretaker/frontend/src/app/ui/sheet/sheet.component.html": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.4115891,
+    "ast_hash": "c43d7c801d1d0b386df5656158d7cabe",
+    "semantic_hash": "c43d7c801d1d0b386df5656158d7cabe"
+  },
+  "pep-caretaker/frontend/src/index.html": {
+    "mtime": 1790683177.1317556,
+    "seen": 1790684990.411592,
+    "ast_hash": "a500016bdbe07b12fbf12555fb762ec0",
+    "semantic_hash": "a500016bdbe07b12fbf12555fb762ec0"
+  },
+  "pep-mealplan/backend/README.md": {
+    "mtime": 1789743800.4429543,
+    "seen": 1790684990.4115944,
+    "ast_hash": "8632e41a7e2de08eb20dd5aa2d170e3b",
+    "semantic_hash": "8632e41a7e2de08eb20dd5aa2d170e3b"
+  },
+  "pep-mealplan/frontend/README.md": {
+    "mtime": 1789743800.4581647,
+    "seen": 1790684990.4115968,
+    "ast_hash": "ee71a18e88b648601801d6dcda8dba97",
+    "semantic_hash": "ee71a18e88b648601801d6dcda8dba97"
+  },
+  "pep-mealplan/frontend/src/app/app.component.html": {
+    "mtime": 1789743800.4591885,
+    "seen": 1790684990.4115994,
+    "ast_hash": "380e0fde8f914ab51ebdef974c32652d",
+    "semantic_hash": "380e0fde8f914ab51ebdef974c32652d"
+  },
+  "pep-mealplan/frontend/src/app/food-editor/food-editor.component.html": {
+    "mtime": 1789743800.4591885,
+    "seen": 1790684990.4116023,
+    "ast_hash": "a47db72b932ff053d4b7417046fd8c06",
+    "semantic_hash": "a47db72b932ff053d4b7417046fd8c06"
+  },
+  "pep-mealplan/frontend/src/app/food-management/food-management.component.html": {
+    "mtime": 1789743800.4594443,
+    "seen": 1790684990.4116044,
+    "ast_hash": "d5b2dff9d4483fec187e3df24b424423",
+    "semantic_hash": "d5b2dff9d4483fec187e3df24b424423"
+  },
+  "pep-mealplan/frontend/src/app/manage-users/manage-users.component.html": {
+    "mtime": 1789743800.4595912,
+    "seen": 1790684990.4116073,
+    "ast_hash": "700e2da525b781250f698819709d4cb1",
+    "semantic_hash": "700e2da525b781250f698819709d4cb1"
+  },
+  "pep-mealplan/frontend/src/app/overview-orders/overview-orders.component.html": {
+    "mtime": 1789743800.459985,
+    "seen": 1790684990.4116096,
+    "ast_hash": "ef4c4db012859ada7a3d776aa474b7cf",
+    "semantic_hash": "ef4c4db012859ada7a3d776aa474b7cf"
+  },
+  "pep-mealplan/frontend/src/app/raster/raster.component.html": {
+    "mtime": 1789743800.4604082,
+    "seen": 1790684990.4116123,
+    "ast_hash": "e338df1e2299746db278526efd05b904",
+    "semantic_hash": "e338df1e2299746db278526efd05b904"
+  },
+  "pep-mealplan/frontend/src/app/select-menu/select-menu.component.html": {
+    "mtime": 1789743800.4605875,
+    "seen": 1790684990.411615,
+    "ast_hash": "582d8f07e5539fd084825cf6046b472d",
+    "semantic_hash": "582d8f07e5539fd084825cf6046b472d"
+  },
+  "pep-mealplan/frontend/src/app/select-user/select-user.component.html": {
+    "mtime": 1789743800.4607754,
+    "seen": 1790684990.4116173,
+    "ast_hash": "a5dc9ed4de5ad36d8a0597857f6b8a54",
+    "semantic_hash": "a5dc9ed4de5ad36d8a0597857f6b8a54"
+  },
+  "pep-mealplan/frontend/src/app/select-weekday/select-weekday.component.html": {
+    "mtime": 1789743800.4609432,
+    "seen": 1790684990.4116197,
+    "ast_hash": "8eb47284445b653b98bb35aa4eb7ee64",
+    "semantic_hash": "8eb47284445b653b98bb35aa4eb7ee64"
+  },
+  "pep-mealplan/frontend/src/app/week-plan-management/week-plan-management.component.html": {
+    "mtime": 1789743800.4612112,
+    "seen": 1790684990.4116228,
+    "ast_hash": "b4d14810a8f022b52bd88aff11b2ed1f",
+    "semantic_hash": "b4d14810a8f022b52bd88aff11b2ed1f"
+  },
+  "pep-mealplan/frontend/src/index.html": {
+    "mtime": 1789743800.4615667,
+    "seen": 1790684990.411625,
+    "ast_hash": "e949d2cee2f52b51cd054abbd8e05c24",
+    "semantic_hash": "e949d2cee2f52b51cd054abbd8e05c24"
+  },
+  "docs/2025-02-14.gui-wireframes/Pepper - Wireframes.pdf": {
+    "mtime": 1789743800.2848597,
+    "seen": 1790684990.4116275,
+    "ast_hash": "f043f2704122b09cb241f8d91014819f",
+    "semantic_hash": "f043f2704122b09cb241f8d91014819f"
+  },
+  "docs/legacy/PepperVmSetup.pdf": {
+    "mtime": 1789743800.3068578,
+    "seen": 1790684990.4116304,
+    "ast_hash": "b5d2c0ca3f7c98ae66c7f444ebd1802f",
+    "semantic_hash": "b5d2c0ca3f7c98ae66c7f444ebd1802f"
+  },
+  "docs/legacy/StepByStepGuide.pdf": {
+    "mtime": 1789743800.3068578,
+    "seen": 1790684990.4116325,
+    "ast_hash": "84b4a20f182d357b5aed7d1a8d1548e7",
+    "semantic_hash": "84b4a20f182d357b5aed7d1a8d1548e7"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw - Copy/fail.mp3": {
+    "mtime": 1789743800.3383698,
+    "seen": 1790684990.411635,
+    "ast_hash": "ec4b863368ecd8ed58da1c92d993a2d9",
+    "semantic_hash": "ec4b863368ecd8ed58da1c92d993a2d9"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw - Copy/flipcard.mp3": {
+    "mtime": 1789743800.338494,
+    "seen": 1790684990.4116378,
+    "ast_hash": "79b7f6cf58a77e504b7298fd86eed2c6",
+    "semantic_hash": "79b7f6cf58a77e504b7298fd86eed2c6"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw - Copy/success.mp3": {
+    "mtime": 1789743800.338494,
+    "seen": 1790684990.4116404,
+    "ast_hash": "49917fb89057ef3399b586dea6fd33a0",
+    "semantic_hash": "49917fb89057ef3399b586dea6fd33a0"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw/fail.mp3": {
+    "mtime": 1789743800.338494,
+    "seen": 1790684990.4116426,
+    "ast_hash": "ec4b863368ecd8ed58da1c92d993a2d9",
+    "semantic_hash": "ec4b863368ecd8ed58da1c92d993a2d9"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw/flipcard.mp3": {
+    "mtime": 1789743800.3387303,
+    "seen": 1790684990.411645,
+    "ast_hash": "79b7f6cf58a77e504b7298fd86eed2c6",
+    "semantic_hash": "79b7f6cf58a77e504b7298fd86eed2c6"
+  },
+  "pep-caretaker/android/fa-memory/app/src/main/res/raw/success.mp3": {
+    "mtime": 1789743800.3387303,
+    "seen": 1790684990.4116478,
+    "ast_hash": "49917fb89057ef3399b586dea6fd33a0",
+    "semantic_hash": "49917fb89057ef3399b586dea6fd33a0"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/res/raw/bird_chirp.mp3": {
+    "mtime": 1789743800.3704193,
+    "seen": 1790684990.4116504,
+    "ast_hash": "97ebfb9196a3cf8836a6e26ef4b59022",
+    "semantic_hash": "97ebfb9196a3cf8836a6e26ef4b59022"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/res/raw/church_bells.mp3": {
+    "mtime": 1789743800.370867,
+    "seen": 1790684990.4116526,
+    "ast_hash": "14cb616221de919bfbce34a3fa201966",
+    "semantic_hash": "14cb616221de919bfbce34a3fa201966"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/res/raw/sheep_bleat.mp3": {
+    "mtime": 1789743800.370867,
+    "seen": 1790684990.4116554,
+    "ast_hash": "a169a4f603c6780fd19a7ca4ac58a0e0",
+    "semantic_hash": "a169a4f603c6780fd19a7ca4ac58a0e0"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/res/raw/water_sound.mp3": {
+    "mtime": 1789743800.370867,
+    "seen": 1790684990.411658,
+    "ast_hash": "38ce0567cdee63ac7c69d67965c91ddd",
+    "semantic_hash": "38ce0567cdee63ac7c69d67965c91ddd"
+  },
+  "pep-caretaker/android/fa-thief/app/src/main/res/raw/witch_laugh.mp3": {
+    "mtime": 1789743800.370867,
+    "seen": 1790684990.4116602,
+    "ast_hash": "b7b88684b453e970d750a283392c0199",
+    "semantic_hash": "b7b88684b453e970d750a283392c0199"
+  },
+  "pep-caretaker/frontend/src/app/move_videos/herwinken.webm": {
+    "mtime": 1789743800.3791687,
+    "seen": 1790684990.411663,
+    "ast_hash": "8245283b85f0e664d295e501e0033770",
+    "semantic_hash": "8245283b85f0e664d295e501e0033770"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/essen_10.mp4": {
+    "mtime": 1789743800.4038498,
+    "seen": 1790684990.4116657,
+    "ast_hash": "f0f8dca21bc7bed67682804cec4cc339",
+    "semantic_hash": "f0f8dca21bc7bed67682804cec4cc339"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/essen_15.mp4": {
+    "mtime": 1789743800.4068496,
+    "seen": 1790684990.411668,
+    "ast_hash": "9a130a1e3699cf46767b52c5d5b81335",
+    "semantic_hash": "9a130a1e3699cf46767b52c5d5b81335"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/essen_5.mp4": {
+    "mtime": 1789743800.40285,
+    "seen": 1790684990.4116707,
+    "ast_hash": "d0cf083bb6a429b2f3424008c9644c1a",
+    "semantic_hash": "d0cf083bb6a429b2f3424008c9644c1a"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/gehen_10.mp4": {
+    "mtime": 1789743800.4088495,
+    "seen": 1790684990.411673,
+    "ast_hash": "7d011dbbcdf7a15b916a8e654ec8b99b",
+    "semantic_hash": "7d011dbbcdf7a15b916a8e654ec8b99b"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/gehen_15.mp4": {
+    "mtime": 1789743800.4128492,
+    "seen": 1790684990.4116755,
+    "ast_hash": "73a3cb9ece6f98303a9791cbf2a1f648",
+    "semantic_hash": "73a3cb9ece6f98303a9791cbf2a1f648"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/gehen_5.mp4": {
+    "mtime": 1789743800.413849,
+    "seen": 1790684990.4116786,
+    "ast_hash": "de527215465e71a90ca43b7458b6edef",
+    "semantic_hash": "de527215465e71a90ca43b7458b6edef"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hand_heben_10.mp4": {
+    "mtime": 1789743800.413849,
+    "seen": 1790684990.4116807,
+    "ast_hash": "11240de7126388e6e46fd9dc8ee04107",
+    "semantic_hash": "11240de7126388e6e46fd9dc8ee04107"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hand_heben_15.mp4": {
+    "mtime": 1789743800.4148488,
+    "seen": 1790684990.411683,
+    "ast_hash": "c042092830650edfd875feddd808899c",
+    "semantic_hash": "c042092830650edfd875feddd808899c"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hand_heben_5.mp4": {
+    "mtime": 1789743800.4148488,
+    "seen": 1790684990.4116857,
+    "ast_hash": "c34e6caf9ea99e1b333a46f03588fb56",
+    "semantic_hash": "c34e6caf9ea99e1b333a46f03588fb56"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_links_10.mp4": {
+    "mtime": 1789743800.4158487,
+    "seen": 1790684990.4116879,
+    "ast_hash": "cc14c09f4b895c5fde54c5cead4210b4",
+    "semantic_hash": "cc14c09f4b895c5fde54c5cead4210b4"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_links_15.mp4": {
+    "mtime": 1789743800.4158487,
+    "seen": 1790684990.4116907,
+    "ast_hash": "20698e609fc895f1a3fefafa2409fd83",
+    "semantic_hash": "20698e609fc895f1a3fefafa2409fd83"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_links_5.mp4": {
+    "mtime": 1789743800.4168487,
+    "seen": 1790684990.4116933,
+    "ast_hash": "353215d56eaabec6dfd1f2f0b05bf295",
+    "semantic_hash": "353215d56eaabec6dfd1f2f0b05bf295"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_rechts_10.mp4": {
+    "mtime": 1789743800.4168487,
+    "seen": 1790684990.4116957,
+    "ast_hash": "0ca29cc41807cf744d614f056d3b60b1",
+    "semantic_hash": "0ca29cc41807cf744d614f056d3b60b1"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_rechts_15.mp4": {
+    "mtime": 1789743800.4178486,
+    "seen": 1790684990.4116983,
+    "ast_hash": "aeca401bea3fe779efdeaae4e57a6cca",
+    "semantic_hash": "aeca401bea3fe779efdeaae4e57a6cca"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/highfive_rechts_5.mp4": {
+    "mtime": 1789743800.4178486,
+    "seen": 1790684990.4117007,
+    "ast_hash": "3504d0e3e56873335fab905c68f82060",
+    "semantic_hash": "3504d0e3e56873335fab905c68f82060"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hurra_10.mp4": {
+    "mtime": 1789743800.4188485,
+    "seen": 1790684990.411703,
+    "ast_hash": "17bcec278c3e98b65dccd624dba13027",
+    "semantic_hash": "17bcec278c3e98b65dccd624dba13027"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hurra_15.mp4": {
+    "mtime": 1789743800.4198484,
+    "seen": 1790684990.4117062,
+    "ast_hash": "e87022884bef6add1790ac8af36b6309",
+    "semantic_hash": "e87022884bef6add1790ac8af36b6309"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/hurra_5.mp4": {
+    "mtime": 1789743800.4198484,
+    "seen": 1790684990.4117084,
+    "ast_hash": "cc74f75954005d387ce795471eff0448",
+    "semantic_hash": "cc74f75954005d387ce795471eff0448"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/klatschen_10.mp4": {
+    "mtime": 1789743800.4218483,
+    "seen": 1790684990.4117107,
+    "ast_hash": "2853ebd75b6ee48380f4878b55ed525d",
+    "semantic_hash": "2853ebd75b6ee48380f4878b55ed525d"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/klatschen_15.mp4": {
+    "mtime": 1789743800.424848,
+    "seen": 1790684990.4117136,
+    "ast_hash": "ec85bf7a558bd386b41445b0fa87bc83",
+    "semantic_hash": "ec85bf7a558bd386b41445b0fa87bc83"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/klatschen_5.mp4": {
+    "mtime": 1789743800.425848,
+    "seen": 1790684990.411716,
+    "ast_hash": "ab9b1fea615119e8ce090151eae3f7bd",
+    "semantic_hash": "ab9b1fea615119e8ce090151eae3f7bd"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/strecken_10.mp4": {
+    "mtime": 1789743800.4288478,
+    "seen": 1790684990.4117184,
+    "ast_hash": "26908a3076b53a9659d9aea437c6d805",
+    "semantic_hash": "26908a3076b53a9659d9aea437c6d805"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/strecken_15.mp4": {
+    "mtime": 1789743800.4328475,
+    "seen": 1790684990.411721,
+    "ast_hash": "2d35d41354fe69a79ebba2f0974572a1",
+    "semantic_hash": "2d35d41354fe69a79ebba2f0974572a1"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/strecken_5.mp4": {
+    "mtime": 1789743800.4338474,
+    "seen": 1790684990.4117234,
+    "ast_hash": "26a8092d73894cfe1c4f7fda9a6dca23",
+    "semantic_hash": "26a8092d73894cfe1c4f7fda9a6dca23"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/umher_sehen_10.mp4": {
+    "mtime": 1789743800.4348474,
+    "seen": 1790684990.411726,
+    "ast_hash": "5122d0d43af7d2746c8f4c87793e6e60",
+    "semantic_hash": "5122d0d43af7d2746c8f4c87793e6e60"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/umher_sehen_15.mp4": {
+    "mtime": 1789743800.4358473,
+    "seen": 1790684990.4117286,
+    "ast_hash": "68211c5776b2c232c785ee58d4c69103",
+    "semantic_hash": "68211c5776b2c232c785ee58d4c69103"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/umher_sehen_5.mp4": {
+    "mtime": 1789743800.4368472,
+    "seen": 1790684990.4117315,
+    "ast_hash": "a1928ade91a5b5da7d7ebd726ef619d7",
+    "semantic_hash": "a1928ade91a5b5da7d7ebd726ef619d7"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/winken_10.mp4": {
+    "mtime": 1789743800.437847,
+    "seen": 1790684990.4117339,
+    "ast_hash": "e0a12b398486e24ec96e35ac0626d944",
+    "semantic_hash": "e0a12b398486e24ec96e35ac0626d944"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/winken_15.mp4": {
+    "mtime": 1789743800.4398468,
+    "seen": 1790684990.411736,
+    "ast_hash": "eb81db9e38769547b47d0a3dd787ec14",
+    "semantic_hash": "eb81db9e38769547b47d0a3dd787ec14"
+  },
+  "pep-caretaker/frontend/src/assets/move_videos/winken_5.mp4": {
+    "mtime": 1789743800.4408467,
+    "seen": 1790684990.4117389,
+    "ast_hash": "44a15c3ed811441cd2bd6045975c33fc",
+    "semantic_hash": "44a15c3ed811441cd2bd6045975c33fc"
+  }
+}

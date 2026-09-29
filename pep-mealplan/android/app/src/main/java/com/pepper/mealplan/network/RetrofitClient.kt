@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
+import com.pepper.mealplan.BuildConfig
 import com.pepper.mealplan.network.api.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,37 +14,36 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
-import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 import com.pepper.mealplan.network.api.FoodsApiService
 
 object RetrofitClient {
     private const val BASE_URL = "https://vm107.htl-leonding.ac.at/"
 
-    // Create a trust manager that accepts all certificates (for development only!)
-    private val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-        override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
-        override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
-        override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-    })
-
-    private val client = OkHttpClient.Builder()
+    // Frueher stand hier ein X509TrustManager, der jedes Zertifikat annahm, plus
+    // hostnameVerifier { _, _ -> true }. Damit war das HTTPS wirkungslos: jeder
+    // im selben Netz konnte die Verbindung aufbrechen - und darueber laufen das
+    // Client-Secret des Roboters und sein Access-Token. vm107 hat ein regulaeres
+    // Let's-Encrypt-Zertifikat, die Standardpruefung von OkHttp genuegt.
+    private val baseClient = OkHttpClient.Builder()
         .connectTimeout(90, TimeUnit.SECONDS)
         .readTimeout(90, TimeUnit.SECONDS)
         .writeTimeout(90, TimeUnit.SECONDS)
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BASIC
         })
-        .apply {
-            // Configure SSL to trust all certificates (ONLY for development!)
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-            sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
-            hostnameVerifier { _, _ -> true }
-        }
+        .build()
+
+    // Die Token-Anfrage laeuft ohne Interceptor, sonst ruft sie sich selbst auf.
+    private val client = baseClient.newBuilder()
+        .addInterceptor(
+            RobotAuthInterceptor(
+                tokenUrl = RobotAuthInterceptor.tokenUrl(BuildConfig.KEYCLOAK_URL),
+                clientId = BuildConfig.ROBOT_CLIENT_ID,
+                clientSecret = BuildConfig.ROBOT_CLIENT_SECRET,
+                tokenClient = baseClient,
+            )
+        )
         .build()
 
 

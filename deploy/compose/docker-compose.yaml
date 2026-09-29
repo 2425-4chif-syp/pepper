@@ -18,8 +18,10 @@ services:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
       POSTGRES_DB: db
+    # Nur lokal gebunden: die Container erreichen Postgres ueber das gemeinsame
+    # Netz als "postgres:5432". Vorher lag die DB mit app/app auf 0.0.0.0:5432.
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       # Bestehendes Datenverzeichnis - enthaelt auch die Keycloak-Datenbank
       - ./db-postgres/db:/var/lib/postgresql/data
@@ -52,8 +54,10 @@ services:
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "false"
       KC_PROXY: edge
+    # nginx proxied /auth/ und /realms/ nach 127.0.0.1:8081 - der Port muss nicht
+    # nach aussen. Direkt erreichbar umgeht er HSTS/TLS und die nginx-Header.
     ports:
-      - "8081:8080"
+      - "127.0.0.1:8081:8080"
     volumes:
       # Pepper-Login-Theme (Realm-Einstellung: Login theme = pepper)
       - ./keycloak-themes/pepper:/opt/keycloak/themes/pepper:ro
@@ -99,8 +103,10 @@ services:
       HTTP_LOADER_FORWARD_HEADERS: Authorization
       # Der Glob wird gegen Host UND Port geprueft - ohne ":*" wird backend:8080 abgelehnt
       HTTP_LOADER_ALLOWED_SOURCES: "backend:*,vm107.htl-leonding.ac.at:*"
+    # -imagor-unsafe heisst: unsignierte URLs. Erreichbar nur ueber nginx
+    # (/imagor/ -> 127.0.0.1:8000), nicht direkt aus dem Internet.
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     networks: [pepper_net]
 
   backend:
@@ -135,6 +141,11 @@ services:
       QUARKUS_OIDC_DISCOVERY_ENABLED: "false"
       QUARKUS_OIDC_JWKS_PATH: protocol/openid-connect/certs
       QUARKUS_OIDC_TOKEN_ISSUER: https://vm107.htl-leonding.ac.at/realms/pepper
+    # TODO(security): 8080 liegt oeffentlich, weil fa-menu und fa-memory hart auf
+    # http://vm107.htl-leonding.ac.at:8080/ zeigen - Bearer-Token gehen dort im
+    # Klartext ueber das Netz. Sobald beide Apps auf
+    # https://vm107.htl-leonding.ac.at/api/ umgestellt sind, hier auf
+    # "127.0.0.1:8080:8080" aendern.
     ports:
       - "8080:8080"
     depends_on:
@@ -149,8 +160,9 @@ services:
     container_name: www
     restart: unless-stopped
     pull_policy: always
+    # nginx proxied / nach 127.0.0.1:4200 - kein direkter Zugriff noetig.
     ports:
-      - "4200:80"
+      - "127.0.0.1:4200:80"
     depends_on:
       - backend
     networks: [pepper_net]

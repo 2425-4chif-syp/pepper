@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_pep_caretaker_android_fa_thief_build_gradle", "label": "build.gradle", "file_type": "code", "source_file": "pep-caretaker/android/fa-thief/build.gradle", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 41, "multiline_error": false}}

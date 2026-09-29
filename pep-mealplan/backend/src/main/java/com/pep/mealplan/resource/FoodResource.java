@@ -1,5 +1,6 @@
 package com.pep.mealplan.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import com.pep.mealplan.entity.Food;
 import com.pep.mealplan.resource.dto.FoodCreateDTO;
 import com.pep.mealplan.service.FoodService;
@@ -13,6 +14,9 @@ import java.util.List;
 @Path("/api/foods")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+// Klassenweiter Vorgabewert: ein kuenftiger Endpunkt ohne eigene
+// @RolesAllowed-Angabe ist damit zu und nicht offen.
+@RolesAllowed({"admin", "caretaker", "robot"})
 public class FoodResource {
 
     @Inject
@@ -22,11 +26,13 @@ public class FoodResource {
     // READ
     // -------------------------------------------------
     @GET
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<Food> getAll() {
         return foodService.getAll();
     }
     @GET
     @Path("/{id}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public Response getById(@PathParam("id") Long id) {
         Food food = foodService.getById(id);
         if (food == null) {
@@ -37,12 +43,14 @@ public class FoodResource {
 
     @GET
     @Path("/type/{type}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<Food> getByType(@PathParam("type") String type) {
         return foodService.getByType(type);
     }
 
     @GET
     @Path("/name/{name}")
+    @RolesAllowed({"admin", "caretaker", "resident", "robot"})
     public List<Food> getByName(@PathParam("name") String name) {
         return foodService.searchByName(name);
     }
@@ -52,6 +60,7 @@ public class FoodResource {
     // -------------------------------------------------
 
     @POST
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response create(FoodCreateDTO dto) {
         Food created = foodService.create(dto.name(), dto.type(), dto.pictureId());
         return Response.status(Response.Status.CREATED)
@@ -61,6 +70,7 @@ public class FoodResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response update(@PathParam("id") Long id, Food food) {
         Food updated = foodService.update(id, food);
         if (updated == null) {
@@ -71,6 +81,7 @@ public class FoodResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"admin", "caretaker", "robot"})
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = foodService.delete(id);
         if (!deleted) {
