@@ -42,7 +42,7 @@ services:
       - --spi-theme-cache-themes=false
       - --spi-theme-cache-templates=false
     environment:
-      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak

@@ -83,7 +83,11 @@ node_modules/
 .angular/
 .vscode/
 .idea
-backend_v2/.env
+
+# Secrets - never commit real .env files, only *.env.example templates
+.env
+*.env
+!*.env.example
 
 db-postgres
 
