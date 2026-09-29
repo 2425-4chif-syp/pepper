@@ -104,7 +104,7 @@ services:
     networks: [pepper_net]
 
   backend:
-    image: ghcr.io/2425-4chif-syp/01-projekte-2025-4chif-syp-pepper-minigames/pepper-backend:latest
+    image: ghcr.io/2425-4chif-syp/pepper/pepper-backend:latest
     container_name: backend
     restart: unless-stopped
     pull_policy: always
@@ -128,7 +128,7 @@ services:
     networks: [pepper_net]
 
   www:
-    image: ghcr.io/2425-4chif-syp/01-projekte-2025-4chif-syp-pepper-minigames/pepper-frontend:latest
+    image: ghcr.io/2425-4chif-syp/pepper/pepper-frontend:latest
     container_name: www
     restart: unless-stopped
     pull_policy: always
