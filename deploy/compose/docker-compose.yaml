@@ -118,6 +118,23 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
       MINIO_SECURE: "false"
       CHATGPT_API_KEY: ${CHATGPT_API_KEY}
+      # application.properties baekt %prod.quarkus.oidc.auth-server-url auf die
+      # oeffentliche vm107-URL - der Container kann seine eigene oeffentliche
+      # IP nicht erreichen (Hairpin-NAT-Timeout). Discovery laeuft stattdessen
+      # intern gegen Keycloak. KC_HOSTNAME spiegelt aber in jeder von Keycloak
+      # generierten URL (auch im Discovery-Dokument, z.B. jwks_uri) wieder den
+      # oeffentlichen Hostnamen - mit dem Port, ueber den man Keycloak gerade
+      # erreicht hat. Discovery folgt diesen Links also wieder nach aussen und
+      # laeuft erneut in den Hairpin-NAT-Timeout, nur auf einem anderen Port.
+      # discovery-enabled=false umgeht das: Quarkus haengt den JWKS-Pfad direkt
+      # an auth-server-url an, statt den Links aus dem Discovery-Dokument zu
+      # folgen. Der Issuer wird separat auf die oeffentliche URL gesetzt, weil
+      # genau die im "iss"-Claim echter Nutzer-Tokens steht (ueber nginx/HTTPS
+      # ausgestellt).
+      QUARKUS_OIDC_AUTH_SERVER_URL: http://keycloak:8080/realms/pepper
+      QUARKUS_OIDC_DISCOVERY_ENABLED: "false"
+      QUARKUS_OIDC_JWKS_PATH: protocol/openid-connect/certs
+      QUARKUS_OIDC_TOKEN_ISSUER: https://vm107.htl-leonding.ac.at/realms/pepper
     ports:
       - "8080:8080"
     depends_on:
