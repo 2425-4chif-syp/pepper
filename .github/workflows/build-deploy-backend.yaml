@@ -62,6 +62,20 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # scp legt nur an und ueberschreibt, es loescht nichts. Ohne dieses
+      # Aufraeumen bleibt eine im Repository geloeschte Theme-Datei im
+      # Sync-Ordner liegen und wird bei jedem Deploy wieder mitkopiert.
+      - name: Clean theme sync dir on VM
+        if: github.ref_name == 'main'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            rm -rf /home/stuetzadm/deploy/sync/docker/keycloak-themes/pepper
+
       # Compose-Datei und Login-Theme auf die VM spiegeln, damit die Konfiguration
       # aus dem Repository kommt und nicht von Hand auf dem Server gepflegt wird.
       - name: Copy deployment files to VM
@@ -87,12 +101,17 @@ jobs:
             cd /home/stuetzadm/deploy/compose
             # Aus dem Sync-Ordner an die richtige Stelle legen
             cp /home/stuetzadm/deploy/sync/deploy/compose/docker-compose.yaml ./docker-compose.yaml
+            # Erst pruefen, dann das laufende Theme ersetzen: kam der scp leer
+            # oder halb an, wuerde das rm -rf unten das Login-Theme im laufenden
+            # Betrieb abraeumen.
+            sync_theme=/home/stuetzadm/deploy/sync/docker/keycloak-themes/pepper
+            test -f "$sync_theme/login/theme.properties"
+            test -f "$sync_theme/login/resources/css/pepper.css"
             mkdir -p ./keycloak-themes
             rm -rf ./keycloak-themes/pepper
-            cp -r /home/stuetzadm/deploy/sync/docker/keycloak-themes/pepper ./keycloak-themes/pepper
-            # Nur das Backend neu ziehen und ersetzen. Kein "down": Postgres, Keycloak
-            # und die Mealplan-Container laufen weiter. Kein --remove-orphans, das
-            # wuerde die Mealplan-Container aus demselben Projekt entfernen.
+            cp -r "$sync_theme" ./keycloak-themes/pepper
+            # Nur das Backend neu ziehen und ersetzen. Kein "down": Postgres und
+            # Keycloak laufen weiter.
             # --no-deps: Postgres und MinIO laufen bereits, die sollen von einem
             # Anwendungs-Deploy nicht neu gestartet werden
             docker compose -f docker-compose.yaml pull backend

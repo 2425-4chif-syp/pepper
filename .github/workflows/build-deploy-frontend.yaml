@@ -77,8 +77,8 @@ jobs:
             set -e
             cd /home/stuetzadm/deploy/compose
             cp /home/stuetzadm/deploy/sync/deploy/compose/docker-compose.yaml ./docker-compose.yaml
-            # Nur das Frontend austauschen. Kein "down" und kein --remove-orphans,
-            # damit Postgres, Keycloak und die Mealplan-Container unberuehrt bleiben.
+            # Nur das Frontend austauschen. Kein "down", damit Postgres und
+            # Keycloak unberuehrt bleiben.
             # --no-deps: sonst zieht "up www" ueber depends_on auch backend, minio
             # und postgres hoch und startet sie im Zweifel neu
             docker compose -f docker-compose.yaml pull www

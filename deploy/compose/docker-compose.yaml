@@ -1,9 +1,8 @@
 # Produktionsstack pep-caretaker auf vm107.
 #
 # Wird von .github/workflows/ nach /home/stuetzadm/deploy/compose/ kopiert und dort
-# gestartet. Die Mealplan-Anwendung liegt in mealplan.yaml daneben und benutzt dieselbe
-# Postgres-Instanz und dasselbe Netz - deshalb hier niemals mit --remove-orphans
-# arbeiten, das wuerde deren Container abraeumen.
+# gestartet. Dies ist der einzige Stack im Projekt - die Mealplan-Anwendung wird
+# nicht mehr deployt.
 #
 # Geheimnisse stehen in /home/stuetzadm/deploy/compose/.env (siehe .env.example),
 # nicht im Repository.
@@ -172,10 +171,10 @@ volumes:
 
 networks:
   pepper_net:
-    # Das Netz teilen sich Caretaker- und Mealplan-Container. Es gehoert damit
-    # keiner der beiden Compose-Dateien: als "external" deklariert, fasst compose
-    # es nicht an. Ohne das versucht compose bei jedem Start, das Netz neu
-    # anzulegen, scheitert an den angehaengten Mealplan-Containern und laesst
-    # die eigenen Dienste gestoppt zurueck.
+    # Das Netz stammt aus der Zeit, in der Caretaker- und Mealplan-Container es
+    # geteilt haben, und existiert auf vm107 bereits. Es bleibt "external":
+    # compose fasst es dann nicht an. Wuerde es hier compose gehoeren, wollte
+    # compose das vorhandene Netz mit eigenen Labels neu anlegen und der Deploy
+    # bricht ab. Umstellen erst, wenn das Netz auf der VM einmal geloescht wird.
     name: compose_pepper_net
     external: true

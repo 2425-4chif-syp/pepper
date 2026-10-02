@@ -9,8 +9,13 @@ import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
 import com.example.mmg.viewmodel.MmgViewModel
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.mmg.navigation.AppNavigaton
+import com.example.mmg.ui.theme.PepperTheme
 
 class MainActivity : ComponentActivity(), RobotLifecycleCallbacks {
 
@@ -23,7 +28,16 @@ class MainActivity : ComponentActivity(), RobotLifecycleCallbacks {
         setContent {
             mmgViewModel = viewModel()
             val navController = rememberNavController()
-            AppNavigaton(navController = navController, mmgViewModel = mmgViewModel)
+            // Theme der Weboberflaeche. Die Surface traegt die Seitenflaeche (base-200) -
+            // ohne sie zeichnen die Bildschirme auf dem Fensterhintergrund.
+            PepperTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    AppNavigaton(navController = navController, mmgViewModel = mmgViewModel)
+                }
+            }
         }
     }
 
